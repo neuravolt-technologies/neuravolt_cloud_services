@@ -36,21 +36,21 @@ git reset --hard "origin/${DEPLOY_BRANCH}"
 # 2. Install dependencies
 echo "[2/5] Installing dependencies..."
 if [ -f "package-lock.json" ]; then
-    npm ci --prefer-offline --no-audit || npm install --no-audit
+    npm ci --prefer-offline --no-audit --legacy-peer-deps || npm install --legacy-peer-deps --no-audit
 elif [ -f "pnpm-lock.yaml" ]; then
     pnpm install --frozen-lockfile || pnpm install
 elif [ -f "package.json" ]; then
-    npm install --no-audit
+    npm install --legacy-peer-deps --no-audit
 fi
 
 # Sub-directories if applicable
 if [ -d "backend" ] && [ -f "backend/package.json" ]; then
     echo "Installing backend dependencies..."
-    (cd backend && npm install --no-audit)
+    (cd backend && npm install --legacy-peer-deps --no-audit)
 fi
 if [ -d "app" ] && [ -f "app/package.json" ]; then
     echo "Installing app dependencies..."
-    (cd app && npm install --no-audit)
+    (cd app && npm install --legacy-peer-deps --no-audit)
 fi
 
 # 3. Production Build
@@ -60,7 +60,7 @@ if [ -f "package.json" ] && grep -q '"build":' package.json; then
 fi
 if [ -d "backend" ] && [ -f "backend/package.json" ]; then
     echo "Building backend..."
-    (cd backend && npm run build)
+    (cd backend && npx prisma generate && npm run build)
 fi
 if [ -d "app" ] && [ -f "app/package.json" ]; then
     echo "Building app..."
@@ -85,18 +85,26 @@ fi
 if command -v pm2 >/dev/null 2>&1; then
     if pm2 describe "${SERVICE_NAME}" > /dev/null 2>&1; then
         echo "Restarting existing PM2 service ${SERVICE_NAME}..."
-        pm2 restart "${SERVICE_NAME}" --update-env
+        PORT=${PORT} pm2 restart "${SERVICE_NAME}" --update-env
     else
         echo "Starting PM2 service ${SERVICE_NAME} on port ${PORT}..."
         if [[ "$ENTRY" == npm* ]]; then
             PORT=${PORT} pm2 start $ENTRY
         else
-            PORT=${PORT} pm2 start "${ENTRY}" --name "${SERVICE_NAME}"
+            PORT=${PORT} pm2 start "${ENTRY}" --name "${SERVICE_NAME}" --update-env
         fi
     fi
     pm2 save
 else
     echo "PM2 is not installed globally; skipping PM2 reload."
+fi
+
+# 5. Reload nv-landing container if docker is available to refresh static landing assets
+if command -v docker >/dev/null 2>&1 && docker ps | grep -q nv-landing; then
+    echo "[5/5] Reloading nv-landing nginx cache..."
+    docker exec nv-landing nginx -s reload || true
+else
+    echo "[5/5] Skipping nv-landing reload (not running or docker unavailable)"
 fi
 
 echo "=========================================="
