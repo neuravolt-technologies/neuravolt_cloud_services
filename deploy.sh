@@ -18,22 +18,20 @@ echo "Assigned Port: ${PORT}"
 echo "Timestamp: $(date '+%Y-%m-%d %H:%M:%S')"
 echo "=========================================="
 
-# 1. Ensure git repo and pull latest changes
+# 1. Ensure git repo and sync latest changes
 echo "[1/5] Syncing latest code from branch ${DEPLOY_BRANCH}..."
+git config --global --add safe.directory "$(pwd)" || true
+
 if [ ! -d ".git" ]; then
     echo "Initializing git repository..."
     git init
-    git config --global --add safe.directory "$(pwd)" || true
     git remote add origin "${REPO_URL}" 2>/dev/null || git remote set-url origin "${REPO_URL}"
-    git fetch origin "${DEPLOY_BRANCH}"
-    git checkout -B "${DEPLOY_BRANCH}" "origin/${DEPLOY_BRANCH}"
-else
-    git config --global --add safe.directory "$(pwd)" || true
-    git remote set-url origin "${REPO_URL}"
-    git fetch origin "${DEPLOY_BRANCH}"
-    git checkout "${DEPLOY_BRANCH}"
-    git pull origin "${DEPLOY_BRANCH}"
 fi
+
+git remote set-url origin "${REPO_URL}"
+git fetch origin "${DEPLOY_BRANCH}"
+git checkout -B "${DEPLOY_BRANCH}" "origin/${DEPLOY_BRANCH}" || git reset --hard "origin/${DEPLOY_BRANCH}"
+git reset --hard "origin/${DEPLOY_BRANCH}"
 
 # 2. Install dependencies
 echo "[2/5] Installing dependencies..."
