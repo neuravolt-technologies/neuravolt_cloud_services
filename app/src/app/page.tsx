@@ -101,8 +101,8 @@ export default function UserDashboard() {
       {/* Top Welcome banner */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "35px" }}>
         <div>
-          <h1 style={{ fontSize: "1.75rem", fontWeight: "700" }}>Neuravolt Workspace</h1>
-          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.9rem" }}>Manage n8n automation and check system resource indicators</p>
+          <h1 style={{ fontSize: "1.75rem", fontWeight: "700", color: "#0F172A" }}>Neuravolt Workspace</h1>
+          <p style={{ color: "#64748B", fontSize: "0.9rem" }}>Manage n8n automation and check system resource indicators</p>
         </div>
         <div className="badge badge-active" style={{ fontSize: "0.8rem", padding: "8px 14px", borderRadius: "10px" }}>
           <ShieldCheck size={14} />
@@ -111,15 +111,15 @@ export default function UserDashboard() {
       </div>
 
       {loading ? (
-        <div className="glass-card" style={{ padding: "40px", textAlign: "center", color: "rgba(255,255,255,0.4)" }}>
+        <div className="glass-card" style={{ padding: "40px", textAlign: "center", color: "#64748B" }}>
           Synchronizing console state...
         </div>
       ) : !instance ? (
         /* ACCOUNT PENDING STATE */
         <div className="glass-card" style={{ padding: "40px", textAlign: "center" }}>
-          <Zap size={48} style={{ color: "#f59e0b", marginBottom: "20px" }} />
-          <h2 style={{ fontSize: "1.3rem", fontWeight: "600", marginBottom: "10px" }}>Account Activation Pending</h2>
-          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.9rem", maxWidth: "480px", margin: "0 auto 20px" }}>
+          <Zap size={48} style={{ color: "#F59E0B", marginBottom: "20px" }} />
+          <h2 style={{ fontSize: "1.3rem", fontWeight: "700", color: "#0F172A", marginBottom: "10px" }}>Account Activation Pending</h2>
+          <p style={{ color: "#64748B", fontSize: "0.9rem", maxWidth: "480px", margin: "0 auto 20px", lineHeight: "1.6" }}>
             Your account registrations have been successfully received. Neuravolt Cloud administrators are verifying your request and spinning up your sandbox space. You will receive an email confirmation soon.
           </p>
           <div className="badge badge-pending">PENDING ACTIVATION</div>
@@ -135,8 +135,8 @@ export default function UserDashboard() {
             <div className="glass-card" style={{ padding: "30px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "25px" }}>
                 <div>
-                  <h3 style={{ fontSize: "1.1rem", fontWeight: "600", marginBottom: "4px" }}>Neuravolt Micro-Compute Instance</h3>
-                  <a href={`https://${instance.domain}`} target="_blank" style={{ fontSize: "0.85rem", color: "#a78bfa", display: "inline-flex", alignItems: "center", gap: "4px", textDecoration: "none" }}>
+                  <h3 style={{ fontSize: "1.1rem", fontWeight: "700", color: "#0F172A", marginBottom: "4px" }}>Neuravolt Micro-Compute Instance</h3>
+                  <a href={`https://${instance.domain}`} target="_blank" style={{ fontSize: "0.85rem", color: "#FF7722", display: "inline-flex", alignItems: "center", gap: "4px", textDecoration: "none", fontWeight: "600" }}>
                     <span>https://{instance.domain}</span>
                     <ExternalLink size={12} />
                   </a>
@@ -146,25 +146,25 @@ export default function UserDashboard() {
 
               {/* Quick App launcher panels */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px", marginBottom: "30px" }}>
-                <a href={`https://${instance.domain}`} target="_blank" className="glass-panel" style={{ padding: "18px", textDecoration: "none", color: "white", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "all 0.2s ease" }}>
+                <a href={`https://${instance.domain}`} target="_blank" className="glass-panel" style={{ padding: "18px", textDecoration: "none", color: "#0F172A", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "all 0.2s ease" }}>
                   <div>
-                    <h4 style={{ fontWeight: "600", fontSize: "0.95rem" }}>n8n Workflows</h4>
-                    <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.4)", marginTop: "2px" }}>Open workflow builder</p>
+                    <h4 style={{ fontWeight: "600", fontSize: "0.95rem", color: "#0F172A" }}>n8n Workflows</h4>
+                    <p style={{ fontSize: "0.75rem", color: "#64748B", marginTop: "2px" }}>Open workflow builder</p>
                   </div>
-                  <ExternalLink size={16} style={{ color: "#a78bfa" }} />
+                  <ExternalLink size={16} style={{ color: "#FF7722" }} />
                 </a>
 
-                <a href={`https://${instance.domain}`} target="_blank" className="glass-panel" style={{ padding: "18px", textDecoration: "none", color: "white", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "all 0.2s ease" }}>
+                <a href={`https://${instance.domain}`} target="_blank" className="glass-panel" style={{ padding: "18px", textDecoration: "none", color: "#0F172A", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "all 0.2s ease" }}>
                   <div>
-                    <h4 style={{ fontWeight: "600", fontSize: "0.95rem" }}>OpenWebUI</h4>
-                    <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.4)", marginTop: "2px" }}>Open chat model portal</p>
+                    <h4 style={{ fontWeight: "600", fontSize: "0.95rem", color: "#0F172A" }}>OpenWebUI</h4>
+                    <p style={{ fontSize: "0.75rem", color: "#64748B", marginTop: "2px" }}>Open chat model portal</p>
                   </div>
-                  <ExternalLink size={16} style={{ color: "#a78bfa" }} />
+                  <ExternalLink size={16} style={{ color: "#FF7722" }} />
                 </a>
               </div>
 
               {/* Power Controls */}
-              <div style={{ display: "flex", gap: "10px", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "25px" }}>
+              <div style={{ display: "flex", gap: "10px", borderTop: "1px solid #E2E8F0", paddingTop: "25px" }}>
                 {instance.status !== "RUNNING" ? (
                   <button onClick={handleStart} className="btn btn-primary" style={{ padding: "8px 18px" }} disabled={actionLoading}>
                     <Play size={14} />
@@ -185,26 +185,26 @@ export default function UserDashboard() {
 
             {/* Live Metrics Gauges */}
             <div className="glass-card" style={{ padding: "30px" }}>
-              <h3 style={{ fontSize: "1.1rem", fontWeight: "600", marginBottom: "20px" }}>Active Allocation Usage</h3>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: "700", color: "#0F172A", marginBottom: "20px" }}>Active Allocation Usage</h3>
               
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "30px" }}>
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.85rem", marginBottom: "8px" }}>
-                    <span style={{ color: "rgba(255,255,255,0.5)" }}>CPU Core Allocation</span>
-                    <strong style={{ color: "#3b82f6" }}>{instance.cpuUsage ?? 0}% / {instance.cpuLimit} Core</strong>
+                    <span style={{ color: "#64748B" }}>CPU Core Allocation</span>
+                    <strong style={{ color: "#0284C7" }}>{instance.cpuUsage ?? 0}% / {instance.cpuLimit} Core</strong>
                   </div>
-                  <div style={{ height: "6px", background: "rgba(255,255,255,0.05)", borderRadius: "3px", overflow: "hidden" }}>
-                    <div style={{ width: `${Math.min(((instance.cpuUsage ?? 0) / instance.cpuLimit), 100)}%`, height: "100%", background: "#3b82f6", borderRadius: "3px" }} />
+                  <div style={{ height: "6px", background: "#F1F5F9", borderRadius: "3px", overflow: "hidden" }}>
+                    <div style={{ width: `${Math.min(((instance.cpuUsage ?? 0) / instance.cpuLimit), 100)}%`, height: "100%", background: "#0284C7", borderRadius: "3px" }} />
                   </div>
                 </div>
 
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.85rem", marginBottom: "8px" }}>
-                    <span style={{ color: "rgba(255,255,255,0.5)" }}>RAM Memory Limit</span>
-                    <strong style={{ color: "#10b981" }}>{instance.memoryUsage ?? 0} MB / {instance.memoryLimit}</strong>
+                    <span style={{ color: "#64748B" }}>RAM Memory Limit</span>
+                    <strong style={{ color: "#10B981" }}>{instance.memoryUsage ?? 0} MB / {instance.memoryLimit}</strong>
                   </div>
-                  <div style={{ height: "6px", background: "rgba(255,255,255,0.05)", borderRadius: "3px", overflow: "hidden" }}>
-                    <div style={{ width: `${Math.min(((instance.memoryUsage ?? 0) / parseInt(instance.memoryLimit)) * 100, 100)}%`, height: "100%", background: "#10b981", borderRadius: "3px" }} />
+                  <div style={{ height: "6px", background: "#F1F5F9", borderRadius: "3px", overflow: "hidden" }}>
+                    <div style={{ width: `${Math.min(((instance.memoryUsage ?? 0) / parseInt(instance.memoryLimit)) * 100, 100)}%`, height: "100%", background: "#10B981", borderRadius: "3px" }} />
                   </div>
                 </div>
               </div>
@@ -217,29 +217,29 @@ export default function UserDashboard() {
             
             {/* Account Tier details */}
             <div className="glass-card" style={{ padding: "24px" }}>
-              <h3 style={{ fontSize: "1rem", fontWeight: "600", marginBottom: "15px" }}>My Subscription</h3>
+              <h3 style={{ fontSize: "1rem", fontWeight: "700", color: "#0F172A", marginBottom: "15px" }}>My Subscription</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-                <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "10px", padding: "12px 16px" }}>
-                  <span style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.4)" }}>PLAN TIER</span>
-                  <div style={{ fontWeight: "700", color: "#a78bfa", fontSize: "1.1rem", marginTop: "2px" }}>{userPlan} TIER</div>
+                <div style={{ background: "#FFF7ED", border: "1px solid #FFEDD5", borderRadius: "10px", padding: "14px 16px" }}>
+                  <span style={{ fontSize: "0.75rem", color: "#C2410C", fontWeight: "600", letterSpacing: "0.05em" }}>PLAN TIER</span>
+                  <div style={{ fontWeight: "800", color: "#EA580C", fontSize: "1.15rem", marginTop: "2px" }}>{userPlan} TIER</div>
                 </div>
 
                 <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                  <HardDrive size={16} style={{ color: "rgba(255,255,255,0.4)" }} />
-                  <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.7)" }}>Disk Limit: 10 GB SSD</span>
+                  <HardDrive size={16} style={{ color: "#94A3B8" }} />
+                  <span style={{ fontSize: "0.85rem", color: "#475569" }}>Disk Limit: 10 GB SSD</span>
                 </div>
 
                 <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                  <IndianRupee size={16} style={{ color: "rgba(255,255,255,0.4)" }} />
-                  <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.7)" }}>Billing Cycle: 1st of month</span>
+                  <IndianRupee size={16} style={{ color: "#94A3B8" }} />
+                  <span style={{ fontSize: "0.85rem", color: "#475569" }}>Billing Cycle: 1st of month</span>
                 </div>
               </div>
             </div>
 
             {/* Support section */}
             <div className="glass-card" style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "10px" }}>
-              <h3 style={{ fontSize: "1rem", fontWeight: "600" }}>Self-Host Core Node</h3>
-              <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.5)", lineHeight: "1.4" }}>
+              <h3 style={{ fontSize: "1rem", fontWeight: "700", color: "#0F172A" }}>Self-Host Core Node</h3>
+              <p style={{ fontSize: "0.82rem", color: "#64748B", lineHeight: "1.5" }}>
                 Each Neuravolt node runs inside isolated sandbox layers ensuring no interference between client workloads. Need more memory? Reach administrators via settings.
               </p>
             </div>

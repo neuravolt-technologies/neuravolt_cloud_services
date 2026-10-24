@@ -131,10 +131,13 @@ class WarmupSchedulerService
 
     /**
      * Get pool of eligible peer recipient mailboxes.
+     * Combines peer user gateways with high-reputation network seed inboxes.
      * Excludes the sender's own mailbox to ensure sender !== recipient.
      */
     protected function getEligiblePeerRecipients(WarmupSchedule $schedule): array
     {
+        $senderAddress = $schedule->gateway?->address;
+
         // 1. Look for other active gateways in the system belonging to other schedules
         $peerGateways = Gateway::where('channel', 'email')
             ->where('status', 'active')
@@ -146,29 +149,59 @@ class WarmupSchedulerService
             ->values()
             ->all();
 
-        if (!empty($peerGateways)) {
-            return $peerGateways;
+        // 2. High-reputation Seed Network Inboxes (Across Google, Microsoft, Zoho & Business MX)
+        $configuredSeeds = site_settings('warmup_seed_network');
+        $seedPool = $configuredSeeds ? json_decode($configuredSeeds, true) : null;
+        if (empty($seedPool) || !is_array($seedPool)) {
+            // Only use real peer gateways or admin-configured seed inboxes; avoid dummy non-existent addresses that bounce
+            $seedPool = [];
         }
 
-        // 2. Fallback: Configured seed/warmup addresses or default peer addresses
-        $fallbackPeers = config('setting.warmup_peer_network', [
-            'peer-inbox1@voltmail.io',
-            'peer-inbox2@voltmail.io',
-            'peer-inbox3@voltmail.io',
-            'peer-inbox4@voltmail.io',
-            'peer-inbox5@voltmail.io',
-        ]);
+        // Combine peer gateways and seed network
+        $allPeers = array_unique(array_merge($peerGateways, $seedPool));
 
-        return array_values(array_filter($fallbackPeers, fn($addr) => $addr !== $schedule->gateway?->address));
+        return array_values(array_filter($allPeers, fn($addr) => !empty($addr) && $addr !== $senderAddress));
     }
 
     /**
-     * Deterministically select a recipient from the peer pool for a given slot.
+     * Deterministically select a recipient from the peer pool with ESP-to-ESP Smart Routing.
+     * Prioritizes in-network matching (Google->Google, Outlook->Outlook) for 70% of slots,
+     * while maintaining cross-provider diversity for remaining 30%.
      */
     protected function selectRecipientForSlot(array $peerRecipients, int $slotNumber, WarmupSchedule $schedule): string
     {
         if (empty($peerRecipients)) {
-            return 'inbox-verifier@voltmail.io';
+            $senderAddress = $schedule->gateway?->address ?? '';
+            return $senderAddress ?: 'inbox-verifier@voltmail.io';
+        }
+
+        $healthService = app(WarmupHealthService::class);
+        $senderAddress = $schedule->gateway?->address ?? '';
+        $senderEsp     = $healthService->detectEspForEmail($senderAddress);
+
+        // Partition peers into same-ESP vs cross-ESP
+        $sameEspPeers  = [];
+        $otherEspPeers = [];
+
+        foreach ($peerRecipients as $peer) {
+            if ($healthService->detectEspForEmail($peer) === $senderEsp) {
+                $sameEspPeers[] = $peer;
+            } else {
+                $otherEspPeers[] = $peer;
+            }
+        }
+
+        // 70% in-network priority: slots 1, 2, 4, 5, 7, 8... use same ESP if available
+        $preferSameEsp = ($slotNumber % 3 !== 0);
+
+        if ($preferSameEsp && !empty($sameEspPeers)) {
+            $index = ($schedule->id + $slotNumber) % count($sameEspPeers);
+            return $sameEspPeers[$index];
+        }
+
+        if (!empty($otherEspPeers)) {
+            $index = ($schedule->id + $slotNumber) % count($otherEspPeers);
+            return $otherEspPeers[$index];
         }
 
         $index = ($schedule->id + $slotNumber) % count($peerRecipients);

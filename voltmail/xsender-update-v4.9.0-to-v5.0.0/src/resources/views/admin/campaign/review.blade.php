@@ -134,7 +134,7 @@
                                          which is how it will actually arrive in their inbox.
 
                                          Content is injected via JS + document.write() rather than
-                                         a srcdoc attribute — attribute-escaping made backslashes
+                                         a srcdoc attribute - attribute-escaping made backslashes
                                          inside the wrapper HTML leak through as literal characters
                                          (v4.7.0.2 shipped a broken srcdoc that showed the raw
                                          `<!DOCTYPE html>...<meta charset=\"utf-8\">` as text).

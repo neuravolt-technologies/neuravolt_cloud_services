@@ -333,7 +333,7 @@
                                 <i class="ri-lightbulb-line mt-1 flex-shrink-0"></i>
                                 <div>
                                     <strong>{{ translate("About DKIM Selector") }}</strong>
-                                    <br>{{ translate("This application uses the selector") }} <code>{{ $dnsRecords['dkim']['selector'] }}</code>{{ translate(", which is independent from your server's default DKIM key (if any). Both can coexist without conflict. Your server may already sign emails with its own DKIM selector (e.g., \"default\") — this is normal and both signatures are valid per email standards (RFC 6376).") }}
+                                    <br>{{ translate("This application uses the selector") }} <code>{{ $dnsRecords['dkim']['selector'] }}</code>{{ translate(", which is independent from your server's default DKIM key (if any). Both can coexist without conflict. Your server may already sign emails with its own DKIM selector (e.g., \"default\") - this is normal and both signatures are valid per email standards (RFC 6376).") }}
                                 </div>
                             </div>
                         </div>

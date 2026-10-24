@@ -42,7 +42,7 @@
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="text-muted">{{ translate("Business Type") }}</span>
-                                <span class="fw-medium">{{ $resource->business_type ?: '—' }}</span>
+                                <span class="fw-medium">{{ $resource->business_type ?: '-' }}</span>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="text-muted">{{ translate("Website") }}</span>
@@ -50,17 +50,17 @@
                                     @if($resource->website)
                                         <a href="{{ $resource->website }}" target="_blank" class="text-primary">{{ $resource->website }}</a>
                                     @else
-                                        —
+                                        -
                                     @endif
                                 </span>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="text-muted">{{ translate("Industry") }}</span>
-                                <span class="fw-medium">{{ $resource->industry ?: '—' }}</span>
+                                <span class="fw-medium">{{ $resource->industry ?: '-' }}</span>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="text-muted">{{ translate("Brand Voice") }}</span>
-                                <span class="fw-medium">{{ $resource->brand_voice ?: '—' }}</span>
+                                <span class="fw-medium">{{ $resource->brand_voice ?: '-' }}</span>
                             </li>
                             <li class="list-group-item px-0">
                                 <span class="text-muted d-block mb-1">{{ translate("Description") }}</span>
@@ -119,7 +119,7 @@
                             </div>
                             <hr class="my-2">
                             <small class="text-muted font-monospace d-block text-truncate" id="preview_fingerprint">
-                                {{ translate("Fingerprint") }}: —
+                                {{ translate("Fingerprint") }}: -
                             </small>
                         </div>
                     </div>

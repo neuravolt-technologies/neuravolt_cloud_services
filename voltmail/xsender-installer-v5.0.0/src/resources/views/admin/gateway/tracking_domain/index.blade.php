@@ -105,30 +105,30 @@
                         {{ translate("In your DNS provider (or cPanel Zone Editor), create a CNAME record:") }}
                         <div class="bg-light p-2 rounded mt-1 mb-1" style="font-family: monospace;">
                             <strong>{{ translate("Type") }}:</strong> CNAME &nbsp;|&nbsp;
-                            <strong>{{ translate("Name / Host") }}:</strong> {{ translate("track") }} (<em>{{ translate("only the subdomain prefix; do not include your domain again — cPanel/most providers append it automatically") }}</em>)
+                            <strong>{{ translate("Name / Host") }}:</strong> {{ translate("track") }} (<em>{{ translate("only the subdomain prefix; do not include your domain again - cPanel/most providers append it automatically") }}</em>)
                             &nbsp;|&nbsp;
                             <strong>{{ translate("Value / Target") }}:</strong> <code>{{ parse_url(config('app.url'), PHP_URL_HOST) }}</code>
                             &nbsp;|&nbsp;
                             <strong>TTL:</strong> 3600
                         </div>
                     </li>
-                    <li>{{ translate("Wait 5–60 minutes for DNS propagation (can take up to 24 hours).") }}</li>
+                    <li>{{ translate("Wait 5-60 minutes for DNS propagation (can take up to 24 hours).") }}</li>
                     <li>{{ translate("Click 'Verify CNAME' to confirm the DNS record is configured.") }}</li>
                     <li>{{ translate("Once verified, tracking URLs will use your custom domain automatically.") }}</li>
                 </ol>
                 <div class="alert alert-warning mt-3 mb-2">
                     <strong>{{ translate("Common mistake:") }}</strong>
-                    {{ translate("If your zone is yourdomain.com, the Name field should be just") }} <code>track</code> {{ translate("— not") }} <code>track.yourdomain.com</code>{{ translate(". Entering the full domain causes cPanel to produce") }} <code>track.yourdomain.com.yourdomain.com</code> {{ translate("(a double-domain that will never resolve).") }}
+                    {{ translate("If your zone is yourdomain.com, the Name field should be just") }} <code>track</code> {{ translate("- not") }} <code>track.yourdomain.com</code>{{ translate(". Entering the full domain causes cPanel to produce") }} <code>track.yourdomain.com.yourdomain.com</code> {{ translate("(a double-domain that will never resolve).") }}
                 </div>
 
-                {{-- v4.9.1 — the CNAME by itself is not enough. The web server behind
+                {{-- v4.9.1 - the CNAME by itself is not enough. The web server behind
                      your CNAME must also accept the tracking hostname (ServerAlias /
                      server_name), otherwise the request lands on the default vhost
                      which returns 404. Adding this section closes the #1 tracking
                      support ticket: "CNAME verified but /t/o/… returns 404". --}}
                 <div class="alert alert-info mt-2 mb-2">
                     <strong>{{ translate("Web-server step (required for 404 to go away):") }}</strong>
-                    {{ translate("After DNS verification, tell your web server to accept the tracking subdomain — otherwise the request hits the default vhost and returns 404. Pick your stack:") }}
+                    {{ translate("After DNS verification, tell your web server to accept the tracking subdomain - otherwise the request hits the default vhost and returns 404. Pick your stack:") }}
                     <ul class="mb-0 mt-2 small" style="line-height:1.6;">
                         <li><strong>cPanel:</strong> {{ translate("Domains → Aliases → Create Alias →") }} <code>track.yourdomain.com</code>. {{ translate("cPanel auto-adds the ServerAlias.") }}</li>
                         <li><strong>Apache:</strong> {{ translate("Add") }} <code>ServerAlias track.yourdomain.com</code> {{ translate("to the same") }} <code>&lt;VirtualHost&gt;</code> {{ translate("block that serves") }} <code>{{ parse_url(config('app.url'), PHP_URL_HOST) }}</code>{{ translate(", then") }} <code>systemctl reload apache2</code>.</li>
@@ -138,10 +138,10 @@
                 </div>
 
                 <div class="alert alert-info mb-0">
-                    <strong>{{ translate("Behind Cloudflare (Proxied — orange cloud)?") }}</strong>
+                    <strong>{{ translate("Behind Cloudflare (Proxied - orange cloud)?") }}</strong>
                     <ul class="mb-0 mt-2 small" style="line-height:1.6;">
                         <li>{{ translate("Cloudflare passes the original Host header (") }}<code>track.yourdomain.com</code>{{ translate(") to your origin. If Apache/Nginx doesn't have the ServerAlias / server_name above, you will get a 404 even though the CNAME is") }} <span class="badge bg-success">{{ translate("Active") }}</span>{{ translate(" here.") }}</li>
-                        <li>{{ translate("Cloudflare SSL/TLS mode must be") }} <strong>{{ translate("Full") }}</strong> {{ translate("or") }} <strong>{{ translate("Full (strict)") }}</strong>{{ translate(" — not Flexible — otherwise you get an infinite redirect loop between Cloudflare and Laravel's HTTPS redirect.") }}</li>
+                        <li>{{ translate("Cloudflare SSL/TLS mode must be") }} <strong>{{ translate("Full") }}</strong> {{ translate("or") }} <strong>{{ translate("Full (strict)") }}</strong>{{ translate(" - not Flexible - otherwise you get an infinite redirect loop between Cloudflare and Laravel's HTTPS redirect.") }}</li>
                         <li>{{ translate("Edge Certificates should show a green padlock for the tracking subdomain within ~10 minutes of adding it.") }}</li>
                     </ul>
                 </div>

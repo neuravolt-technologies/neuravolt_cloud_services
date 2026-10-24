@@ -107,7 +107,7 @@
                                     </span>
                                 </td>
                                 @php
-                                    // Defensive resolution — old rows may have a string `type` that has not
+                                    // Defensive resolution - old rows may have a string `type` that has not
                                     // yet been migrated to the enum cast, or a freshly-cast enum object.
                                     $campaignTypeValue = is_object($campaign->type) ? ($campaign->type->value ?? null) : ($campaign->type ?? null);
                                     $repeatFormatValue = is_object($campaign->repeat_format) ? ($campaign->repeat_format->value ?? null) : ($campaign->repeat_format ?? null);

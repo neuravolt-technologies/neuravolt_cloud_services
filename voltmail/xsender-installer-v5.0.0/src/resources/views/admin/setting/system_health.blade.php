@@ -2,7 +2,7 @@
 
 @push('style-push')
 <style>
-/* v4.9 — mirrors partials/campaign/health_banner.blade.php's tokens
+/* v4.9 - mirrors partials/campaign/health_banner.blade.php's tokens
    so the admin System Health page inherits the exact same visual language
    as the campaign-scoped health banner. No new design system introduced. */
 .health-icon { width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:10px; font-size:22px; flex-shrink:0; }

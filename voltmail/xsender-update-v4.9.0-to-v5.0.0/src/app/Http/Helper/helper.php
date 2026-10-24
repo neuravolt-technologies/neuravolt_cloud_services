@@ -683,6 +683,14 @@ use Illuminate\Support\Facades\Cache;
 			}
 		}
 
+		// If profile avatar or 400x400 avatar, never show raw text placeholder
+		if ($size === '400x400' || ($image && str_contains($image, 'profile'))) {
+			$defaultAvatar = 'assets/file/images/user/profile/user_1_avatar.webp';
+			if (file_exists(base_path('../' . $defaultAvatar)) || file_exists(public_path($defaultAvatar))) {
+				return asset($defaultAvatar);
+			}
+		}
+
 		// Return default placeholder based on size
 		if ($size) {
 			return route('default.image', $size);

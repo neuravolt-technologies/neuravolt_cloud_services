@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
     campaignType.dispatchEvent(new Event('change'));
 
     // Contact group change - load distribution
-    // Bind via jQuery too — select2 fires change through jQuery's event
+    // Bind via jQuery too - select2 fires change through jQuery's event
     // system, and on some select2 builds native addEventListener misses it,
     // leaving all channel tiles stuck at "0 Contacts" even after picking
     // a group. Also listen for select2:select as a belt-and-braces fallback.

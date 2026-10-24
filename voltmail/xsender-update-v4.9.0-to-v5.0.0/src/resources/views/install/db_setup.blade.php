@@ -81,7 +81,7 @@
     </div>
 
 <style>
-/* v4.9 — mirrors partials/campaign/health_banner.blade.php's design tokens
+/* v4.9 - mirrors partials/campaign/health_banner.blade.php's design tokens
    so pre-flight results look consistent with the in-app health banner. */
 .health-icon { width:40px; height:40px; display:flex; align-items:center; justify-content:center; border-radius:8px; font-size:20px; }
 .health-icon--info { background:rgba(59,130,246,0.12); color:#3b82f6; }

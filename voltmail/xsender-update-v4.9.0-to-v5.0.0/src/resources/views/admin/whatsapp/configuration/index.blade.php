@@ -868,7 +868,7 @@
             });
         });
 
-        // Test connection — opens the per-check report modal (same UX as edit page).
+        // Test connection - opens the per-check report modal (same UX as edit page).
         $('.test-connection').on('click', function() {
             var btn = $(this);
             var uid = btn.data('uid');

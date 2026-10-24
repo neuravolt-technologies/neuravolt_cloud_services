@@ -22,18 +22,18 @@
             <i class="ri-information-line fs-22 mt-1 flex-shrink-0"></i>
             <div>
                 <strong>{{ translate('Two ways to use WhatsApp Cloud API') }}</strong>
-                <p class="mb-2 mt-1">{{ translate('Pick the one that matches your situation — both work, but they require different fields below.') }}</p>
+                <p class="mb-2 mt-1">{{ translate('Pick the one that matches your situation - both work, but they require different fields below.') }}</p>
                 <ol class="mb-1 ps-3">
                     <li class="mb-2">
                         <strong>{{ translate('Tech Provider / BSP mode') }}</strong>
-                        — {{ translate('for reselling WhatsApp to your own customers (multi-tenant SaaS). Requires Meta-approved Tech Provider status. Fill in the') }} <em>{{ translate('Embedded Signup') }}</em> {{ translate('section (App ID, Secret, Configuration ID).') }}
+                        - {{ translate('for reselling WhatsApp to your own customers (multi-tenant SaaS). Requires Meta-approved Tech Provider status. Fill in the') }} <em>{{ translate('Embedded Signup') }}</em> {{ translate('section (App ID, Secret, Configuration ID).') }}
                     </li>
                     <li>
                         <strong>{{ translate('Manual Setup / Single WABA mode') }}</strong>
-                        — {{ translate('for sending from your own WhatsApp Business Account. No Meta approval needed. Fill in the') }} <em>{{ translate('Manual Setup (Single WABA)') }}</em> {{ translate('section (System User Token + WABA ID + Phone Number ID). Works today.') }}
+                        - {{ translate('for sending from your own WhatsApp Business Account. No Meta approval needed. Fill in the') }} <em>{{ translate('Manual Setup (Single WABA)') }}</em> {{ translate('section (System User Token + WABA ID + Phone Number ID). Works today.') }}
                     </li>
                 </ol>
-                <small class="d-block mt-2 text-muted">{{ translate('Seeing the error') }} <code>"Embedded signup is only available for BSPs or TPs"</code>? {{ translate('Your Meta App is not Tech Provider approved — use Manual Setup instead.') }}</small>
+                <small class="d-block mt-2 text-muted">{{ translate('Seeing the error') }} <code>"Embedded signup is only available for BSPs or TPs"</code>? {{ translate('Your Meta App is not Tech Provider approved - use Manual Setup instead.') }}</small>
             </div>
         </div>
 
@@ -158,7 +158,7 @@
                         <div class="row gy-4">
                             <div class="col-xxl-2 col-xl-3">
                                 <h5 class="form-element-title">{{ translate('Manual Setup (Single WABA)') }}</h5>
-                                <p class="form-element-note">{{ translate('Use this if your Meta App is NOT a Tech Provider. Connects your own WhatsApp Business Account directly — no Meta approval needed.') }}</p>
+                                <p class="form-element-note">{{ translate('Use this if your Meta App is NOT a Tech Provider. Connects your own WhatsApp Business Account directly - no Meta approval needed.') }}</p>
                             </div>
                             <div class="col-xxl-8 col-xl-9">
                                 <div class="alert alert-info py-2 mb-3" role="alert">
@@ -195,7 +195,7 @@
                                         <div class="form-inner">
                                             <label for="business_manager_id_manual" class="form-label">{{ translate('Business Manager ID (Manual Setup)') }}</label>
                                             <input type="text" id="business_manager_id_manual" name="business_manager_id_manual" class="form-control" value="{{ old('business_manager_id_manual') }}" placeholder="{{ translate('Same as above; fill if blank') }}">
-                                            <p class="form-element-note">{{ translate('Optional — if already filled in Embedded Signup section, leave blank.') }}</p>
+                                            <p class="form-element-note">{{ translate('Optional - if already filled in Embedded Signup section, leave blank.') }}</p>
                                         </div>
                                     </div>
                                 </div>

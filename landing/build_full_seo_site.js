@@ -279,7 +279,7 @@ const PRODUCTS = [
       },
       {
         q: 'What control panel is provided?',
-        a: 'All plans include FastPanel — a fast, lightweight, and modern control panel with full support for PHP 7.4 through 8.3, Node.js, MariaDB, SSL, and DNS management.'
+        a: 'All plans include FastPanel - a fast, lightweight, and modern control panel with full support for PHP 7.4 through 8.3, Node.js, MariaDB, SSL, and DNS management.'
       }
     ]
   },
@@ -591,7 +591,7 @@ const PRODUCTS = [
       {
         icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>',
         title: 'Autonomous Self-Healing Loop',
-        desc: 'When an Nginx worker, Docker container, or database hangs, Guardian doesn\'t just send an alert — it executes verified self-healing runbooks in seconds.'
+        desc: 'When an Nginx worker, Docker container, or database hangs, Guardian doesn\'t just send an alert - it executes verified self-healing runbooks in seconds.'
       },
       {
         icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',

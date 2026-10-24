@@ -58,7 +58,7 @@
                                     @if($res->is_default)
                                         <span class="i-badge success-solid pill">{{ translate("Default") }}</span>
                                     @else
-                                        <span class="text-muted">—</span>
+                                        <span class="text-muted">-</span>
                                     @endif
                                 </td>
                                 <td>

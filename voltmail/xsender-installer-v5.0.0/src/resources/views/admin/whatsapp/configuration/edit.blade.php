@@ -28,11 +28,11 @@
             <div>
                 <strong>{{ translate('Two ways to use WhatsApp Cloud API') }}</strong>
                 <p class="mb-1 mt-1">
-                    <strong>{{ translate('Tech Provider / BSP') }}</strong> {{ translate('(Embedded Signup, resell to your clients) — requires Meta-approved Tech Provider status.') }}
+                    <strong>{{ translate('Tech Provider / BSP') }}</strong> {{ translate('(Embedded Signup, resell to your clients) - requires Meta-approved Tech Provider status.') }}
                     <br>
-                    <strong>{{ translate('Manual Setup / Single WABA') }}</strong> {{ translate('(your own number, no Meta approval) — paste a long-lived System User Access Token below.') }}
+                    <strong>{{ translate('Manual Setup / Single WABA') }}</strong> {{ translate('(your own number, no Meta approval) - paste a long-lived System User Access Token below.') }}
                 </p>
-                <small class="text-muted">{{ translate('Seeing') }} <code>"Embedded signup is only available for BSPs or TPs"</code>? {{ translate('Your app is not Tech Provider approved — switch to Manual Setup.') }}</small>
+                <small class="text-muted">{{ translate('Seeing') }} <code>"Embedded signup is only available for BSPs or TPs"</code>? {{ translate('Your app is not Tech Provider approved - switch to Manual Setup.') }}</small>
             </div>
         </div>
 
@@ -55,7 +55,7 @@
                                 <span class="i-badge {{ $configuration->status == 'active' ? 'success-solid' : 'secondary-solid' }} pill">
                                     {{ ucfirst($configuration->status) }}
                                 </span>
-                                {{-- Live connection status pill — populated by connection-status.js probe on page load.
+                                {{-- Live connection status pill - populated by connection-status.js probe on page load.
                                      Renders as one of: checking / connected / degraded / broken so the admin can
                                      see instantly whether the credentials on this page actually work with Meta. --}}
                                 <span class="i-badge secondary-solid pill" id="connectionStatusPill" data-uid="{{ $configuration->uid }}">
@@ -117,7 +117,7 @@
                                                     </div>
                                                     <p class="form-element-note">
                                                         @if(!empty($configuration->app_secret))
-                                                            {{ translate('Your secret is saved and encrypted. Field is intentionally blank — type a new value only if you want to replace it.') }}
+                                                            {{ translate('Your secret is saved and encrypted. Field is intentionally blank - type a new value only if you want to replace it.') }}
                                                         @else
                                                             {{ translate('Found in Meta Developer Portal > Your App > Settings > Basic') }}
                                                         @endif
@@ -224,7 +224,7 @@
                                 <div class="row gy-4">
                                     <div class="col-xxl-2 col-xl-3">
                                         <h5 class="form-element-title">{{ translate('Manual Setup (Single WABA)') }}</h5>
-                                        <p class="form-element-note">{{ translate('Use this if your Meta App is NOT a Tech Provider. Connects your own WhatsApp Business Account directly — no Meta approval needed.') }}</p>
+                                        <p class="form-element-note">{{ translate('Use this if your Meta App is NOT a Tech Provider. Connects your own WhatsApp Business Account directly - no Meta approval needed.') }}</p>
                                     </div>
                                     <div class="col-xxl-10 col-xl-9">
                                         @if($configuration->system_user_token)
@@ -568,7 +568,7 @@
             });
         });
 
-        // Test connection — renders a per-check pass/fail/skip report so the
+        // Test connection - renders a per-check pass/fail/skip report so the
         // admin can see WHERE the setup broke, not just a green toast that
         // lies when App ID / Secret are wrong.
         $('.test-connection').on('click', function() {
@@ -593,7 +593,7 @@
             });
         });
 
-        // Auto-probe on load — one lightweight call so the pill in the header
+        // Auto-probe on load - one lightweight call so the pill in the header
         // reflects real connectivity before the admin clicks anything.
         (function autoProbeStatus() {
             var pill = document.getElementById('connectionStatusPill');

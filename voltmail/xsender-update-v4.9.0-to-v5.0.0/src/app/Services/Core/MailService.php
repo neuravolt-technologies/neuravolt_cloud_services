@@ -26,11 +26,11 @@ class MailService
                'reason' => null
           ];
 
-          $emailAdditionalChecks = site_settings(SettingKey::VERIFY_EMAIL_ADDITIONAL_CHECKS->value);
-          
-          if (!$emailAdditionalChecks) return $result;
-
-          $emailAdditionalChecks = json_decode($emailAdditionalChecks, true);
+          $rawChecks = site_settings(SettingKey::VERIFY_EMAIL_ADDITIONAL_CHECKS->value);
+          $emailAdditionalChecks = $rawChecks ? json_decode($rawChecks, true) : [
+               'invalid_syntax' => StatusEnum::TRUE->status(),
+               'invalid_domain' => StatusEnum::TRUE->status(),
+          ];
           
           if (Arr::get($emailAdditionalChecks, 'invalid_syntax') == StatusEnum::TRUE->status()) {
                
@@ -116,12 +116,143 @@ class MailService
                     return $result;
                }
           }
- 
+
+          // Live SMTP Handshake check (HELO -> MAIL FROM -> RCPT TO)
+          if (!empty($result['checks']['syntax']) && !empty($result['checks']['mx'])) {
+               $smtpResult = $this->verifySmtpMailbox($domain, $email);
+               $result['smtp'] = $smtpResult;
+
+               if ($smtpResult['status'] === 'undeliverable') {
+                    $result['checks']['mailbox'] = false;
+                    $result['reason'] = $smtpResult['response'] ?: translate('Recipient mailbox does not exist on destination server (User Unknown)');
+               } elseif ($smtpResult['status'] === 'deliverable') {
+                    $result['checks']['mailbox'] = true;
+               } elseif ($smtpResult['status'] === 'catch_all') {
+                    $result['checks']['mailbox'] = true;
+                    $result['is_catch_all'] = true;
+               } else {
+                    // skipped / greylisted / port 25 timeout: fallback to DNS verification
+                    $result['checks']['mailbox'] = true;
+               }
+          }
+
           $result['valid'] = collect($result['checks'])->every(function ($value) {
                return $value === true;
           });
      
           return $result;
+     }
+
+     /**
+      * Perform socket-level SMTP handshake (EHLO -> MAIL FROM -> RCPT TO)
+      * to verify whether the specific inbox actually exists on the recipient mail server.
+      */
+     public function verifySmtpMailbox(string $domain, string $email, float $timeout = 3.0): array
+     {
+          $result = [
+               'status'    => 'unknown', // deliverable, undeliverable, catch_all, greylisted, skipped
+               'code'      => null,
+               'response'  => null,
+               'catch_all' => false,
+          ];
+
+          // 1. Resolve MX records sorted by priority
+          $mxHosts = [];
+          if (getmxrr($domain, $hosts, $weights)) {
+               $combined = array_combine($hosts, $weights);
+               asort($combined);
+               $mxHosts = array_keys($combined);
+          }
+
+          if (empty($mxHosts)) {
+               $mxHosts[] = $domain;
+          }
+
+          $primaryMx = $mxHosts[0];
+
+          try {
+               $socket = @fsockopen($primaryMx, 25, $errno, $errstr, $timeout);
+               if (!$socket) {
+                    $result['status'] = 'skipped';
+                    $result['response'] = "Connection to {$primaryMx}:25 timed out or socket blocked";
+                    return $result;
+               }
+
+               stream_set_timeout($socket, (int) ceil($timeout));
+
+               $banner = $this->readSmtpResponse($socket);
+               if (!str_starts_with($banner, '220')) {
+                    fclose($socket);
+                    $result['status'] = 'skipped';
+                    return $result;
+               }
+
+               $heloHost = parse_url(config('app.url', 'reach.neuravolt.cloud'), PHP_URL_HOST) ?: 'reach.neuravolt.cloud';
+               fputs($socket, "EHLO {$heloHost}\r\n");
+               $heloResp = $this->readSmtpResponse($socket);
+               if (!str_starts_with($heloResp, '250')) {
+                    fputs($socket, "HELO {$heloHost}\r\n");
+                    $heloResp = $this->readSmtpResponse($socket);
+               }
+
+               fputs($socket, "MAIL FROM: <verify@{$heloHost}>\r\n");
+               $mailResp = $this->readSmtpResponse($socket);
+
+               // Test actual recipient existence
+               fputs($socket, "RCPT TO: <{$email}>\r\n");
+               $rcptResp = $this->readSmtpResponse($socket);
+               $code = (int) substr(trim($rcptResp), 0, 3);
+               $result['code'] = $code;
+               $result['response'] = trim($rcptResp);
+
+               if ($code === 250) {
+                    // Check for Catch-All: test random non-existent hash
+                    $randomUser = 'chk_catchall_' . bin2hex(random_bytes(4));
+                    fputs($socket, "RCPT TO: <{$randomUser}@{$domain}>\r\n");
+                    $catchallResp = $this->readSmtpResponse($socket);
+                    $catchCode = (int) substr(trim($catchallResp), 0, 3);
+
+                    if ($catchCode === 250) {
+                         $result['status'] = 'catch_all';
+                         $result['catch_all'] = true;
+                    } else {
+                         $result['status'] = 'deliverable';
+                    }
+               } elseif (in_array($code, [550, 551, 552, 553, 554])) {
+                    $result['status'] = 'undeliverable';
+               } else {
+                    $result['status'] = 'greylisted';
+               }
+
+               fputs($socket, "QUIT\r\n");
+               fclose($socket);
+
+          } catch (\Throwable $e) {
+               $result['status'] = 'skipped';
+               $result['response'] = $e->getMessage();
+          }
+
+          return $result;
+     }
+
+     /**
+      * Read multiline RFC 5321 SMTP response from socket
+      */
+     protected function readSmtpResponse($socket): string
+     {
+          $response = '';
+          while (!feof($socket)) {
+               $line = fgets($socket, 1024);
+               if ($line === false) break;
+               $response .= $line;
+               if (isset($line[3]) && $line[3] === ' ') {
+                    break;
+               }
+               if (strlen(trim($line)) <= 3) {
+                    break;
+               }
+          }
+          return trim($response);
      }
 
      /**

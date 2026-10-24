@@ -161,7 +161,7 @@
                                 <h6>{{ translate('Communication options') }}</h6>
                             </div>
                             <ul class="sidebar-menu">
-                                {{-- v5.0 — Unified Inbox. Plan-gated: hidden when plan explicitly
+                                {{-- v5.0 - Unified Inbox. Plan-gated: hidden when plan explicitly
                                      sets unified_inbox.is_allowed = false. Default (unset) = shown. --}}
                                 @php
                                     $inboxAccess = auth()->user() ? planAccess(auth()->user()) : [];

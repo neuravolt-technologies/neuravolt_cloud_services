@@ -2,7 +2,7 @@
 
 @push('style-push')
 <style>
-/* v5.0 Sprint 1 — Unified Inbox styles.
+/* v5.0 Sprint 1 - Unified Inbox styles.
    Design tokens copy from partials/campaign/health_banner.blade.php
    (health-icon) + lead-stat-styles (card, page-header). No new palette. */
 .inbox-shell { display:grid; grid-template-columns: 340px 1fr; gap:16px; min-height: calc(100vh - 220px); }
@@ -32,7 +32,7 @@
 .inbox-thread-footer { padding:14px; border-top:1px solid var(--bs-border-color); background:rgba(0,0,0,0.02); }
 .inbox-empty { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#9ca3af; padding:40px; text-align:center; }
 
-/* v5.0 UI polish — WhatsApp-style bubbles with tail, media, status ticks */
+/* v5.0 UI polish - WhatsApp-style bubbles with tail, media, status ticks */
 .msg-row { display:flex; margin-bottom:10px; animation: msgFadeIn 0.18s ease-out; }
 .msg-row.msg-outbound { justify-content:flex-end; }
 .msg-cell { max-width: 72%; }
@@ -239,7 +239,7 @@
             listBody.querySelectorAll('.inbox-row').forEach(el => {
                 el.addEventListener('click', () => openThread(Number(el.dataset.id)));
             });
-            // Tab-title unread badge — sum of unread across visible rows.
+            // Tab-title unread badge - sum of unread across visible rows.
             const totalUnread = rows.reduce((n, c) => n + Number(c.unread_count || 0), 0);
             document.title = (totalUnread > 0 ? `(${totalUnread}) ` : '') + baseTitle;
         } catch (e) {
@@ -248,7 +248,7 @@
         }
     }
 
-    // v5.0 UI polish — WhatsApp-style bubble with status tick, media thumb, URL autolink.
+    // v5.0 UI polish - WhatsApp-style bubble with status tick, media thumb, URL autolink.
     function renderMessage(m) {
         const outbound = (m.participants || []).some(p =>
             (p.role || '') === 'sender' &&
@@ -257,7 +257,7 @@
         const time = formatTime(m.created_at);
         const body = String(m.message || m.body || '');
 
-        // Media rendering — image inline, other files as a compact chip.
+        // Media rendering - image inline, other files as a compact chip.
         let mediaHtml = '';
         const fileInfo = m.file_info || m.media || [];
         if (Array.isArray(fileInfo)) {
@@ -273,7 +273,7 @@
             });
         }
 
-        // Delivery status tick (outbound only) — read from last MessageStatus.
+        // Delivery status tick (outbound only) - read from last MessageStatus.
         let statusIcon = '';
         if (outbound && m.statuses && m.statuses.length) {
             const last = String(m.statuses[m.statuses.length - 1].status || '').toLowerCase();
@@ -288,7 +288,7 @@
             statusIcon = `<i class="${s.i} ms-1" style="color:${s.c}; font-size:14px;" title="${s.t}"></i>`;
         }
 
-        // URL auto-link (very simple — matches http(s) tokens). XSS-safe: escape body first, then swap in anchors.
+        // URL auto-link (very simple - matches http(s) tokens). XSS-safe: escape body first, then swap in anchors.
         const escBody = esc(body).replace(
             /(https?:\/\/[^\s<]+)/g,
             (u) => `<a href="${u}" target="_blank" rel="noopener" class="msg-link">${u}</a>`
@@ -342,10 +342,10 @@
                     ${messages.length ? messages.map(renderMessage).join('') : `<div class="inbox-empty"><i class="ri-chat-3-line" style="font-size:32px; color:#d1d5db;"></i><p class="mb-0 mt-2">{{ translate("No messages in this conversation yet.") }}</p></div>`}
                 </div>
                 <div class="inbox-thread-footer">
-                    {{-- v5.0-S5 — AI Reply Copilot. "Suggest reply" fetches 3 options
+                    {{-- v5.0-S5 - AI Reply Copilot. "Suggest reply" fetches 3 options
                          (formal / friendly / concise). Clicking any option fills the
                          textarea below. Uses the same site_settings('ai_models')
-                         config the AI Text Generator does — no separate setup. --}}
+                         config the AI Text Generator does - no separate setup. --}}
                     <div class="d-flex align-items-center gap-2 mb-2 flex-wrap" id="inboxCopilotBar">
                         <button type="button" class="i-btn btn--info outline btn--sm" id="inboxCopilotBtn" title="{{ translate('Generate 3 reply suggestions with AI') }}">
                             <i class="ri-sparkling-2-line me-1"></i> {{ translate('Suggest reply') }}
@@ -378,12 +378,12 @@
             // v5.0-S4 wire the reply form.
             wireReplyForm(id);
 
-            // v5.0 UI polish — auto-focus reply box on open (skip mobile — keyboard pop is jarring).
+            // v5.0 UI polish - auto-focus reply box on open (skip mobile - keyboard pop is jarring).
             if (window.matchMedia && window.matchMedia('(min-width: 992px)').matches) {
                 setTimeout(() => document.getElementById('inboxReplyBody')?.focus(), 40);
             }
 
-            // v5.0 UI polish — start auto-poll for new inbound messages every 15s while this thread is open.
+            // v5.0 UI polish - start auto-poll for new inbound messages every 15s while this thread is open.
             startThreadPoll(id);
         } catch (e) {
             threadEl.innerHTML = `<div class="inbox-empty text-danger">{{ translate("Failed to load conversation:") }} ${esc(e.message)}</div>`;
@@ -391,7 +391,7 @@
         }
     }
 
-    // v5.0-S4 — cross-channel reply. Same submit handler for SMS/Email/WhatsApp.
+    // v5.0-S4 - cross-channel reply. Same submit handler for SMS/Email/WhatsApp.
     // Optimistic UI: message shown in thread as "Sending…" pill immediately;
     // real message + status replaces it on server response.
     function wireReplyForm(conversationId) {
@@ -406,7 +406,7 @@
             mediaName.textContent = media.files.length ? media.files[0].name : '';
         });
 
-        // v5.0 UI polish — Enter=send, Shift+Enter=newline (matches WhatsApp Web / Slack / Discord convention).
+        // v5.0 UI polish - Enter=send, Shift+Enter=newline (matches WhatsApp Web / Slack / Discord convention).
         body?.addEventListener('keydown', (ev) => {
             if (ev.key === 'Enter' && !ev.shiftKey && !ev.isComposing) {
                 ev.preventDefault();
@@ -414,7 +414,7 @@
             }
         });
 
-        // v5.0-S5 — AI Reply Copilot. One request → 3 suggestions rendered
+        // v5.0-S5 - AI Reply Copilot. One request → 3 suggestions rendered
         // as clickable chips. Click a chip → fills the textarea (append if
         // there's already text, replace if empty). Rate limit: 20 req/min
         // per user (enforced by throttle middleware on the route).
@@ -544,7 +544,7 @@
         searchTimer = setTimeout(() => { currentSearch = searchInput.value.trim(); loadList(); }, 300);
     });
 
-    // v5.0 UI polish — auto-poll open thread for new inbound messages.
+    // v5.0 UI polish - auto-poll open thread for new inbound messages.
     // Silent (no spinner) so it doesn't jitter the UI mid-read. Stops on
     // thread close, resumes on new open. Also silently refreshes the list
     // so unread counts stay accurate.

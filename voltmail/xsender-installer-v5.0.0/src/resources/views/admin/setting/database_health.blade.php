@@ -191,7 +191,7 @@
             </div>
             <div class="dbh-how-item">
                 <i class="ri-shield-check-line dbh-how-icon"></i>
-                <span><strong>{{ translate("No data is ever deleted") }}</strong> — {{ translate("foreign keys are handled, only structure is modified") }}</span>
+                <span><strong>{{ translate("No data is ever deleted") }}</strong> - {{ translate("foreign keys are handled, only structure is modified") }}</span>
             </div>
         </div>
     </div>

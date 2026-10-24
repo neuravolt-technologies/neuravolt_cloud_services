@@ -86,7 +86,7 @@
                 $disconnectedSessions = $healthData->sessions->disconnected ?? 0;
                 $queueTotal = $healthData->queue->totalQueued ?? 0;
 
-                // Determine display status — more meaningful than raw health status
+                // Determine display status - more meaningful than raw health status
                 if (!$nodeStatus) {
                     $displayStatus = translate('Online');
                     $statusClass = 'bg-success';

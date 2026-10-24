@@ -22,7 +22,7 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">{{ translate('Subscription Name') }} <span class="text-danger">*</span></label>
-                            <input type="text" name="name" class="form-control" required value="{{ old('name', $subscription->name ?? '') }}" placeholder="e.g. Real Estate Leads — Summer 2026">
+                            <input type="text" name="name" class="form-control" required value="{{ old('name', $subscription->name ?? '') }}" placeholder="e.g. Real Estate Leads - Summer 2026">
                         </div>
 
                         <div class="col-md-6">
@@ -59,7 +59,7 @@
                         <div class="col-md-6">
                             <label class="form-label">{{ translate('Import into Contact Group') }}</label>
                             <select name="contact_group_id" class="form-select">
-                                <option value="">{{ translate('— None —') }}</option>
+                                <option value="">{{ translate('- None -') }}</option>
                                 @foreach($groups as $g)
                                     <option value="{{ $g->id }}" {{ (old('contact_group_id', $subscription->contact_group_id ?? null) == $g->id) ? 'selected' : '' }}>{{ $g->name }}</option>
                                 @endforeach
@@ -69,7 +69,7 @@
                         <div class="col-md-6">
                             <label class="form-label">{{ translate('Enroll in Workflow (optional)') }}</label>
                             <select name="workflow_id" class="form-select">
-                                <option value="">{{ translate('— None —') }}</option>
+                                <option value="">{{ translate('- None -') }}</option>
                                 @foreach($workflows as $w)
                                     <option value="{{ $w->id }}" {{ (old('workflow_id', $subscription->workflow_id ?? null) == $w->id) ? 'selected' : '' }}>{{ $w->name }}</option>
                                 @endforeach

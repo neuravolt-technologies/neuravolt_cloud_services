@@ -7,25 +7,38 @@ const BASE_DIR = '/Users/ajayprataptomar/Downloads/neuravolt_cloud_services/land
 function getHeader(activePath, depth = 0) {
   const prefix = depth === 0 ? '' : '../';
   return `
-  <!-- Header / Navigation -->
+  <!-- Floating Island Header (Capsule Pill Design) -->
   <header>
-    <div class="container nav-wrapper">
+    <div class="nav-wrapper">
       <a href="${prefix}index.html" class="logo-brand">
         <img src="${prefix}assets/logos/neuravolt_cloud_logo.png" alt="NeuraVolt Cloud Services">
       </a>
       
-      <ul class="nav-links">
-        <li><a href="${prefix}cloud-hosting.html" class="${activePath === 'cloud-hosting' ? 'active-nav' : ''}">Cloud Hosting</a></li>
-        <li><a href="${prefix}cloud-vps.html" class="${activePath === 'cloud-vps' ? 'active-nav' : ''}">VPS & Compute</a></li>
-        <li><a href="${prefix}managed-n8n.html" class="${activePath === 'managed-n8n' ? 'active-nav' : ''}">Managed n8n</a></li>
-        <li><a href="${prefix}guardian-sre.html" class="${activePath === 'guardian-sre' ? 'active-nav' : ''}">Guardian SRE</a></li>
-        <li><a href="${prefix}index.html#pricing">All Plans</a></li>
-      </ul>
+      <!-- Inner Pill Tray for Navigation Links -->
+      <nav class="nav-pill-tray">
+        <ul class="nav-links">
+          <li><a href="${prefix}index.html">Home</a></li>
+          <li><a href="${prefix}cloud-hosting.html" class="${activePath === 'cloud-hosting' ? 'active' : ''}">Cloud Hosting</a></li>
+          <li><a href="${prefix}cloud-vps.html" class="${activePath === 'cloud-vps' ? 'active' : ''}">VPS & Compute</a></li>
+          <li><a href="${prefix}index.html#stacks">Developer Stacks</a></li>
+          <li><a href="${prefix}managed-n8n.html" class="${activePath === 'managed-n8n' ? 'active' : ''}">Managed Nodes</a></li>
+          <li><a href="${prefix}guardian-sre.html" class="${activePath === 'guardian-sre' ? 'active' : ''}">Guardian SRE</a></li>
+          <li><a href="${prefix}index.html#pricing">All Plans</a></li>
+        </ul>
+      </nav>
 
       <div class="nav-actions">
-        <a href="https://app.neuravolt.cloud" target="_blank" class="btn btn-secondary btn-sm">Client Login</a>
-        <a href="#pricing" class="btn btn-primary btn-sm">Deploy Now</a>
+        <a href="https://app.neuravolt.cloud" target="_blank" class="nav-login-link">Client Login</a>
+        <button onclick="openLeadModal('general', 'consultation')" class="nav-cta-btn">
+          <span class="cta-full">Book a Free Consultation</span>
+          <span class="cta-short" style="display:none;">Consult SRE</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
       </div>
+
+      <button class="mobile-menu-btn" onclick="toggleMobileDrawer()" aria-label="Open Navigation Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
   </header>
 `;
@@ -192,9 +205,9 @@ function getModalAndScripts(defaultCategory, defaultPlan, depth = 0) {
         title: "Deploy NV Ultra Web Hosting",
         desc: "High-concurrency NVMe shared cloud powered by FastPanel and LiteSpeed/Nginx.",
         options: [
-          { id: "hosting-starter", label: "Starter Web — ₹149/mo (1 Website, 10GB NVMe)" },
-          { id: "hosting-business", label: "Business Web — ₹299/mo (5 Websites, 50GB NVMe, Free SSL)", default: true },
-          { id: "hosting-agency", label: "Agency Pro — ₹599/mo (Unlimited Sites, 150GB NVMe, Dedicated IP)" }
+          { id: "hosting-starter", label: "Starter Web - ₹149/mo (1 Website, 10GB NVMe)" },
+          { id: "hosting-business", label: "Business Web - ₹299/mo (5 Websites, 50GB NVMe, Free SSL)", default: true },
+          { id: "hosting-agency", label: "Agency Pro - ₹599/mo (Unlimited Sites, 150GB NVMe, Dedicated IP)" }
         ]
       },
       vps: {
@@ -202,9 +215,9 @@ function getModalAndScripts(defaultCategory, defaultPlan, depth = 0) {
         title: "Provision Cloud VPS / Bare Metal",
         desc: "Dedicated virtual CPU and raw compute with full root SSH control and 1Gbps uplink.",
         options: [
-          { id: "vps-4g", label: "Cloud VPS 4G — ₹1,499/mo (2 vCPU, 4GB RAM, 80GB NVMe)" },
-          { id: "vps-8g", label: "Cloud VPS 8G — ₹2,799/mo (4 vCPU, 8GB RAM, 160GB NVMe)", default: true },
-          { id: "bare-metal", label: "Dedicated Bare Metal — ₹4,999/mo (8 Physical Cores, 32GB RAM, 500GB NVMe)" }
+          { id: "vps-4g", label: "Cloud VPS 4G - ₹1,499/mo (2 vCPU, 4GB RAM, 80GB NVMe)" },
+          { id: "vps-8g", label: "Cloud VPS 8G - ₹2,799/mo (4 vCPU, 8GB RAM, 160GB NVMe)", default: true },
+          { id: "bare-metal", label: "Dedicated Bare Metal - ₹4,999/mo (8 Physical Cores, 32GB RAM, 500GB NVMe)" }
         ]
       },
       nodes: {
@@ -212,9 +225,9 @@ function getModalAndScripts(defaultCategory, defaultPlan, depth = 0) {
         title: "Deploy Managed n8n Node",
         desc: "Fully managed n8n runtime with dedicated Docker resources and automated backups.",
         options: [
-          { id: "n8n-basic", label: "n8n Basic — ₹999/mo (0.5 Core, 512MB RAM, 10GB NVMe)" },
-          { id: "n8n-pro", label: "n8n Pro Node — ₹1,999/mo (1.0 Core, 1GB RAM, 25GB NVMe)", default: true },
-          { id: "n8n-heavy", label: "n8n Heavy Enterprise — ₹3,999/mo (2.0 Cores, 2GB RAM, 50GB NVMe)" }
+          { id: "n8n-basic", label: "n8n Basic - ₹999/mo (0.5 Core, 512MB RAM, 10GB NVMe)" },
+          { id: "n8n-pro", label: "n8n Pro Node - ₹1,999/mo (1.0 Core, 1GB RAM, 25GB NVMe)", default: true },
+          { id: "n8n-heavy", label: "n8n Heavy Enterprise - ₹3,999/mo (2.0 Cores, 2GB RAM, 50GB NVMe)" }
         ]
       },
       guardian: {
@@ -222,9 +235,9 @@ function getModalAndScripts(defaultCategory, defaultPlan, depth = 0) {
         title: "Activate Guardian SRE Defense",
         desc: "Autonomous monitoring, instant self-healing, and multi-channel incident alerts.",
         options: [
-          { id: "guardian-audit", label: "SRE Vulnerability Audit — FREE (Comprehensive Server Audit)", default: true },
-          { id: "guardian-pro", label: "Guardian Pro — ₹1,999/mo (1-Sec Heartbeats, Auto-Remediation)" },
-          { id: "guardian-fleet", label: "Guardian Fleet Enterprise — Custom (Unlimited Nodes & SRE Engineers)" }
+          { id: "guardian-audit", label: "SRE Vulnerability Audit - FREE (Comprehensive Server Audit)", default: true },
+          { id: "guardian-pro", label: "Guardian Pro - ₹1,999/mo (1-Sec Heartbeats, Auto-Remediation)" },
+          { id: "guardian-fleet", label: "Guardian Fleet Enterprise - Custom (Unlimited Nodes & SRE Engineers)" }
         ]
       }
     };

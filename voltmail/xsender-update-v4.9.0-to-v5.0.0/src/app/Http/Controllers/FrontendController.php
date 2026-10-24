@@ -60,29 +60,29 @@ class FrontendController extends Controller
     }
 
     public function defaultImageCreate($size=null) {
-        
-        $width = explode('x',$size)[0];
-        $height = explode('x',$size)[1];
-        $image = imagecreate($width, $height);
-        $fontFile = realpath('assets/theme/global/fonts') . DIRECTORY_SEPARATOR . 'Poppins-Regular.ttf';
-        if($width > 100 && $height > 100){
-            $fontSize = 30;
-        }else{
-            $fontSize = 5;
+        if ($size === '400x400') {
+            $avatarPath = base_path('../assets/file/images/user/profile/user_1_avatar.webp');
+            if (file_exists($avatarPath)) {
+                header('Content-Type: image/webp');
+                readfile($avatarPath);
+                exit;
+            }
         }
-        $text = $width . 'X' . $height;
-        $backgroundcolor = imagecolorallocate($image, 237, 241, 250);
-        $textcolor    = imagecolorallocate($image, 107, 111, 130);
-        imagefill($image, 0, 0, $textcolor);
-        $textsize = imagettfbbox($fontSize, 0, $fontFile, $text);
-        $textWidth  = abs($textsize[4] - $textsize[0]);
-        $textHeight = abs($textsize[5] - $textsize[1]);
-        $xx = ($width - $textWidth) / 2;
-        $yy = ($height + $textHeight) / 2;
+
+        $parts = explode('x', (string)$size);
+        $width = max((int)($parts[0] ?? 400), 10);
+        $height = max((int)($parts[1] ?? 400), 10);
+
+        $image = imagecreatetruecolor($width, $height);
+        $bgColor = imagecolorallocate($image, 248, 250, 252); // #f8fafc slate-50
+        $borderColor = imagecolorallocate($image, 226, 232, 240); // #e2e8f0 slate-200
+        imagefill($image, 0, 0, $bgColor);
+        imagerectangle($image, 0, 0, $width - 1, $height - 1, $borderColor);
+
         header('Content-Type: image/jpeg');
-        imagettftext($image, $fontSize, 0, $xx, $yy, $backgroundcolor , $fontFile, $text);
-        imagejpeg($image);
+        imagejpeg($image, null, 90);
         imagedestroy($image);
+        exit;
     }
 
     public function apiDocumentation() {

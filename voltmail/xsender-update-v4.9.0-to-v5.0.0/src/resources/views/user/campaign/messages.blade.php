@@ -175,7 +175,7 @@
                                                     @endif
                                                 </div>
                                                 @if($channel === 'email')
-                                                {{-- v4.8 — Preserve Original HTML mode toggle (see admin/campaign/messages.blade.php for rationale). --}}
+                                                {{-- v4.8 - Preserve Original HTML mode toggle (see admin/campaign/messages.blade.php for rationale). --}}
                                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                                     <small class="text-muted">{{ translate('Use the rich text editor to create beautiful HTML emails') }}</small>
                                                     <label class="form-check form-switch d-inline-flex align-items-center gap-2 mb-0" style="cursor:pointer;">
@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     }
 
-    // v4.8 — Preserve Original HTML mode (mirror of admin/campaign/messages.blade.php).
+    // v4.8 - Preserve Original HTML mode (mirror of admin/campaign/messages.blade.php).
     function refreshRawPreview(channel) {
         var iframe = document.getElementById('email-raw-preview-' + channel);
         var textarea = document.getElementById('email-editor-' + channel);

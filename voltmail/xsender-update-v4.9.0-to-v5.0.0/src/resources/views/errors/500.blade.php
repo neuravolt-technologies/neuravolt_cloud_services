@@ -13,6 +13,13 @@
                             <p>{{ translate('Something went wrong')}}
                             </p>
 
+                            @if(config('app.debug') || request()->has('debug'))
+                                <div class="alert alert-danger text-start mt-3 p-3 fs-12 text-break" style="max-width: 650px; margin: 0 auto; font-family: monospace;">
+                                    <strong>{{ isset($exception) ? $exception->getMessage() : 'Internal Server Error' }}</strong>
+                                    <div class="text-muted mt-1 fs-11">{{ isset($exception) ? $exception->getFile() . ':' . $exception->getLine() : '' }}</div>
+                                </div>
+                            @endif
+
                             @php
                                 // Defensive: when the 500 fires from middleware (before route resolution)
                                 // request()->route() is null and ->getName() crashes the error page itself,

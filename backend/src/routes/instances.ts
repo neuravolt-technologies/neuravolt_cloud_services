@@ -252,4 +252,57 @@ router.post("/:id/start", async (req: AuthenticatedRequest, res: Response, next)
   }
 });
 
+// POST /instances/:id/reset - Admin only: wipe volume & recreate fresh container
+router.post("/:id/reset", adminMiddleware, async (req: AuthenticatedRequest, res: Response, next) => {
+  try {
+    const { id } = req.params;
+
+    const instance = await prisma.instance.findUnique({ where: { id } });
+    if (!instance) {
+      return res.status(404).json({ error: "Instance not found." });
+    }
+
+    console.log(`🔄 Resetting instance ${instance.name}...`);
+
+    // Step 1: Force remove existing container (stop + delete)
+    if (instance.containerId) {
+      try {
+        await DockerService.deleteInstance(instance.containerId);
+        console.log(`🗑️ Container ${instance.containerId} removed.`);
+      } catch (err: any) {
+        // Container might already be gone - that's fine
+        console.warn(`⚠️ Could not remove container: ${err.message}`);
+      }
+    }
+
+    // Step 2: Delete the data volume (wipes all n8n workflows/credentials)
+    try {
+      await DockerService.deleteVolume(instance.name);
+      console.log(`🗑️ Volume nv-instance-${instance.name}-data deleted.`);
+    } catch (err: any) {
+      console.warn(`⚠️ Could not delete volume: ${err.message}`);
+    }
+
+    // Step 3: Recreate fresh container with same settings
+    const user = await prisma.user.findUnique({ where: { id: instance.userId } });
+    const plan = user?.plan || "BASIC";
+    const containerInfo = await DockerService.createInstance(instance.name, plan, instance.apps as string[]);
+
+    // Step 4: Update DB with new container ID and reset status
+    const updated = await prisma.instance.update({
+      where: { id },
+      data: {
+        containerId: containerInfo.containerId,
+        status: "RUNNING",
+      },
+    });
+
+    console.log(`✅ Instance ${instance.name} reset successfully.`);
+    res.status(200).json({ message: "Instance reset successfully. Fresh n8n is ready.", instance: updated });
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default router;
+

@@ -1296,7 +1296,7 @@ if (SpeechRecognition && speechElements.length > 0) {
             multiMediaFiles.forEach(f => dt.items.add(f));
             input.files = dt.files;
         } catch (e) {
-            // Older browsers — submission still works because we read from multiMediaFiles
+            // Older browsers - submission still works because we read from multiMediaFiles
             // in the form's submit handler if needed.
         }
     }

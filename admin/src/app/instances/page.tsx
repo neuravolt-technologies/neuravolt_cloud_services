@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Play, Square, RotateCw, BarChart2, FileText, ChevronRight, Settings } from "lucide-react";
+import { Play, Square, RotateCw, BarChart2, FileText, ChevronRight, Settings, Trash2 } from "lucide-react";
 import ApiClient from "../../lib/api";
 
 interface InstanceRecord {
@@ -115,6 +115,23 @@ export default function InstancesAdmin() {
       await loadInstances();
     } catch (err: any) {
       alert(err.message || "Failed to reboot container");
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleReset = async (id: string, name: string) => {
+    const confirmed = confirm(
+      `⚠️ RESET INSTANCE: "${name}"\n\nYeh action:\n• Container delete karega\n• Saara n8n data (workflows, credentials) erase karega\n• Fresh n8n container recreate karega\n\nUser account safe rahega. Kya aap sure hain?`
+    );
+    if (!confirmed) return;
+    setActionLoading(`reset_${id}`);
+    try {
+      await ApiClient.post(`/instances/${id}/reset`);
+      alert(`✅ Instance "${name}" successfully reset! Fresh n8n ready hai.`);
+      await loadInstances();
+    } catch (err: any) {
+      alert(err.message || "Reset failed. Please try again.");
     } finally {
       setActionLoading(null);
     }
@@ -269,6 +286,15 @@ export default function InstancesAdmin() {
                           title="Adjust limits"
                         >
                           <Settings size={14} />
+                        </button>
+                        <button 
+                          onClick={() => handleReset(inst.id, inst.name)}
+                          disabled={actionLoading !== null}
+                          className="btn btn-secondary" 
+                          style={{ padding: "6px 8px", color: "#f97316", opacity: actionLoading === `reset_${inst.id}` ? 0.6 : 1 }}
+                          title="Reset instance (erase n8n data & recreate fresh)"
+                        >
+                          {actionLoading === `reset_${inst.id}` ? <RotateCw size={14} style={{ animation: "spin 1s linear infinite" }} /> : <Trash2 size={14} />}
                         </button>
                       </div>
                     </td>

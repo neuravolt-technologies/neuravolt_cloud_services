@@ -32,7 +32,7 @@
         <div class="col-xl-6">
           <div class="px-xl-5 px-4 py-4">
             <div class="gateway-content">
-              <h4 class="gateway-title title-anim">{{getTranslatedArrayValue(@$gateway_content->section_value, 'heading') }}l</h4>
+              <h4 class="gateway-title title-anim">{{getTranslatedArrayValue(@$gateway_content->section_value, 'heading') }}</h4>
               
 
               <div class="gateway-bottom">

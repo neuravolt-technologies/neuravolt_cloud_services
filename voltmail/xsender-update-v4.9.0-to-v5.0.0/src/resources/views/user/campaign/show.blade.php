@@ -230,7 +230,7 @@
                                         </td>
                                         <td>
                                             @php
-                                                // v5.0 — canonical plain_text_preview() helper. Strips
+                                                // v5.0 - canonical plain_text_preview() helper. Strips
                                                 // <style>/<script> block contents + tags + entity-decodes
                                                 // + collapses Unicode whitespace + truncates in one call.
                                                 $preview = $message->subject
@@ -253,7 +253,7 @@
                 </div>
                 @endif
 
-                {{-- v4.8 — Recent Dispatches drill-down (previously admin-only).
+                {{-- v4.8 - Recent Dispatches drill-down (previously admin-only).
                      Per-recipient delivery report with status filter, live AJAX reload,
                      and CSV export. Same shape as the admin table so behavior is
                      consistent across panels. --}}
@@ -487,7 +487,7 @@
 
 @push('script-push')
 <script>
-// v4.8 — Dispatch status filter (mirrors admin/campaign/show.blade.php).
+// v4.8 - Dispatch status filter (mirrors admin/campaign/show.blade.php).
 (function () {
     var filter = document.getElementById('dispatchFilter');
     var tbody  = document.getElementById('dispatchesTable');

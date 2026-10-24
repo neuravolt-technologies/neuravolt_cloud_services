@@ -165,7 +165,7 @@
                                                 </div>
                                                 @if($channel === 'email')
                                                 {{-- Rich Text Editor for Email --}}
-                                                {{-- v4.8 — "Preserve Original HTML" mode. When ON, CKEditor is destroyed
+                                                {{-- v4.8 - "Preserve Original HTML" mode. When ON, CKEditor is destroyed
                                                      and the textarea is used verbatim so BeeFree/imported HTML is not
                                                      re-normalized (CKEditor's model would re-wrap paragraphs and drop
                                                      custom inline styles). A live iframe preview replaces the editor UI. --}}
@@ -507,7 +507,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     }
 
-    // v4.8 — Preserve Original HTML mode.
+    // v4.8 - Preserve Original HTML mode.
     // When a BeeFree/imported HTML template is loaded, CKEditor re-wraps
     // paragraphs and can drop inline styles. This toggle destroys the editor
     // and swaps to a raw <textarea> + live iframe preview, so the outbound
@@ -597,7 +597,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (subjectInput && subject) {
                     subjectInput.value = subject;
                 }
-                // v4.8 — auto-detect imported HTML and switch to Preserve mode BEFORE
+                // v4.8 - auto-detect imported HTML and switch to Preserve mode BEFORE
                 // writing the template into the field, so CKEditor never gets a chance
                 // to re-normalize BeeFree HTML on template apply.
                 if (isImportedHtml(content)) {

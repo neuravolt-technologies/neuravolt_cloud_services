@@ -467,7 +467,7 @@
                         <div class="alert-warning-custom mb-4">
                             <i class="ri-information-line me-2"></i>
                             <strong>{{ translate('Choose one approach:') }}</strong>
-                            {{ translate('Cron job handles everything (no Supervisor needed). For high-volume instant processing (10,000+ messages/day), use Supervisor — but you still need a cron job for scheduled campaigns and maintenance.') }}
+                            {{ translate('Cron job handles everything (no Supervisor needed). For high-volume instant processing (10,000+ messages/day), use Supervisor - but you still need a cron job for scheduled campaigns and maintenance.') }}
                         </div>
 
                         <!-- Tab Navigation -->
@@ -481,7 +481,7 @@
                         <div id="tab-cpanel" class="tab-content-custom active">
                             <div class="alert-info-custom mb-3">
                                 <i class="ri-information-line me-2"></i>
-                                {{ translate('For shared hosting with cPanel, a single cron job handles all background processing — no Supervisor needed.') }}
+                                {{ translate('For shared hosting with cPanel, a single cron job handles all background processing - no Supervisor needed.') }}
                             </div>
 
                             <div class="step-item">
@@ -514,7 +514,7 @@
                         <div id="tab-vps" class="tab-content-custom">
                             <div class="alert-info-custom mb-3">
                                 <i class="ri-information-line me-2"></i>
-                                {{ translate('For VPS/Dedicated servers, a single cron entry handles all background jobs via the Laravel scheduler — no Supervisor needed.') }}
+                                {{ translate('For VPS/Dedicated servers, a single cron entry handles all background jobs via the Laravel scheduler - no Supervisor needed.') }}
                             </div>
 
                             <div class="step-item">

@@ -106,19 +106,19 @@
                         {{ translate("In your DNS provider (or cPanel Zone Editor), create a CNAME record:") }}
                         <div class="bg-light p-2 rounded mt-1 mb-1" style="font-family: monospace;">
                             <strong>{{ translate("Type") }}:</strong> CNAME &nbsp;|&nbsp;
-                            <strong>{{ translate("Name / Host") }}:</strong> {{ translate("track") }} (@if(false){{ translate("only the subdomain prefix — cPanel auto-appends your domain") }}@endif<em>{{ translate("only the subdomain prefix; do not include your domain again — cPanel/most providers append it automatically") }}</em>)
+                            <strong>{{ translate("Name / Host") }}:</strong> {{ translate("track") }} (@if(false){{ translate("only the subdomain prefix - cPanel auto-appends your domain") }}@endif<em>{{ translate("only the subdomain prefix; do not include your domain again - cPanel/most providers append it automatically") }}</em>)
                             &nbsp;|&nbsp;
                             <strong>{{ translate("Value / Target") }}:</strong> <code>{{ parse_url(config('app.url'), PHP_URL_HOST) }}</code>
                             &nbsp;|&nbsp;
                             <strong>TTL:</strong> 3600
                         </div>
                     </li>
-                    <li>{{ translate("Wait 5–60 minutes for DNS propagation (can take up to 24 hours).") }}</li>
+                    <li>{{ translate("Wait 5-60 minutes for DNS propagation (can take up to 24 hours).") }}</li>
                     <li>{{ translate("Click the 'Verify CNAME' button next to your domain.") }}</li>
                 </ol>
                 <div class="alert alert-warning mt-3 mb-0">
                     <strong>{{ translate("Common mistake:") }}</strong>
-                    {{ translate("If your zone is yourdomain.com, the Name field should be just") }} <code>track</code> {{ translate("— not") }} <code>track.yourdomain.com</code>{{ translate(". Entering the full domain causes cPanel to produce") }} <code>track.yourdomain.com.yourdomain.com</code> {{ translate("(a double-domain that will never resolve).") }}
+                    {{ translate("If your zone is yourdomain.com, the Name field should be just") }} <code>track</code> {{ translate("- not") }} <code>track.yourdomain.com</code>{{ translate(". Entering the full domain causes cPanel to produce") }} <code>track.yourdomain.com.yourdomain.com</code> {{ translate("(a double-domain that will never resolve).") }}
                 </div>
             </div>
         </div>

@@ -387,7 +387,7 @@ Route::middleware([
                 ->name('communication.')
                 ->group(function () {
 
-                // v5.0 — Unified Inbox. v5.0-S4 adds cross-channel reply.
+                // v5.0 - Unified Inbox. v5.0-S4 adds cross-channel reply.
                 // v5.0-S5 adds AI Reply Copilot (throttled per user).
                 Route::controller(\App\Http\Controllers\User\Communication\InboxController::class)
                     ->prefix('inbox')
@@ -930,12 +930,12 @@ Route::middleware([
                 Route::post('/cancel/{id}', 'cancel')->name('cancel');
                 Route::post('/duplicate/{id}', 'duplicate')->name('duplicate');
                 Route::get('/ajax/channel-distribution', 'getChannelDistribution')->name('channel-distribution');
-                // v4.8 — per-recipient dispatch drill-down (was admin-only in v4.7).
+                // v4.8 - per-recipient dispatch drill-down (was admin-only in v4.7).
                 Route::get('/{id}/dispatches', 'getDispatches')->name('dispatches');
                 Route::get('/{id}/dispatches/export', 'exportDispatches')->name('dispatches.export');
             });
 
-        // Floating AI Assistant — generic text-generation endpoint shared with admin panel
+        // Floating AI Assistant - generic text-generation endpoint shared with admin panel
         Route::prefix('ai')->name('ai.')->group(function () {
             Route::controller(SharedAiContentController::class)
                 ->prefix('content/')
@@ -991,5 +991,37 @@ Route::middleware([
                         Route::delete('/{testId}/variant/{variantId}', 'removeVariant')->name('remove-variant');
                     });
             });
+
+        // Business Content Resources (Knowledge for Email Content & Warmup)
+        Route::controller(\App\Http\Controllers\User\ContentResourceController::class)
+            ->prefix('content-resource/')
+            ->name('content-resource.')
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/store', 'store')->name('store');
+                Route::get('/show/{id}', 'show')->name('show');
+                Route::get('/edit/{id}', 'edit')->name('edit');
+                Route::put('/update/{id}', 'update')->name('update');
+                Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+                Route::post('/preview/{id}', 'previewGeneration')->name('preview');
+            });
+
+        // Email Warmup Engine
+        Route::controller(\App\Http\Controllers\User\WarmupController::class)
+            ->prefix('warmup/')
+            ->name('warmup.')
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/store', 'store')->name('store');
+                Route::get('/show/{id}', 'show')->name('show');
+                Route::get('/edit/{id}', 'edit')->name('edit');
+                Route::put('/update/{id}', 'update')->name('update');
+                Route::post('/toggle-status/{id}', 'toggleStatus')->name('toggle-status');
+                Route::post('/verify-dns', 'verifyDns')->name('verify-dns');
+                Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+            });
     });
 });
+

@@ -387,7 +387,7 @@ Route::middleware([
                 ->name('communication.')
                 ->group(function () {
 
-                // v5.0 — Unified Inbox. v5.0-S4 adds cross-channel reply.
+                // v5.0 - Unified Inbox. v5.0-S4 adds cross-channel reply.
                 // v5.0-S5 adds AI Reply Copilot (throttled per user).
                 Route::controller(\App\Http\Controllers\User\Communication\InboxController::class)
                     ->prefix('inbox')
@@ -930,12 +930,12 @@ Route::middleware([
                 Route::post('/cancel/{id}', 'cancel')->name('cancel');
                 Route::post('/duplicate/{id}', 'duplicate')->name('duplicate');
                 Route::get('/ajax/channel-distribution', 'getChannelDistribution')->name('channel-distribution');
-                // v4.8 — per-recipient dispatch drill-down (was admin-only in v4.7).
+                // v4.8 - per-recipient dispatch drill-down (was admin-only in v4.7).
                 Route::get('/{id}/dispatches', 'getDispatches')->name('dispatches');
                 Route::get('/{id}/dispatches/export', 'exportDispatches')->name('dispatches.export');
             });
 
-        // Floating AI Assistant — generic text-generation endpoint shared with admin panel
+        // Floating AI Assistant - generic text-generation endpoint shared with admin panel
         Route::prefix('ai')->name('ai.')->group(function () {
             Route::controller(SharedAiContentController::class)
                 ->prefix('content/')
@@ -1019,6 +1019,7 @@ Route::middleware([
                 Route::get('/edit/{id}', 'edit')->name('edit');
                 Route::put('/update/{id}', 'update')->name('update');
                 Route::post('/toggle-status/{id}', 'toggleStatus')->name('toggle-status');
+                Route::post('/verify-dns', 'verifyDns')->name('verify-dns');
                 Route::delete('/destroy/{id}', 'destroy')->name('destroy');
             });
     });

@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     campaignType.dispatchEvent(new Event('change'));
 
-    // Bind via jQuery — select2 fires its `change` through jQuery's trigger,
+    // Bind via jQuery - select2 fires its `change` through jQuery's trigger,
     // and native addEventListener didn't always catch it on this select2 build
     // (users saw "0 Contacts" on every tile because the fetch never fired
     // when they picked a group via the select2 dropdown). Also listen for

@@ -231,6 +231,12 @@ class Kernel extends ConsoleKernel
             ]);
         })->everyMinute()->name('queue:warmup-imap')->withoutOverlapping();
 
+        // Unified Inbox IMAP Sync for direct customer lead mailboxes (every 2 minutes)
+        $schedule->command('inbox:sync-imap')
+            ->everyTwoMinutes()
+            ->name('inbox:sync-imap')
+            ->withoutOverlapping(5);
+
         // Cleanup old failed jobs (daily)
         $schedule->command('queue:prune-failed --hours=168')
             ->daily()

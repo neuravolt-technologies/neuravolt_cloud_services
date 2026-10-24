@@ -2,7 +2,7 @@
 @section('tab-content')
     @php
         // Check if embedded signup is available (admin configured the platform's Meta App)
-        // Users don't need to know about MetaConfiguration details — just whether it's ready
+        // Users don't need to know about MetaConfiguration details - just whether it's ready
         $metaConfigurations = \App\Models\MetaConfiguration::where('status', 'active')->get();
         $hasMetaConfig = $metaConfigurations->isNotEmpty();
         $defaultConfig = $metaConfigurations->firstWhere('is_default', true);

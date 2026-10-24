@@ -14,7 +14,10 @@
                     </ol>
                 </nav>
             </div>
-            <div class="page-header-right">
+            <div class="page-header-right d-flex align-items-center flex-wrap gap-2">
+                <button type="button" class="i-btn btn--dark outline btn--md" data-bs-toggle="modal" data-bs-target="#dnsSetupWizardModal">
+                    <i class="ri-shield-keyhole-line me-1"></i> {{ translate("DNS Guide") }}
+                </button>
                 <a href="{{ route('user.warmup.index') }}" class="i-btn btn--dark outline btn--md">
                     <i class="ri-arrow-left-line me-1"></i> {{ translate("Back to List") }}
                 </a>
@@ -28,10 +31,13 @@
                 <p class="text-muted mb-4">
                     {{ translate("You must configure at least one active Email Gateway before starting warmup. Your existing credentials will be reused securely.") }}
                 </p>
-                <div>
+                <div class="d-flex justify-content-center flex-wrap gap-2">
                     <a href="{{ route('user.gateway.email.index') }}" class="i-btn btn--primary btn--md">
                         <i class="ri-add-line me-1"></i> {{ translate("Configure Email Gateway First") }}
                     </a>
+                    <button type="button" class="i-btn btn--dark outline btn--md" data-bs-toggle="modal" data-bs-target="#dnsSetupWizardModal">
+                        <i class="ri-shield-keyhole-line me-1"></i> {{ translate("DNS Setup Guide") }}
+                    </button>
                 </div>
             </div>
         @else
@@ -57,7 +63,7 @@
                                                     data-type="{{ strtoupper($gw->type) }}"
                                                     {{ old('gateway_id') == $gw->id ? 'selected' : '' }}>
                                                 {{ $gw->name }} &lt;{{ $gw->address }}&gt; [{{ strtoupper($gw->type) }}] 
-                                                {{ $gw->has_imap ? '— ' . translate('IMAP Configured') : '— ' . translate('IMAP Needed') }}
+                                                {{ $gw->has_imap ? '- ' . translate('IMAP Configured') : '- ' . translate('IMAP Needed') }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -184,6 +190,9 @@
             </form>
         @endif
     </div>
+
+    {{-- Guided DNS Setup & White-Glove Support Modal --}}
+    @include('partials.dns_wizard_modal')
 </main>
 
 @push('script-push')
@@ -210,7 +219,7 @@
             const type    = selected.getAttribute('data-type');
 
             detailsBox.style.display = 'block';
-            nameLabel.textContent = selected.text.split('—')[0].trim();
+            nameLabel.textContent = selected.text.split('-')[0].trim();
             addressLabel.textContent = address + ' (' + type + ')';
 
             if (hasImap) {

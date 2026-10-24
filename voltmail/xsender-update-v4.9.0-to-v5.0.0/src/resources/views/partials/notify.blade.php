@@ -26,7 +26,7 @@
     </script>
 @endif
 
-@if($errors->any())
+@if(isset($errors) && $errors->any())
     <script>
         "use strict";
         @foreach($errors->all() as $message)

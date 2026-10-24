@@ -23,10 +23,10 @@
                 <h4>1. {{ translate('Core concepts') }}</h4>
                 <p>{{ translate('A workflow is a sequence of nodes that runs for each contact who matches its trigger. There are four node types:') }}</p>
                 <ul>
-                    <li><strong>{{ translate('Trigger') }}</strong> — {{ translate('the event that starts the workflow (e.g. a new contact, an incoming reply, a webhook).') }}</li>
-                    <li><strong>{{ translate('Action') }}</strong> — {{ translate('something the workflow does (send SMS, send email, add a tag, call a webhook).') }}</li>
-                    <li><strong>{{ translate('Condition') }}</strong> — {{ translate('branches the workflow based on contact data (has-tag, field-equals, A/B split).') }}</li>
-                    <li><strong>{{ translate('Wait') }}</strong> — {{ translate('pauses the workflow for a duration or until a specific time.') }}</li>
+                    <li><strong>{{ translate('Trigger') }}</strong> - {{ translate('the event that starts the workflow (e.g. a new contact, an incoming reply, a webhook).') }}</li>
+                    <li><strong>{{ translate('Action') }}</strong> - {{ translate('something the workflow does (send SMS, send email, add a tag, call a webhook).') }}</li>
+                    <li><strong>{{ translate('Condition') }}</strong> - {{ translate('branches the workflow based on contact data (has-tag, field-equals, A/B split).') }}</li>
+                    <li><strong>{{ translate('Wait') }}</strong> - {{ translate('pauses the workflow for a duration or until a specific time.') }}</li>
                 </ul>
             </div>
         </div>
@@ -35,13 +35,13 @@
             <div class="card-body">
                 <h4>2. {{ translate('Triggers') }}</h4>
                 <ul>
-                    <li><code>new_contact</code> — {{ translate('A new contact is added to the (optionally specified) group.') }}</li>
-                    <li><code>contact_replied</code> — {{ translate('A contact sends an incoming message on WhatsApp / SMS / email.') }}</li>
-                    <li><code>no_response</code> — {{ translate("A contact hasn't replied within N days.") }}</li>
-                    <li><code>webhook</code> — {{ translate('An external system POSTs to the unique workflow webhook URL.') }}</li>
-                    <li><code>schedule</code> — {{ translate('Daily / weekly / monthly at a chosen time.') }}</li>
-                    <li><code>birthday</code> — {{ translate("A contact's birthday — optionally N days before.") }}</li>
-                    <li><code>manual</code> — {{ translate('You trigger it by hand from the workflow page.') }}</li>
+                    <li><code>new_contact</code> - {{ translate('A new contact is added to the (optionally specified) group.') }}</li>
+                    <li><code>contact_replied</code> - {{ translate('A contact sends an incoming message on WhatsApp / SMS / email.') }}</li>
+                    <li><code>no_response</code> - {{ translate("A contact hasn't replied within N days.") }}</li>
+                    <li><code>webhook</code> - {{ translate('An external system POSTs to the unique workflow webhook URL.') }}</li>
+                    <li><code>schedule</code> - {{ translate('Daily / weekly / monthly at a chosen time.') }}</li>
+                    <li><code>birthday</code> - {{ translate("A contact's birthday - optionally N days before.") }}</li>
+                    <li><code>manual</code> - {{ translate('You trigger it by hand from the workflow page.') }}</li>
                 </ul>
             </div>
         </div>
@@ -50,11 +50,11 @@
             <div class="card-body">
                 <h4>3. {{ translate('Actions') }}</h4>
                 <ul>
-                    <li><strong>{{ translate('Send SMS / Email / WhatsApp') }}</strong> — {{ translate('Pick a gateway (or Android device for SMS) + write the message.') }}</li>
-                    <li><strong>{{ translate('Add Tag') }}</strong>, <strong>{{ translate('Add to Group') }}</strong>, <strong>{{ translate('Remove from Group') }}</strong>, <strong>{{ translate('Update Contact') }}</strong> — {{ translate('Mutate contact data based on workflow progress.') }}</li>
-                    <li><strong>{{ translate('Notify Admin') }}</strong> — {{ translate('Send a heads-up email or SMS to an admin address.') }}</li>
-                    <li><strong>{{ translate('Call Webhook') }}</strong> — {{ translate('POST/PUT/PATCH/GET to an external URL with custom JSON headers + body. Contact and workflow details are auto-appended.') }}</li>
-                    <li><strong>{{ translate('AI Auto Reply') }}</strong> — {{ translate("Use OpenAI (or DeepSeek / Groq / Together AI via custom base URL) to generate a contextual reply to an incoming message. Defaults to matching the customer's language.") }}</li>
+                    <li><strong>{{ translate('Send SMS / Email / WhatsApp') }}</strong> - {{ translate('Pick a gateway (or Android device for SMS) + write the message.') }}</li>
+                    <li><strong>{{ translate('Add Tag') }}</strong>, <strong>{{ translate('Add to Group') }}</strong>, <strong>{{ translate('Remove from Group') }}</strong>, <strong>{{ translate('Update Contact') }}</strong> - {{ translate('Mutate contact data based on workflow progress.') }}</li>
+                    <li><strong>{{ translate('Notify Admin') }}</strong> - {{ translate('Send a heads-up email or SMS to an admin address.') }}</li>
+                    <li><strong>{{ translate('Call Webhook') }}</strong> - {{ translate('POST/PUT/PATCH/GET to an external URL with custom JSON headers + body. Contact and workflow details are auto-appended.') }}</li>
+                    <li><strong>{{ translate('AI Auto Reply') }}</strong> - {{ translate("Use OpenAI (or DeepSeek / Groq / Together AI via custom base URL) to generate a contextual reply to an incoming message. Defaults to matching the customer's language.") }}</li>
                 </ul>
             </div>
         </div>
@@ -65,14 +65,14 @@
                 <p><strong>{{ translate('Condition nodes') }}</strong> {{ translate('split the workflow into Yes/No branches based on the contact:') }}</p>
                 <ul>
                     <li><code>has_tag</code>, <code>in_group</code>, <code>field_equals</code></li>
-                    <li><code>random_split</code> ({{ translate('A/B testing — N% goes Yes, rest goes No') }})</li>
+                    <li><code>random_split</code> ({{ translate('A/B testing - N% goes Yes, rest goes No') }})</li>
                     <li><code>day_of_week</code>, <code>time_between</code> ({{ translate('time-based branching') }})</li>
                 </ul>
                 <p><strong>{{ translate('Wait nodes') }}</strong> {{ translate('pause the workflow:') }}</p>
                 <ul>
-                    <li><code>delay</code> — N minutes / hours / days</li>
-                    <li><code>until_time</code> — {{ translate('next occurrence of HH:MM') }}</li>
-                    <li><code>until_date</code> — {{ translate('a specific date + time') }}</li>
+                    <li><code>delay</code> - N minutes / hours / days</li>
+                    <li><code>until_time</code> - {{ translate('next occurrence of HH:MM') }}</li>
+                    <li><code>until_date</code> - {{ translate('a specific date + time') }}</li>
                 </ul>
             </div>
         </div>
@@ -87,7 +87,7 @@
                     <li><code>&#123;&#123;email&#125;&#125;</code></li>
                     <li><code>&#123;&#123;phone&#125;&#125;</code></li>
                     <li><code>&#123;&#123;whatsapp&#125;&#125;</code></li>
-                    <li><code>&#123;&#123;unsubscribe_link&#125;&#125;</code> — {{ translate('email only; auto-appended footer if you omit it') }}</li>
+                    <li><code>&#123;&#123;unsubscribe_link&#125;&#125;</code> - {{ translate('email only; auto-appended footer if you omit it') }}</li>
                 </ul>
             </div>
         </div>
@@ -98,17 +98,17 @@
                 <p>{{ translate('Each action node exposes an Error Handling section in its properties panel:') }}</p>
                 <ul>
                     <li><strong>{{ translate('On failure') }}</strong>: <code>continue</code> (default), <code>stop</code>, <code>skip</code>.</li>
-                    <li><strong>{{ translate('Retry attempts') }}</strong>: 0–10 additional tries before declaring the node failed.</li>
+                    <li><strong>{{ translate('Retry attempts') }}</strong>: 0-10 additional tries before declaring the node failed.</li>
                     <li><strong>{{ translate('Retry delay') }}</strong>: seconds between retries.</li>
                 </ul>
-                <p>{{ translate('Retries use the queue worker — make sure a worker is running (cron schedule:run every minute is sufficient).') }}</p>
+                <p>{{ translate('Retries use the queue worker - make sure a worker is running (cron schedule:run every minute is sufficient).') }}</p>
             </div>
         </div>
 
         <div class="card mb-3" id="testing">
             <div class="card-body">
                 <h4>7. {{ translate('Test Run / Dry Run') }}</h4>
-                <p>{{ translate('On the workflow edit page, click') }} <strong>{{ translate('Test Run') }}</strong> {{ translate('to simulate the whole workflow against a sample contact. No SMS, email, WhatsApp, or webhook calls are made — every node reports what it WOULD do. Use this to catch misconfigured gateways, missing fields, and dead branches before activating.') }}</p>
+                <p>{{ translate('On the workflow edit page, click') }} <strong>{{ translate('Test Run') }}</strong> {{ translate('to simulate the whole workflow against a sample contact. No SMS, email, WhatsApp, or webhook calls are made - every node reports what it WOULD do. Use this to catch misconfigured gateways, missing fields, and dead branches before activating.') }}</p>
             </div>
         </div>
 

@@ -2,7 +2,7 @@
 @section('tab-content')
     <div class="tab-pane active fade show" id="{{url()->current()}}" role="tabpanel">
         <div class="table-filter mb-4">
-            <form action="{{route(Route::currentRouteName())}}" class="filter-form">
+            <form action="{{ route('user.gateway.sending-domain.index') }}" class="filter-form">
                 <div class="row g-3">
                     <div class="col-xxl-3 col-xl-4 col-lg-4">
                         <div class="filter-search">
@@ -22,7 +22,7 @@
                                 <button type="submit" class="filter-action-btn">
                                     <i class="ri-menu-search-line"></i> {{ translate("Filter") }}
                                 </button>
-                                <a class="filter-action-btn bg-danger text-white" href="{{route(Route::currentRouteName())}}">
+                                <a class="filter-action-btn bg-danger text-white" href="{{ route('user.gateway.sending-domain.index') }}">
                                     <i class="ri-refresh-line"></i> {{ translate("Reset") }}
                                 </a>
                             </div>
@@ -45,13 +45,37 @@
             </div>
         @endif
 
+        {{-- Minimalist DNS Helper Strip --}}
+        <div class="d-flex flex-wrap align-items-center justify-content-between p-3 rounded-2 bg-white border mb-4">
+            <div class="d-flex align-items-center gap-2">
+                <i class="ri-shield-keyhole-line text-muted fs-5"></i>
+                <div>
+                    <span class="fs-13 fw-semibold text-dark">{{ translate("DNS Setup & Authentication") }}</span>
+                    <span class="text-muted fs-12 ms-1">- {{ translate("Configure SPF, DKIM, and DMARC or request done-for-you setup.") }}</span>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2 mt-2 mt-sm-0">
+                <button type="button" class="i-btn btn--dark outline btn--sm" data-bs-toggle="modal" data-bs-target="#dnsSetupWizardModal">
+                    <i class="ri-file-list-3-line me-1"></i> {{ translate("DNS Records") }}
+                </button>
+                <a href="https://wa.me/919202243725?text=Hello%20Neuravolt%20Team%2C%20I%20would%20like%20to%20request%20DNS%20Setup." 
+                   target="_blank" rel="noopener noreferrer" 
+                   class="btn btn-sm btn-outline-dark fs-12 px-2 py-1">
+                    <i class="ri-whatsapp-line me-1 text-success"></i> {{ translate("Done-For-You (₹2,499)") }}
+                </a>
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-header">
                 <div class="card-header-left">
                     <h4 class="card-title">{{$title}}</h4>
                     <small class="text-muted">{{ $currentCount }}/{{ $maxDomains }} {{ translate("domains used") }}</small>
                 </div>
-                <div class="card-header-right">
+                <div class="card-header-right d-flex align-items-center flex-wrap gap-2">
+                    <button class="i-btn btn--dark outline btn--sm space-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#dnsSetupWizardModal">
+                        <i class="ri-shield-keyhole-line me-1"></i> {{ translate("DNS Guide") }}
+                    </button>
                     @if($currentCount < $maxDomains)
                         <button class="i-btn btn--primary btn--sm space-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#addDomain">
                             <i class="ri-add-fill fs-16"></i> {{ translate("Add Sending Domain") }}
@@ -211,6 +235,9 @@
         </div>
     </div>
 </div>
+
+{{-- Guided DNS Setup & White-Glove Support Modal --}}
+@include('partials.dns_wizard_modal')
 
 @endsection
 

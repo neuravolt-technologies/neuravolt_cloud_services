@@ -157,7 +157,7 @@
 
                             <div class="sidebar-menu-container">
                                 <ul class="sidebar-menu">
-                                    {{-- v5.0 — Unified Inbox: single screen for every incoming reply
+                                    {{-- v5.0 - Unified Inbox: single screen for every incoming reply
                                          (SMS + Email + WhatsApp Cloud + WhatsApp Node). --}}
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-link {{ menuActive(['admin.communication.inbox.*']) }}" href="{{ route('admin.communication.inbox.index') }}">

@@ -1582,7 +1582,7 @@
                 inputHtml = `<select id="${id}" class="form-select"
                     data-node-id="${node.id}" data-field-key="${field.key}"
                     onchange="updateNodeConfig(${node.id}, '${field.key}', this.value)">
-                    ${field.required ? '' : '<option value="">— Select —</option>'}
+                    ${field.required ? '' : '<option value="">- Select -</option>'}
                     ${optionsHtml}
                 </select>`;
                 break;
@@ -2161,7 +2161,7 @@
             html += `
                 <div class="property-group">
                     <div class="alert alert-success small p-2 mb-2">
-                        <i class="ri-check-line"></i> <strong>AI Configured</strong> — OpenAI is active and ready.
+                        <i class="ri-check-line"></i> <strong>AI Configured</strong> - OpenAI is active and ready.
                     </div>
                 </div>
             `;
@@ -2173,7 +2173,7 @@
                         1. Set trigger to <strong>"Contact Replied"</strong> (fires when someone messages you)<br>
                         2. Connect this <strong>"AI Auto Reply"</strong> action<br>
                         3. Configure the system prompt below (tells AI how to respond)<br>
-                        4. Activate the workflow — AI will auto-respond to incoming messages
+                        4. Activate the workflow - AI will auto-respond to incoming messages
                     </div>
                 </div>
             `;
@@ -2224,7 +2224,7 @@
             `;
         }
 
-        // Error Handling — common to every action node
+        // Error Handling - common to every action node
         html += generateErrorHandlingSection(node);
 
         return html;
@@ -2584,7 +2584,7 @@ Content-Type: application/json
             const dy = Math.abs(e.clientY - dragState.startY);
             if (dx < 5 && dy < 5) return;
 
-            // Threshold exceeded — actually start dragging now
+            // Threshold exceeded - actually start dragging now
             dragState.isDragging = true;
             const nodeEl = document.getElementById(`node-${dragState.nodeId}`);
             if (nodeEl) nodeEl.classList.add('is-dragging');
@@ -3057,7 +3057,7 @@ Content-Type: application/json
             return;
         }
 
-        // Phase C — block save if any schema-required field is empty across all nodes.
+        // Phase C - block save if any schema-required field is empty across all nodes.
         const validationIssues = [];
         workflowState.nodes.forEach(n => {
             if (!hasSchemaFor(n)) return;
@@ -3462,7 +3462,7 @@ Content-Type: application/json
                 }
                 select.innerHTML = '<option value="">{{ translate("-- Select contact --") }}</option>' +
                     data.contacts.map(c =>
-                        `<option value="${c.id}">${c.name} ${c.email ? '— ' + c.email : ''}</option>`
+                        `<option value="${c.id}">${c.name} ${c.email ? '- ' + c.email : ''}</option>`
                     ).join('');
                 testRunSampleLoaded = true;
             })
@@ -3526,7 +3526,7 @@ Content-Type: application/json
 
         html += `<div class="mb-3 small text-muted">{{ translate("Sample contact") }}:
             <strong>${escapeHtml((result.contact.first_name || '') + ' ' + (result.contact.last_name || ''))}</strong>
-            ${result.contact.email ? '— ' + escapeHtml(result.contact.email) : ''}
+            ${result.contact.email ? '- ' + escapeHtml(result.contact.email) : ''}
         </div>`;
 
         html += '<ul class="list-group list-group-flush border rounded">';

@@ -431,7 +431,7 @@
                                     <strong>{{ translate('Subject') }}:</strong> {{ plain_text_preview($message->subject, 50) }}
                                 </div>
                                 @endif
-                                {{-- strip_tags first — content is raw HTML for email; without
+                                {{-- strip_tags first - content is raw HTML for email; without
                                      stripping, users see `<div class="raw-html-embed"><div style="...">`
                                      rendered as literal text (Str::limit doesn't parse HTML).
                                      html_entity_decode then normalizes &nbsp; / &amp; / &#160; so
@@ -605,7 +605,7 @@
 
 @push('script-push')
 <script>
-// Dispatch status/channel filter — was previously non-functional: the <select>
+// Dispatch status/channel filter - was previously non-functional: the <select>
 // rendered but no listener was attached, so the list stayed on its initial
 // server-rendered 10 rows regardless of what the admin picked. Now hits the
 // existing getDispatches AJAX endpoint (?status=..&channel=..) and re-renders

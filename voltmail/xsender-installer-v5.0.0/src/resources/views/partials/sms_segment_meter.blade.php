@@ -1,9 +1,9 @@
 {{--
-    SMS Segment Meter — reusable partial. Attaches to every SMS composer.
+    SMS Segment Meter - reusable partial. Attaches to every SMS composer.
 
     Wires a live GSM-7 vs UCS-2 detection + segment counter matching the
     server-side `sms_segment_count()` helper. Users can see exactly how many
-    credits a message will cost BEFORE they send — matches the customer's
+    credits a message will cost BEFORE they send - matches the customer's
     request that 400-char messages should not appear identical to 160-char.
 
     Attach a `<textarea id="message">` and a meter block:
@@ -15,7 +15,7 @@
     'use strict';
 
     // GSM 03.38 basic + extension alphabet. Must stay in sync with
-    // sms_detect_encoding() in helper.php — any divergence gives users a
+    // sms_detect_encoding() in helper.php - any divergence gives users a
     // segment count on-screen that does not match what they get billed for.
     var GSM = {};
     (
@@ -48,7 +48,7 @@
             if (units <= 160) return { encoding: 'GSM-7', chars: units, segments: 1, capacity: 160 };
             return { encoding: 'GSM-7', chars: units, segments: Math.ceil(units / 153), capacity: 153 };
         }
-        // UCS-2 — surrogate-pair emoji cost 2 UCS-2 units each.
+        // UCS-2 - surrogate-pair emoji cost 2 UCS-2 units each.
         var len = 0;
         chars(text).forEach(function (c) {
             len += (c.codePointAt(0) > 0xFFFF) ? 2 : 1;

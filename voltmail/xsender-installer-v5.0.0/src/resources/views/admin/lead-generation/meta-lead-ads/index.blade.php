@@ -41,7 +41,7 @@
                             @if($verifyToken)
                                 <code>{{ $verifyToken }}</code>
                             @else
-                                <em class="text-warning">{{ translate('Not set — configure in Settings → System → Meta Lead Ads verify token.') }}</em>
+                                <em class="text-warning">{{ translate('Not set - configure in Settings → System → Meta Lead Ads verify token.') }}</em>
                             @endif
                         </td>
                     </tr>
@@ -72,8 +72,8 @@
                                     <div class="small">{{ $sub->page_name ?: 'Page #' . $sub->page_id }}</div>
                                     <div class="small text-muted">{{ $sub->form_name ?: 'Form #' . $sub->form_id }}</div>
                                 </td>
-                                <td>{{ optional(\App\Models\ContactGroup::find($sub->contact_group_id))->name ?? '—' }}</td>
-                                <td>{{ optional(\App\Models\Automation\AutomationWorkflow::find($sub->workflow_id))->name ?? '—' }}</td>
+                                <td>{{ optional(\App\Models\ContactGroup::find($sub->contact_group_id))->name ?? '-' }}</td>
+                                <td>{{ optional(\App\Models\Automation\AutomationWorkflow::find($sub->workflow_id))->name ?? '-' }}</td>
                                 <td>{{ $sub->leads_imported }}</td>
                                 <td>
                                     @if($sub->is_active)

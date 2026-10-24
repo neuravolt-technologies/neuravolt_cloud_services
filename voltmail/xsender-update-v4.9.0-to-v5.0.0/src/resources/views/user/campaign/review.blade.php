@@ -172,7 +172,7 @@
                             <div class="message-content">
                                 @if($channelValue === 'email')
                                     {{-- Content injected via JS + document.write() instead of a
-                                         srcdoc attribute — v4.7.0.2 shipped a srcdoc whose escape
+                                         srcdoc attribute - v4.7.0.2 shipped a srcdoc whose escape
                                          layer leaked backslashes into the rendered HTML, so users
                                          saw the raw `<!DOCTYPE html>...<meta charset=\"utf-8\">`
                                          as text instead of a rendered email. @json is XSS-safe. --}}

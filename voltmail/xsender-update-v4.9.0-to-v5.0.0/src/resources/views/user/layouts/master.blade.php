@@ -11,7 +11,7 @@
         // in user/partials/sidebar.blade.php.
         //
         // Top-level items WITHOUT a submenu drawer (Dashboard, Gateway, Settings, Plans, Support
-        // index pages, etc.) MUST NOT be in this list — otherwise main-body shrinks to
+        // index pages, etc.) MUST NOT be in this list - otherwise main-body shrinks to
         // calc(100% - sidebar - submenu) but no submenu renders, leaving a blank middle column.
         //
         // Keep this list in sync with the `$is*Active` arrays in user/partials/sidebar.blade.php.

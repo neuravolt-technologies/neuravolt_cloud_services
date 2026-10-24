@@ -4,7 +4,7 @@
     <div class="container-fluid px-0 main-content">
         <div class="page-header">
             <div class="page-header-left">
-                <h2>{{ translate('Automation — How It Works') }}</h2>
+                <h2>{{ translate('Automation - How It Works') }}</h2>
                 <div class="breadcrumb-wrapper">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">

@@ -732,7 +732,7 @@
             pollCount++;
             if (pollCount > maxPollCount) {
                 clearInterval(checkInterval);
-                showError('{{ translate("Scraping is taking too long. Please check if your queue worker/cron is running. The job may still complete in the background — check the results page later.") }}');
+                showError('{{ translate("Scraping is taking too long. Please check if your queue worker/cron is running. The job may still complete in the background - check the results page later.") }}');
                 return;
             }
             checkJobStatus(jobId);
@@ -755,7 +755,7 @@
                         clearInterval(checkInterval);
                         showError(data.error_message || '{{ translate("Job failed") }}');
                     } else if (data.status === 'pending' && pollCount > 15) {
-                        // Still pending after 30 seconds — queue worker likely not running
+                        // Still pending after 30 seconds - queue worker likely not running
                         $('#statusText').html('<span class="text-warning"><i class="ri-error-warning-line"></i> {{ translate("Job is queued but not processing. Please ensure your cron job or queue worker is running.") }}</span>');
                     }
                 }

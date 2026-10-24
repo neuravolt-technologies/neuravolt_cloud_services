@@ -41,7 +41,10 @@
                                     <small class="text-muted ms-2">{{ translate('Verified') }}: {{ $domain->verified_at->diffForHumans() }}</small>
                                 @endif
                             </div>
-                            <div class="d-flex gap-2">
+                            <div class="d-flex flex-wrap gap-2">
+                                <button type="button" class="i-btn btn--dark outline btn--sm" data-bs-toggle="modal" data-bs-target="#dnsSetupWizardModal">
+                                    <i class="ri-shield-keyhole-line me-1"></i> {{ translate("DNS Guide") }}
+                                </button>
                                 @if($keysGenerated)
                                     <button type="button" class="i-btn btn--primary btn--sm" id="verifyDnsBtn" data-url="{{ route('user.gateway.sending-domain.verify', $domain->uid) }}">
                                         <i class="ri-shield-check-line"></i> {{ translate("Verify DNS Records") }}
@@ -162,6 +165,26 @@
                 </div>
             </div>
 
+            {{-- Minimalist Done-For-You Setup Card --}}
+            <div class="card border mb-4 bg-white">
+                <div class="card-body p-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                    <div>
+                        <span class="fs-13 fw-semibold text-dark">{{ translate("Done-For-You Domain Setup") }}</span>
+                        <small class="text-muted d-block">{{ translate("Our DevOps team can configure SPF, DKIM, DMARC, and tracking domains for ₹2,499 ($29).") }}</small>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn btn-sm btn-outline-secondary fs-12 px-2 py-1" data-bs-toggle="modal" data-bs-target="#dnsSetupWizardModal">
+                            <i class="ri-file-list-3-line me-1"></i> {{ translate("DNS Guide") }}
+                        </button>
+                        <a href="https://wa.me/919202243725?text=Hello%20Neuravolt%20Team%2C%20I%20would%20like%20to%20request%20DNS%20Setup%20for%20{{ $domain->domain }}." 
+                           target="_blank" rel="noopener noreferrer" 
+                           class="btn btn-sm btn-outline-dark fs-12 px-2 py-1">
+                            <i class="ri-whatsapp-line me-1 text-success"></i> {{ translate("Request Setup") }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             {{-- DNS Records --}}
             <div class="card">
                 <div class="card-header">
@@ -265,7 +288,7 @@
                                 <i class="ri-lightbulb-line mt-1 flex-shrink-0"></i>
                                 <div>
                                     <strong>{{ translate("About DKIM Selector") }}</strong>
-                                    <br>{{ translate("This application uses the selector") }} <code>{{ $dnsRecords['dkim']['selector'] }}</code>{{ translate(", which is independent from your server's default DKIM key (if any). Both can coexist without conflict. Your server may already sign emails with its own DKIM selector (e.g., \"default\") — this is normal and both signatures are valid per email standards (RFC 6376).") }}
+                                    <br>{{ translate("This application uses the selector") }} <code>{{ $dnsRecords['dkim']['selector'] }}</code>{{ translate(", which is independent from your server's default DKIM key (if any). Both can coexist without conflict. Your server may already sign emails with its own DKIM selector (e.g., \"default\") - this is normal and both signatures are valid per email standards (RFC 6376).") }}
                                 </div>
                             </div>
                         </div>
@@ -368,6 +391,9 @@
             </div>
         @endif
     </div>
+
+    {{-- Guided DNS Setup & White-Glove Support Modal --}}
+    @include('partials.dns_wizard_modal')
 </main>
 
 @endsection

@@ -216,7 +216,7 @@
         const text = document.getElementById('floatingAiOutput').value;
         if (!text) return;
         if (!lastFocusedField || !document.body.contains(lastFocusedField)) {
-            notify('error', '{{ translate("No target field — click into one first.") }}');
+            notify('error', '{{ translate("No target field - click into one first.") }}');
             return;
         }
         const t = lastFocusedField;

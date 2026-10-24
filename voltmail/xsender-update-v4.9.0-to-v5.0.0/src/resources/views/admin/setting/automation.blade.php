@@ -446,7 +446,7 @@
                         <div class="alert alert-soft-warning mb-4" role="alert">
                             <p class="mb-0 fs-13"><i class="ri-information-line me-1"></i>
                                 <strong>{{ translate("Choose one approach:") }}</strong>
-                                {{ translate("Standard Setup (cron only) is sufficient for most use cases — no supervisor needed. For high-volume sending (10,000+ messages/day), use Supervisor for instant queue processing. If using Supervisor, you still need a cron job for scheduled campaigns and maintenance tasks.") }}
+                                {{ translate("Standard Setup (cron only) is sufficient for most use cases - no supervisor needed. For high-volume sending (10,000+ messages/day), use Supervisor for instant queue processing. If using Supervisor, you still need a cron job for scheduled campaigns and maintenance tasks.") }}
                             </p>
                         </div>
 
@@ -467,7 +467,7 @@
                             <!-- Standard Setup -->
                             <div class="tab-pane fade show active" id="tab-simple">
                                 <div class="alert alert-soft-info mb-4" role="alert">
-                                    <p class="mb-0 fs-14"><i class="ri-terminal-box-line me-1"></i>{{ translate("Configure a single cron entry via SSH terminal. This handles all background jobs including queue processing — no Supervisor needed.") }}</p>
+                                    <p class="mb-0 fs-14"><i class="ri-terminal-box-line me-1"></i>{{ translate("Configure a single cron entry via SSH terminal. This handles all background jobs including queue processing - no Supervisor needed.") }}</p>
                                 </div>
 
                                 @php $basePath = base_path(); @endphp

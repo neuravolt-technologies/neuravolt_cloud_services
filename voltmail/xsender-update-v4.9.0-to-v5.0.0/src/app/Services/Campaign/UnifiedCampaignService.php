@@ -317,6 +317,18 @@ class UnifiedCampaignService
                 // rows and the campaign's Sent count would jump 200%+. The DB
                 // migration also adds a matching UNIQUE index as a hard backstop
                 // (create_campaign_dispatches_unique_index.php).
+                // Compute contact-specific send time if Send Time Optimizer is enabled
+                $scheduledAt = $campaign->schedule_at;
+                if (!empty($campaign->meta_data['optimize_send_time']) || !empty($campaign->optimize_send_time)) {
+                    try {
+                        $channelStr = $channel instanceof \BackedEnum ? $channel->value : (string) $channel;
+                        $scheduledAt = app(\App\Services\CampaignIntelligence\SendTimeOptimizerService::class)
+                            ->getOptimalSendTime($contact, $channelStr);
+                    } catch (\Throwable $e) {
+                        $scheduledAt = $campaign->schedule_at;
+                    }
+                }
+
                 $dispatch = CampaignDispatch::firstOrCreate(
                     [
                         'campaign_id'         => $campaign->id,
@@ -328,7 +340,7 @@ class UnifiedCampaignService
                         'gateway_id'     => $message->gateway_id,
                         'android_sim_id' => $androidSimId,
                         'status'         => DispatchStatus::PENDING,
-                        'scheduled_at'   => $campaign->schedule_at,
+                        'scheduled_at'   => $scheduledAt,
                     ]
                 );
 

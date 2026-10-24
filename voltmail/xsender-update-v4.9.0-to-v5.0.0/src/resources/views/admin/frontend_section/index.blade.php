@@ -93,7 +93,7 @@
                                                     @if($currentImage && $imageUrl)
                                                     <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb;">
                                                         <img src="{{ $imageUrl }}" alt="{{ $image_key }}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 6px; flex-shrink: 0;">
-                                                        <small class="text-muted">{{ translate("Current image") }} — {{ translate("upload new to replace") }}</small>
+                                                        <small class="text-muted">{{ translate("Current image") }} - {{ translate("upload new to replace") }}</small>
                                                     </div>
                                                     @endif
                                                     <input type="file" class="form-control image-preview-input" id="{{ $image_key }}" name="images[{{ @$image_key }}]" placeholder="{{ __(setInputLabel($key)) }}" accept="image/*"/>

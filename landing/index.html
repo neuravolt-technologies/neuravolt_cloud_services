@@ -3,37 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NeuraVolt Cloud — Autonomous Cloud Infrastructure, Web Hosting & Managed Compute</title>
+  <title>NeuraVolt Cloud | Autonomous Cloud Infrastructure, Web Hosting & Managed Compute</title>
   <meta name="description" content="Deploy lightning-fast NVMe cloud hosting, dedicated bare metal compute, and managed container nodes. Backed by 99.99% uptime SLA and NeuraVolt Guardian self-healing SRE.">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=3">
-  <link rel="shortcut icon" href="assets/favicon.ico?v=3">
-  <link rel="apple-touch-icon" href="assets/favicon.png?v=3">
+  <base href="/">
+  <link rel="stylesheet" href="/style.css?v=8">
+  <link rel="icon" type="image/png" href="/assets/favicon.png?v=3">
+  <link rel="shortcut icon" href="/assets/favicon.ico?v=3">
+  <link rel="apple-touch-icon" href="/assets/favicon.png?v=3">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta property="og:site_name" content="NeuraVolt Cloud Services">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://neuravolt.cloud/assets/logos/og_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://neuravolt.cloud/assets/logos/og_preview.png">
+
+
+  <!-- Schema.org Organization & WebSite JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://neuravolt.cloud/#organization",
+        "name": "NeuraVolt Cloud Services",
+        "url": "https://neuravolt.cloud",
+        "logo": "https://neuravolt.cloud/assets/logos/neuravolt_cloud_logo.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "technical support",
+          "email": "support@neuravolt.cloud"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://neuravolt.cloud/#website",
+        "url": "https://neuravolt.cloud",
+        "name": "NeuraVolt Cloud Services",
+        "publisher": {"@id": "https://neuravolt.cloud/#organization"}
+      }
+    ]
+  }
+  </script>
+
+
 </head>
 <body>
 
-  <!-- Header / Navigation (Clean Customer-Facing MNC Standards) -->
+  <!-- Floating Island Header (Capsule Pill Design) -->
   <header>
-    <div class="container nav-wrapper">
-      <a href="#" class="logo-brand">
+    <div class="nav-wrapper">
+      <a href="/" class="logo-brand">
         <img src="assets/logos/neuravolt_cloud_logo.png" alt="NeuraVolt Cloud Services">
       </a>
       
-      <ul class="nav-links">
-        <li><a href="cloud-hosting.html">Cloud Hosting</a></li>
-        <li><a href="cloud-vps.html">VPS & Compute</a></li>
-        <li><a href="managed-n8n.html">Managed n8n</a></li>
-        <li><a href="guardian-sre.html">Guardian SRE</a></li>
-        <li><a href="#pricing">All Plans</a></li>
-      </ul>
+      <!-- Inner Pill Tray for Navigation Links -->
+      <nav class="nav-pill-tray">
+        <ul class="nav-links">
+          <li><a href="/" class="active">Home</a></li>
+          <li><a href="/cloud-hosting">Cloud Hosting</a></li>
+          <li><a href="/vps-hosting">VPS & Compute</a></li>
+          <li><a href="/ai-automation-apps">AI Automations</a></li>
+          <li><a href="#stacks">Developer Stacks</a></li>
+          <li><a href="/guardian-sre">Guardian SRE</a></li>
+          <li><a href="#pricing">All Plans</a></li>
+        </ul>
+      </nav>
 
       <div class="nav-actions">
-        <a href="https://app.neuravolt.cloud" target="_blank" class="btn btn-secondary btn-sm">Client Login</a>
-        <a href="#pricing" class="btn btn-primary btn-sm">Deploy Cloud</a>
+        <a href="https://app.neuravolt.cloud" target="_blank" class="nav-login-link">Client Login</a>
+        <button onclick="openLeadModal('general', 'consultation')" class="nav-cta-btn">
+          <span class="cta-full">Book Consultation</span>
+          <span class="cta-short" style="display:none;">Consult SRE</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
       </div>
+
+      <button class="mobile-menu-btn" onclick="toggleMobileDrawer()" aria-label="Open Navigation Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
   </header>
 
@@ -98,7 +150,7 @@
         <p class="tagline">Starting at ₹149/month</p>
         <p class="description">Optimized for high-concurrency WordPress sites, client portals, and e-commerce stores with automated caching and zero latency.</p>
         <ul class="bento-features">
-          <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>FastPanel & LiteSpeed/Nginx Stack</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>High-Velocity Cloud Web Architecture</span></li>
           <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Free SSL & Unlimited Bandwidth</span></li>
           <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Automated Daily Snapshot Backups</span></li>
           <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>1-Click CMS & Node.js Deployment</span></li>
@@ -149,53 +201,216 @@
     </div>
   </section>
 
-  <!-- Deep Dive: NeuraVolt Guardian™ SRE (Autonomous Defense Layer) -->
+  <!-- Multi-Stack Developer Ecosystem & Dedicated Architecture -->
+  <section id="stacks" class="stacks-section container">
+    <div class="section-header">
+      <span class="section-tag">Beyond WordPress • Any Runtime, Any Scale</span>
+      <h2>Engineered for Modern Stacks & Dedicated Compute</h2>
+      <p>Deploy fullstack JavaScript, Python AI microservices, containerized clusters, and high-IOPS databases on dedicated NVMe hardware with zero throttling.</p>
+    </div>
+
+    <div class="stack-grid">
+
+      <!-- Stack 1: Node.js & Next.js -->
+      <div class="stack-card">
+        <div class="stack-header">
+          <div class="stack-icon-wrapper" style="background: rgba(51, 153, 51, 0.1); border-color: rgba(51, 153, 51, 0.25);">
+            <!-- Node.js Hexagon SVG -->
+            <svg viewBox="0 0 256 289" width="32" height="32" fill="#339933">
+              <path d="M128 0L256 74v141l-128 74L0 215V74L128 0z" fill="#339933" opacity="0.15"/>
+              <path d="M128 0L256 74v141l-128 74L0 215V74L128 0z" fill="none" stroke="#339933" stroke-width="16"/>
+              <path d="M128 42L220 95v100l-92 52-92-52V95l92-53z" fill="#339933" opacity="0.25"/>
+              <text x="128" y="160" font-family="system-ui, sans-serif" font-size="64" font-weight="900" fill="#2E7D32" text-anchor="middle">JS</text>
+            </svg>
+          </div>
+          <span class="stack-badge">v20.x / v22.x LTS</span>
+        </div>
+        <h3>Node.js & Next.js SSR</h3>
+        <p class="stack-tagline">High-Velocity APIs & React Frameworks</p>
+        <p class="stack-desc">Engineered for Next.js SSR, Express, Fastify, and Bun runtimes with automated PM2 cluster orchestration and persistent NVMe caching.</p>
+        <ul class="stack-features">
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Native PM2 cluster & auto-restart watchdog</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Sub-15ms TTFB Anycast edge routing</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Zero-downtime deployment pipelines</span></li>
+        </ul>
+        <button onclick="openLeadModal('stacks', 'stack-nodejs')" class="btn btn-secondary" style="width: 100%;">Configure Node.js Server →</button>
+      </div>
+
+      <!-- Stack 2: Python, FastAPI & Django -->
+      <div class="stack-card">
+        <div class="stack-header">
+          <div class="stack-icon-wrapper" style="background: rgba(55, 118, 171, 0.1); border-color: rgba(55, 118, 171, 0.25);">
+            <!-- Python Dual-Snake SVG -->
+            <svg viewBox="0 0 128 128" width="32" height="32">
+              <path d="M63.5 12C38.3 12 40 23 40 23l.1 11.4h23.7v3.4H30.5S14 36 14 61.5c0 25.5 14.4 24.6 14.4 24.6h8.6v-12.1s-.5-14.4 14.2-14.4h24.4s13.8.2 13.8-13.6V25.7s2-13.7-25.9-13.7zm-14.1 7.4c2.5 0 4.5 2 4.5 4.5s-2 4.5-4.5 4.5-4.5-2-4.5-4.5 2-4.5 4.5-4.5z" fill="#3776AB"/>
+              <path d="M64.5 116c25.2 0 23.5-11 23.5-11l-.1-11.4H64.2v-3.4h33.3s16.5 1.8 16.5-23.7c0-25.5-14.4-24.6-14.4-24.6h-8.6v12.1s.5 14.4-14.2 14.4H52.4s-13.8-.2-13.8 13.6v20.3s-2 13.7 25.9 13.7zm14.1-7.4c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z" fill="#FFD438"/>
+            </svg>
+          </div>
+          <span class="stack-badge">Python 3.12+ • PyTorch</span>
+        </div>
+        <h3>Python, FastAPI & AI</h3>
+        <p class="stack-tagline">Async Microservices & ML Pipelines</p>
+        <p class="stack-desc">Optimized for high-concurrency Uvicorn/FastAPI endpoints, Django enterprise portals, Celery async background queues, and AI inference models.</p>
+        <ul class="stack-features">
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>High-clock vCPUs for rapid CPU ML inference</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Uvicorn + Gunicorn process clustering</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Zero-OOM kernel cgroup memory enforcement</span></li>
+        </ul>
+        <button onclick="openLeadModal('stacks', 'stack-python')" class="btn btn-secondary" style="width: 100%;">Configure Python Server →</button>
+      </div>
+
+      <!-- Stack 3: Docker & Microservices -->
+      <div class="stack-card">
+        <div class="stack-header">
+          <div class="stack-icon-wrapper" style="background: rgba(36, 150, 237, 0.1); border-color: rgba(36, 150, 237, 0.25);">
+            <!-- Docker Whale SVG -->
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="#2496ED">
+              <path d="M22.5 10.5c-.3-.2-1.5-.7-3.1-.1-.4-.8-1-1.4-1.8-1.7l-.4-.2-.2.4c-.6 1-1 2.2-1 3.5 0 .3 0 .5.1.8H2.1C1 13.2.1 14.1.1 15.3c.1 4 3.4 7.2 9.5 7.2 6.7 0 11.2-3.4 12.7-9.5.6.1 1.2 0 1.7-.3.5-.3.8-.8.9-1.3l.1-.6-.8-.3zM4.5 11h2v2h-2v-2zm3 0h2v2h-2v-2zm3 0h2v2h-2v-2zm-3-3h2v2h-2V8zm3 0h2v2h-2V8zm3 0h2v2h-2V8zm-3-3h2v2h-2V5z"/>
+            </svg>
+          </div>
+          <span class="stack-badge">Docker 26.x • Compose</span>
+        </div>
+        <h3>Docker & Container Stacks</h3>
+        <p class="stack-tagline">Zero-Config Isolated Microservices</p>
+        <p class="stack-desc">Run production multi-container architectures with Docker Compose, Portainer, or isolated microservices with full root SSH control.</p>
+        <ul class="stack-features">
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Full root docker daemon & swarm access</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Persistent NVMe volume bindings</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Private bridge & overlay networking</span></li>
+        </ul>
+        <button onclick="openLeadModal('stacks', 'stack-docker')" class="btn btn-secondary" style="width: 100%;">Deploy Docker Cluster →</button>
+      </div>
+
+      <!-- Stack 4: Go & Rust High-Throughput -->
+      <div class="stack-card">
+        <div class="stack-header">
+          <div class="stack-icon-wrapper" style="background: rgba(0, 173, 216, 0.1); border-color: rgba(0, 173, 216, 0.25);">
+            <!-- Go / Fast Binary SVG -->
+            <svg viewBox="0 0 100 100" width="32" height="32" fill="#00ADD8">
+              <path d="M20 35h30v8H20zm0 14h25v8H20zm0 14h30v8H20z" opacity="0.3"/>
+              <path d="M55 25l25 25-25 25V25z" fill="#00ADD8"/>
+              <circle cx="35" cy="50" r="28" fill="none" stroke="#00ADD8" stroke-width="6"/>
+              <path d="M42 42l16 8-16 8v-16z" fill="#00ADD8"/>
+            </svg>
+          </div>
+          <span class="stack-badge">Golang • Rust • gRPC</span>
+        </div>
+        <h3>Go & Rust Micro-Engines</h3>
+        <p class="stack-tagline">Extreme Concurrency & Sub-ms APIs</p>
+        <p class="stack-desc">Deploy compiled Go and Rust binaries designed for 100,000+ simultaneous WebSocket connections, fintech engines, and real-time streaming.</p>
+        <ul class="stack-features">
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Sub-millisecond API execution latency</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>High-frequency CPU clocks up to 4.2 GHz</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Minimal RAM overhead (&lt;10MB idle footprint)</span></li>
+        </ul>
+        <button onclick="openLeadModal('stacks', 'stack-gorust')" class="btn btn-secondary" style="width: 100%;">Configure High-IOPS Server →</button>
+      </div>
+
+      <!-- Stack 5: PostgreSQL & Redis Clusters -->
+      <div class="stack-card">
+        <div class="stack-header">
+          <div class="stack-icon-wrapper" style="background: rgba(51, 103, 145, 0.1); border-color: rgba(51, 103, 145, 0.25);">
+            <!-- PostgreSQL / Database Cluster SVG -->
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="#336791">
+              <ellipse cx="12" cy="5" rx="9" ry="3" fill="#336791" opacity="0.2"/>
+              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" fill="none" stroke="#336791" stroke-width="2"/>
+              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" fill="none" stroke="#336791" stroke-width="2"/>
+              <ellipse cx="12" cy="5" rx="9" ry="3" fill="none" stroke="#336791" stroke-width="2"/>
+              <line x1="12" y1="15" x2="12" y2="22" stroke="#DC382D" stroke-width="2.5"/>
+              <circle cx="12" cy="18" r="3" fill="#DC382D"/>
+            </svg>
+          </div>
+          <span class="stack-badge">Postgres 16 • Redis 7</span>
+        </div>
+        <h3>PostgreSQL, Redis & Mongo</h3>
+        <p class="stack-tagline">High-IOPS Dedicated NVMe Databases</p>
+        <p class="stack-desc">Dedicated NVMe database instances tuned for millions of transactions, WAL replication, in-memory caching, and zero lockup latency.</p>
+        <ul class="stack-features">
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Pure Gen4 PCIe NVMe dedicated disk IOPS</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Automated WAL archiving & snapshot backups</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Redis / Dragonfly in-memory caching layers</span></li>
+        </ul>
+        <button onclick="openLeadModal('stacks', 'stack-database')" class="btn btn-secondary" style="width: 100%;">Deploy Dedicated DB →</button>
+      </div>
+
+      <!-- Stack 6: Modern PHP, Laravel & Headless CMS -->
+      <div class="stack-card">
+        <div class="stack-header">
+          <div class="stack-icon-wrapper" style="background: rgba(255, 45, 32, 0.1); border-color: rgba(255, 45, 32, 0.25);">
+            <!-- Modern PHP / Web Engine SVG -->
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#FF2D20" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2" fill="rgba(255,45,32,0.15)"/>
+              <polyline points="2 17 12 22 22 17"/>
+              <polyline points="2 12 12 17 22 12"/>
+            </svg>
+          </div>
+          <span class="stack-badge">PHP 8.3 • Laravel • CMS</span>
+        </div>
+        <h3>Modern PHP, Laravel & CMS</h3>
+        <p class="stack-tagline">High-Concurrency Web & E-Commerce</p>
+        <p class="stack-desc">Optimized PHP 8.3 FPM with JIT compilation, OPcache, Redis sessions, and Octane acceleration for enterprise Laravel, WooCommerce, and Strapi.</p>
+        <ul class="stack-features">
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>PHP JIT enabled with tuned OPcache limits</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Compatible with Laravel Octane & Swoole</span></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>High-capacity WooCommerce & Strapi CMS</span></li>
+        </ul>
+        <button onclick="openLeadModal('stacks', 'stack-laravel')" class="btn btn-secondary" style="width: 100%;">Configure Web Engine →</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Deep Dive: NeuraVolt Guardian™ SRE 2.0 (Autonomous Defense Layer) -->
   <section id="guardian" class="guardian-section">
     <div class="container">
       <div class="guardian-grid">
         <div class="guardian-content">
-          <div class="guardian-badge">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>Autonomous SRE & Cyber Immunity</span>
+          <div style="margin-bottom: 20px;">
+            <img src="/assets/logos/guardian_logo_dark.png" alt="NeuraVolt Guardian SRE" style="height: 48px; width: auto; max-width: 240px; object-fit: contain;">
           </div>
-          <h2>Zero Downtime.<br><span style="color: #FF7722;">Engineered by Autonomous SRE.</span></h2>
-          <p class="lead">Every NeuraVolt Cloud instance is fortified by our proprietary Guardian SRE engine.</p>
+          <div class="guardian-badge" style="background: rgba(255, 85, 0, 0.15); border-color: rgba(255, 85, 0, 0.4);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF5500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span style="color: #FF7722; font-weight: 700;">Guardian 2.0 • 98 / 100 SRE Score • 117 Tests Passing</span>
+          </div>
+          <h2>Zero Downtime.<br><span style="color: #FF7722;">Autonomous Remediation & Kernel WAF.</span></h2>
+          <p class="lead">Every NeuraVolt Cloud instance is fortified by our proprietary Guardian 2.0 autonomous defense engine.</p>
           <p class="text">
-            Traditional hosting reacts hours after your server crashes. NeuraVolt Guardian operates at the hypervisor and process level, pre-emptively mitigating memory exhaustion, blocking malicious traffic floods, and executing sub-second failovers before users notice an outage.
+            Ab Guardian sirf alerts bhejne wala passive scanner nahi, balki yeh out-of-band host layer par operate karta hai. Malicious webshells ko 1-click me <code>chmod 000</code> quarantine karta hai, rogue administrators ko neutralize karta hai, database bloat vacuum karta hai, aur attacker IPs ko packet level par UFW drop karta hai before Nginx is touched.
           </p>
-          <div class="guardian-actions">
+          <div class="guardian-actions" style="display: flex; gap: 14px; flex-wrap: wrap;">
             <button onclick="openLeadModal('guardian', 'guardian-audit')" class="btn btn-primary">Request Free SRE Audit</button>
+            <a href="/guardian-sre" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.2); color: #FFFFFF;">Explore Guardian 2.0 Platform →</a>
           </div>
         </div>
 
         <div class="pillars-2x2">
           <div class="pillar-box">
             <div class="pillar-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><activity><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></activity></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
             </div>
-            <h4>Autonomous Self-Healing</h4>
-            <p>Daemon monitors node health every 3 seconds, auto-restarting degraded workers before kernel panic.</p>
+            <h4>1-Click File Quarantine</h4>
+            <p>Malicious webshells & droppers moved to /var/quarantine/ with chmod 000 and 1-click permanent purge.</p>
           </div>
           <div class="pillar-box">
             <div class="pillar-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><shield><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></shield></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-            <h4>Hardware DDoS Scrubbing</h4>
-            <p>Layer 3, 4, and 7 perimeter mitigation absorbing malicious spikes without degrading response times.</p>
+            <h4>Kernel Threat Shield</h4>
+            <p>Attacker IPs triggering 500 bursts or probes dropped dynamically via UFW/iptables before reaching Nginx.</p>
           </div>
           <div class="pillar-box">
             <div class="pillar-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><cpu><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></cpu></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="18" y1="8" x2="23" y2="13"/><line x1="23" y1="8" x2="18" y2="13"/></svg>
             </div>
-            <h4>Live Memory Isolation</h4>
-            <p>Sandboxed container execution prevents noisy-neighbor spikes from starving your production apps.</p>
+            <h4>Rogue Admin Neutralize</h4>
+            <p>Out-of-band WP-CLI privilege escalation termination with automated post and content reassignment.</p>
           </div>
           <div class="pillar-box">
             <div class="pillar-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><database><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></database></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
             </div>
-            <h4>Snapshot Failover</h4>
-            <p>Incremental daily snapshot retention enabling instant point-in-time rollbacks within minutes.</p>
+            <h4>Database Bloat Vacuum</h4>
+            <p>Safe ActionScheduler log vacuuming preventing MySQL deadlocks, slow queries, and memory starvation.</p>
           </div>
         </div>
       </div>
@@ -208,6 +423,18 @@
       <span class="section-tag">Transparent Infrastructure Pricing</span>
       <h2>Choose Your Cloud Tier</h2>
       <p>Instant activation, no hidden fees, and high-speed NVMe storage standard on all tiers.</p>
+    </div>
+
+    <!-- Billing Cycle Switcher (Hostinger / DigitalOcean Standard) -->
+    <div class="billing-toggle-container">
+      <span class="billing-label active" id="billingMonthlyLabel" onclick="setBillingCycle(false)">Monthly Billing</span>
+      <label class="billing-switch">
+        <input type="checkbox" id="billingToggle" onchange="toggleBillingCycle(this.checked)">
+        <span class="billing-slider"></span>
+      </label>
+      <span class="billing-label" id="billingAnnualLabel" onclick="setBillingCycle(true)">
+        Annual Billing <span class="annual-save-badge">Save 20% + 2 Months Free</span>
+      </span>
     </div>
 
     <!-- Tabs Switcher -->
@@ -230,13 +457,13 @@
             <h3>Starter Web</h3>
             <p class="plan-desc">For portfolios, blogs, and personal projects needing dependable uptime.</p>
           </div>
-          <div class="price-value">₹149<span>/month</span></div>
+          <div class="price-value" data-monthly="149" data-annual="119">₹149<span>/month</span></div>
           <ul class="price-specs">
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>1 Hosted Website</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>10 GB Gen4 NVMe Storage</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Unmetered High-Speed Bandwidth</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Free Let's Encrypt SSL</span></li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>FastPanel Control Panel</span></li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Modern Cloud Management Suite</span></li>
           </ul>
           <button onclick="openLeadModal('hosting', 'hosting-starter')" class="btn btn-secondary">Deploy Starter Web</button>
         </div>
@@ -248,11 +475,11 @@
             <h3>Business Web</h3>
             <p class="plan-desc">For growing small businesses, active web agencies, and e-commerce stores.</p>
           </div>
-          <div class="price-value">₹299<span>/month</span></div>
+          <div class="price-value" data-monthly="299" data-annual="239">₹299<span>/month</span></div>
           <ul class="price-specs">
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Up to 5 Websites</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>30 GB Gen4 NVMe Storage</span></li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>LiteSpeed Caching & PHP 8.3</span></li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>High-Speed Edge Caching & Modern Runtimes</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Nightly Automated Backups</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Free Domain Migration Support</span></li>
           </ul>
@@ -265,11 +492,11 @@
             <h3>Agency Pro</h3>
             <p class="plan-desc">For web designers and agencies managing multiple production client sites.</p>
           </div>
-          <div class="price-value">₹599<span>/month</span></div>
+          <div class="price-value" data-monthly="599" data-annual="479">₹599<span>/month</span></div>
           <ul class="price-specs">
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Unlimited Hosted Websites</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>75 GB Gen4 NVMe Storage</span></li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Dedicated FastPanel Accounts</span></li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Dedicated Multi-Tenant Isolation</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Guardian SRE Autonomous Healer</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Priority VIP 24/7 Slack Support</span></li>
           </ul>
@@ -277,7 +504,7 @@
         </div>
 
         <div class="product-full-link">
-        <a href="cloud-hosting.html">View Dedicated Cloud Web Hosting Specifications & Benchmarks →</a>
+        <a href="/cloud-hosting">View Dedicated Cloud Web Hosting Specifications & Benchmarks →</a>
       </div>
     </div>
   </div>
@@ -292,7 +519,7 @@
             <h3>Cloud VPS 4G</h3>
             <p class="plan-desc">For modern backend APIs, microservices, and medium traffic apps.</p>
           </div>
-          <div class="price-value">₹1,499<span>/month</span></div>
+          <div class="price-value" data-monthly="1499" data-annual="1199">₹1,499<span>/month</span></div>
           <ul class="price-specs">
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>2 High-Frequency vCPUs</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>4 GB Dedicated RAM</span></li>
@@ -310,7 +537,7 @@
             <h3>Cloud VPS 8G</h3>
             <p class="plan-desc">For production databases, high-load Docker stacks, and SaaS backends.</p>
           </div>
-          <div class="price-value">₹2,799<span>/month</span></div>
+          <div class="price-value" data-monthly="2799" data-annual="2239">₹2,799<span>/month</span></div>
           <ul class="price-specs">
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>4 High-Frequency vCPUs</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>8 GB Dedicated RAM</span></li>
@@ -327,7 +554,7 @@
             <h3>Dedicated Bare Metal</h3>
             <p class="plan-desc">For enterprise workloads requiring 100% physically isolated hardware.</p>
           </div>
-          <div class="price-value">₹4,999<span>/month</span></div>
+          <div class="price-value" data-monthly="4999" data-annual="3999">₹4,999<span>/month</span></div>
           <ul class="price-specs">
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>8 Dedicated Physical Cores</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>32 GB ECC DDR4/DDR5 RAM</span></li>
@@ -339,7 +566,7 @@
         </div>
 
         <div class="product-full-link">
-        <a href="cloud-vps.html">View Dedicated Cloud VPS & Bare Metal Hardware Specifications →</a>
+        <a href="/vps-hosting">View Dedicated Cloud VPS & Bare Metal Hardware Specifications →</a>
       </div>
     </div>
   </div>
@@ -354,7 +581,7 @@
             <h3>n8n Basic</h3>
             <p class="plan-desc">For solopreneurs and developers automating personal or client workflows.</p>
           </div>
-          <div class="price-value">₹999<span>/month</span></div>
+          <div class="price-value" data-monthly="999" data-annual="799">₹999<span>/month</span></div>
           <ul class="price-specs">
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>0.5 Dedicated CPU Core</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>512 MB High-Speed RAM</span></li>
@@ -372,7 +599,7 @@
             <h3>n8n Pro Node</h3>
             <p class="plan-desc">For agencies, production webhooks, CRM sync, and active automated pipelines.</p>
           </div>
-          <div class="price-value">₹1,999<span>/month</span></div>
+          <div class="price-value" data-monthly="1999" data-annual="1599">₹1,999<span>/month</span></div>
           <ul class="price-specs">
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>1.0 Dedicated CPU Core</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>1024 MB High-Speed RAM</span></li>
@@ -389,7 +616,7 @@
             <h3>n8n Heavy Enterprise</h3>
             <p class="plan-desc">For heavy enterprise pipelines, massive queue execution, and AI agent fleets.</p>
           </div>
-          <div class="price-value">₹3,999<span>/month</span></div>
+          <div class="price-value" data-monthly="3999" data-annual="3199">₹3,999<span>/month</span></div>
           <ul class="price-specs">
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>2.0 Dedicated CPU Cores</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>2048 MB High-Speed RAM</span></li>
@@ -401,7 +628,7 @@
         </div>
 
         <div class="product-full-link">
-        <a href="managed-n8n.html">View Dedicated Managed n8n Node Specifications & Integrations →</a>
+        <a href="/n8n-hosting">View Dedicated Managed n8n Node Specifications & Integrations →</a>
       </div>
     </div>
   </div>
@@ -433,7 +660,7 @@
             <h3>Guardian SRE Pro</h3>
             <p class="plan-desc">Continuous autonomous self-healing and proactive crash prevention for live servers.</p>
           </div>
-          <div class="price-value">₹2,499<span>/month</span></div>
+          <div class="price-value" data-monthly="2499" data-annual="1999">₹2,499<span>/month</span></div>
           <ul class="price-specs">
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Up to 3 Server Instances Protected</span></li>
             <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Sub-3s Self-Healing Process Restarts</span></li>
@@ -491,7 +718,7 @@
           </tr>
           <tr>
             <td><strong>Server Control Level</strong></td>
-            <td>FastPanel GUI</td>
+            <td>Intuitive Cloud Web GUI</td>
             <td class="highlight-col"><strong>Full Root SSH Access</strong></td>
             <td>Isolated Container Runtime</td>
           </tr>
@@ -555,7 +782,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-answer">
-          <p>Yes! We offer 100% free white-glove migration for WordPress websites, cPanel/FastPanel backups, and n8n workflow JSON dumps. Our cloud engineers ensure zero downtime during your DNS cutover.</p>
+          <p>Yes! We offer 100% free white-glove migration for WordPress websites, external host backups, and n8n workflow JSON dumps. Our cloud engineers ensure zero downtime during your DNS cutover.</p>
         </div>
       </div>
 
@@ -657,8 +884,8 @@
           </div>
 
           <div class="form-group">
-            <label for="leadNotes">Custom Notes / Specs (Optional)</label>
-            <textarea id="leadNotes" class="form-textarea" placeholder="Provide any custom RAM, storage, or migration requirements..."></textarea>
+            <label for="leadNotes">Custom Specs / Hardware & Migration Notes (Optional)</label>
+            <textarea id="leadNotes" class="form-textarea" placeholder="Specify custom vCPU, RAM, NVMe size, OS (Ubuntu/Debian), or existing server migration details..."></textarea>
           </div>
 
           <div class="modal-footer">
@@ -687,48 +914,145 @@
   <footer>
     <div class="container">
       <div class="footer-grid">
+        <!-- 1. Brand & Contact Details -->
         <div class="footer-brand">
-          <img src="assets/logos/neuravolt_cloud_logo_dark.png?v=4" alt="NeuraVolt Cloud Services" style="height: 44px; max-width: 220px; object-fit: contain; margin-bottom: 8px;">
-          <p>Next-generation autonomous cloud infrastructure, high-frequency compute, and self-healing reliability engineered for modern enterprises.</p>
+          <a href="/" class="logo-brand" style="margin-bottom: 12px; display: inline-block;">
+            <img src="/assets/logos/neuravolt_cloud_logo.png" alt="NeuraVolt Cloud Services" style="height: 36px; width: auto; max-width: 180px; object-fit: contain; filter: brightness(1.1);">
+          </a>
+          <p>
+            AI-first autonomous cloud infrastructure: ultra-fast Gen4 NVMe hosting, dedicated VPS compute, managed AI agent workflows, and continuous Guardian SRE self-healing defense.
+          </p>
+
+          <div class="footer-contact-row">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>Work Email: <a href="mailto:info@neuravolt.in">info@neuravolt.in</a></span>
+          </div>
+
+          <div class="footer-contact-row">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>Phone / WhatsApp: <a href="tel:+919202243725">+91 9202243725</a></span>
+          </div>
+
+          <form class="footer-newsletter" onsubmit="event.preventDefault(); alert('Thank you for subscribing to NeuraVolt Cloud infrastructure updates!');">
+            <input type="email" placeholder="your@email.com" required>
+            <button type="submit">Join</button>
+          </form>
+
+          <div class="footer-social-row">
+            <a href="https://linkedin.com/company/neuravolt" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://instagram.com/neuravolt" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://wellfound.com/company/neuravolt" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="Wellfound">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+            </a>
+            <a href="https://wa.me/919202243725" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </a>
+          </div>
         </div>
 
+        <!-- 2. Office Addresses (Amity HQ, Gurugram Branch, Registered Office) -->
+        <div class="footer-offices-col">
+          <h4>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF7722" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            OFFICE ADDRESSES
+          </h4>
+
+          <div class="footer-office-card">
+            <div class="office-card-header">
+              <span class="office-card-title">Corporate Office 1 (HQ)</span>
+              <span class="office-badge badge-hq">HQ</span>
+            </div>
+            <p class="office-card-address">
+              Neuravolt Technology, E Block, 511, Amity Innovation Center, Gwalior, MP - 474020, India
+            </p>
+          </div>
+
+          <div class="footer-office-card">
+            <div class="office-card-header">
+              <span class="office-card-title">Corporate Office 2 (Gurugram Branch)</span>
+              <span class="office-badge badge-branch">Branch</span>
+            </div>
+            <p class="office-card-address">
+              Sector 23A, Gurugram, Haryana - 122017, India
+            </p>
+          </div>
+
+          <div class="footer-office-card">
+            <div class="office-card-header">
+              <span class="office-card-title">Registered Office</span>
+              <span class="office-badge badge-legal">Legal</span>
+            </div>
+            <p class="office-card-address">
+              House No 2, Sai Dham Colony, DD Nagar, Gwalior, Madhya Pradesh - 474005, India
+            </p>
+          </div>
+        </div>
+
+        <!-- 3. Cloud Services & Products -->
         <div class="footer-col">
-          <h4>Infrastructure Products</h4>
+          <h4>SERVICES & PRODUCTS</h4>
           <ul>
-            <li><a href="cloud-hosting.html">High-Speed Cloud Web Hosting</a></li>
-            <li><a href="cloud-vps.html">Cloud VPS & Dedicated Compute</a></li>
-            <li><a href="managed-n8n.html">Managed n8n Automation Nodes</a></li>
-            <li><a href="guardian-sre.html">Guardian SRE Self-Healing Watchdog</a></li>
-            <li><a href="#pricing">All Infrastructure Pricing</a></li>
+            <li><a href="/cloud-hosting">Enterprise Web Hosting</a></li>
+            <li><a href="/vps-hosting">Dedicated VPS Compute</a></li>
+            <li><a href="/ai-automation-apps">AI Automation Apps</a></li>
+            <li><a href="/n8n-hosting">Managed Automation Nodes</a></li>
+            <li><a href="/guardian-sre">Guardian SRE Defense</a></li>
+            <li><a href="/#stacks">Developer Stacks</a></li>
+            <li><a href="https://neuravolt.in" target="_blank" rel="noopener">nORBIT Enterprise OS</a></li>
+            <li><a href="/sla">99.99% Uptime SLA</a></li>
           </ul>
         </div>
 
+        <!-- 4. Company -->
         <div class="footer-col">
-          <h4>Customer Portals</h4>
+          <h4>COMPANY</h4>
           <ul>
-            <li><a href="https://app.neuravolt.cloud" target="_blank" style="color: #FF7722; font-weight: 600;">🚀 Client Portal (n8n)</a></li>
-            <li><a href="https://reach.neuravolt.cloud" target="_blank">⚡ NeuraVolt Reach</a></li>
-            <li><a href="https://monitor.neuravolt.cloud" target="_blank">📊 Metrics Telemetry</a></li>
+            <li><a href="https://neuravolt.in" target="_blank" rel="noopener">NeuraVolt Technology (Parent)</a></li>
+            <li><a href="https://app.neuravolt.cloud" target="_blank" rel="noopener">Client Management Portal</a></li>
+            <li><a href="/#pricing">Billing & Plans</a></li>
+            <li><a href="/guardian-sre">Security Architecture</a></li>
+            <li><a href="mailto:support@neuravolt.cloud">Technical Support Desk</a></li>
+            <li><a href="mailto:info@neuravolt.in">Enterprise Sales</a></li>
           </ul>
         </div>
 
+        <!-- 5. Legal -->
         <div class="footer-col">
-          <h4>Company & Support</h4>
+          <h4>LEGAL</h4>
           <ul>
-            <li><a href="https://neuravolt.in" target="_blank">NeuraVolt Technologies</a></li>
-            <li><a href="https://neuravolt.in/privacy" target="_blank">Privacy Policy</a></li>
-            <li><a href="https://neuravolt.in/terms" target="_blank">Terms of Service</a></li>
-            <li><a href="mailto:info@neuravolt.in">info@neuravolt.in</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms & Conditions</a></li>
+            <li><a href="/sla">Service Level Agreement (SLA)</a></li>
+            <li><a href="/terms#refund">Refund Policy</a></li>
+            <li><a href="/privacy#cookies">Cookie Policy</a></li>
+            <li><a href="/terms#disclaimer">Disclaimer</a></li>
+            <li><a href="/sitemap.xml">XML Sitemap</a></li>
           </ul>
         </div>
       </div>
 
+      <!-- Footer Bottom Bar -->
       <div class="footer-bottom">
         <div>
-          &copy; 2026 NeuraVolt Cloud Services. All rights reserved. Powered by <a href="https://neuravolt.in" target="_blank">VOLTNOVATE SOLUTIONS LLP</a>.
+          &copy; 2026 Neuravolt. All Rights Reserved.
         </div>
-        <div>
-          <span>Autonomous Reliability • Zero Downtime • Continuous SRE Defense</span>
+        <div class="footer-bottom-powered">
+          <span>Powered by <a href="https://neuravolt.in" target="_blank" rel="noopener"><strong>VOLTNOVATE SOLUTIONS LLP</strong></a></span>
+          <div class="footer-bottom-socials">
+            <a href="https://linkedin.com/company/neuravolt" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://instagram.com/neuravolt" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://wa.me/919202243725" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -765,16 +1089,88 @@
       item.classList.toggle('active');
     }
 
+    // --- BILLING CYCLE TOGGLE (MONTHLY / ANNUAL) ---
+    let isAnnualBilling = false;
+
+    function setBillingCycle(annual) {
+      const toggle = document.getElementById('billingToggle');
+      if (toggle) {
+        toggle.checked = annual;
+        toggleBillingCycle(annual);
+      }
+    }
+
+    function toggleBillingCycle(annual) {
+      isAnnualBilling = annual;
+      const monthlyLabel = document.getElementById('billingMonthlyLabel');
+      const annualLabel = document.getElementById('billingAnnualLabel');
+
+      if (monthlyLabel && annualLabel) {
+        if (annual) {
+          monthlyLabel.classList.remove('active');
+          annualLabel.classList.add('active');
+        } else {
+          monthlyLabel.classList.add('active');
+          annualLabel.classList.remove('active');
+        }
+      }
+
+      const priceValues = document.querySelectorAll('.price-value');
+      priceValues.forEach(el => {
+        const monthly = el.getAttribute('data-monthly');
+        const annualPrice = el.getAttribute('data-annual');
+        if (!monthly || !annualPrice) return;
+
+        if (annual) {
+          const num = parseInt(annualPrice, 10);
+          el.innerHTML = `₹${num.toLocaleString('en-IN')}<span>/month</span><small style="display:block;font-size:0.75rem;color:#059669;font-weight:600;margin-top:2px;">billed annually</small>`;
+        } else {
+          const num = parseInt(monthly, 10);
+          el.innerHTML = `₹${num.toLocaleString('en-IN')}<span>/month</span>`;
+        }
+      });
+    }
+
     // --- CONTEXT-AWARE MODAL SYSTEM ---
     const SERVICE_CATEGORIES = {
+      stacks: {
+        badge: "Dedicated Custom Architecture",
+        title: "Deploy Dedicated Stack Infrastructure",
+        desc: "Custom-configured compute for your stack. Our SRE team provisions your isolated environment with custom CPU/RAM in <60 minutes.",
+        options: [
+          { id: "stack-nodejs", label: "Node.js & Next.js Dedicated Cloud Node (v20/v22 LTS)", default: true },
+          { id: "stack-python", label: "Python, FastAPI & AI Inference Compute (High-Clock Cores)" },
+          { id: "stack-docker", label: "Docker Container Cluster & Microservices (Full Root)" },
+          { id: "stack-gorust", label: "Go & Rust High-Throughput Engine (Low Latency)" },
+          { id: "stack-database", label: "Dedicated PostgreSQL / Redis NVMe Database Cluster" },
+          { id: "stack-laravel", label: "Modern PHP 8.3 / Laravel Enterprise Engine" }
+        ]
+      },
+      general: {
+        badge: "Architecture Consultation",
+        title: "Book a Free Cloud Architecture Consultation",
+        desc: "Discuss your custom compute, database, migration, or dedicated hardware requirements with a Senior SRE.",
+        options: [
+          { id: "consultation", label: "Free Cloud & Dedicated Architecture Consultation", default: true },
+          { id: "stack-nodejs", label: "Node.js & Next.js Dedicated Cloud Node" },
+          { id: "stack-python", label: "Python / FastAPI / AI Inference Dedicated Machine" },
+          { id: "stack-docker", label: "Docker Container Cluster & Microservices" },
+          { id: "vps-4g", label: "Cloud VPS 4G - ₹1,499/mo (2 vCPU, 4GB RAM)" },
+          { id: "vps-8g", label: "Cloud VPS 8G - ₹2,799/mo (4 vCPU, 8GB RAM)" },
+          { id: "bare-metal", label: "Dedicated Bare Metal - ₹4,999/mo" },
+          { id: "n8n-pro", label: "Managed n8n Automation Node" },
+          { id: "hosting-business", label: "NV Ultra Web & WordPress Hosting" },
+          { id: "guardian-audit", label: "Complimentary SRE Architecture Audit (FREE)" }
+        ]
+      },
       hosting: {
         badge: "NV Ultra Web Hosting",
         title: "Deploy NV Ultra Web Hosting",
-        desc: "High-concurrency NVMe shared cloud powered by FastPanel and LiteSpeed/Nginx.",
+        desc: "High-concurrency NVMe cloud web hosting engineered for extreme speed and conversions.",
         options: [
-          { id: "hosting-starter", label: "Starter Web — ₹149/mo (1 Website, 10GB NVMe)" },
-          { id: "hosting-business", label: "Business Web — ₹299/mo (5 Websites, 30GB NVMe, Free SSL)", default: true },
-          { id: "hosting-agency", label: "Agency Pro — ₹599/mo (Unlimited Sites, 75GB NVMe, Priority)" }
+          { id: "hosting-starter", label: "Starter Web - ₹149/mo (1 Website, 10GB NVMe)" },
+          { id: "hosting-business", label: "Business Web - ₹299/mo (5 Websites, 30GB NVMe, Free SSL)", default: true },
+          { id: "hosting-agency", label: "Agency Pro - ₹599/mo (Unlimited Sites, 75GB NVMe, Priority)" }
         ]
       },
       vps: {
@@ -782,9 +1178,9 @@
         title: "Provision Cloud VPS / Bare Metal",
         desc: "Dedicated virtual CPU and raw compute with full root SSH control and 1Gbps uplink.",
         options: [
-          { id: "vps-4g", label: "Cloud VPS 4G — ₹1,499/mo (2 vCPU, 4GB RAM, 80GB NVMe)" },
-          { id: "vps-8g", label: "Cloud VPS 8G — ₹2,799/mo (4 vCPU, 8GB RAM, 160GB NVMe)", default: true },
-          { id: "bare-metal", label: "Dedicated Bare Metal — ₹4,999/mo (8 Physical Cores, 32GB RAM, 500GB NVMe)" }
+          { id: "vps-4g", label: "Cloud VPS 4G - ₹1,499/mo (2 vCPU, 4GB RAM, 80GB NVMe)" },
+          { id: "vps-8g", label: "Cloud VPS 8G - ₹2,799/mo (4 vCPU, 8GB RAM, 160GB NVMe)", default: true },
+          { id: "bare-metal", label: "Dedicated Bare Metal - ₹4,999/mo (8 Physical Cores, 32GB RAM, 500GB NVMe)" }
         ]
       },
       nodes: {
@@ -792,9 +1188,9 @@
         title: "Deploy Managed n8n Automation Node",
         desc: "Isolated Docker runtime for production workflow automations, webhooks, and AI pipelines.",
         options: [
-          { id: "n8n-basic", label: "n8n Basic — ₹999/mo (0.5 CPU, 512MB RAM, Auto SSL)" },
-          { id: "n8n-pro", label: "n8n Pro Node — ₹1,999/mo (1.0 CPU, 1024MB RAM, Snapshots)", default: true },
-          { id: "n8n-heavy", label: "n8n Heavy Enterprise — ₹3,999/mo (2.0 CPU, 2048MB RAM, Priority SRE)" },
+          { id: "n8n-basic", label: "n8n Basic - ₹999/mo (0.5 CPU, 512MB RAM, Auto SSL)" },
+          { id: "n8n-pro", label: "n8n Pro Node - ₹1,999/mo (1.0 CPU, 1024MB RAM, Snapshots)", default: true },
+          { id: "n8n-heavy", label: "n8n Heavy Enterprise - ₹3,999/mo (2.0 CPU, 2048MB RAM, Priority SRE)" },
           { id: "n8n-custom", label: "Custom Multi-Node Automation Cluster (Enterprise)" }
         ]
       },
@@ -804,7 +1200,7 @@
         desc: "Autonomous self-healing SRE engine providing sub-3s crash mitigation and uptime guarantees.",
         options: [
           { id: "guardian-audit", label: "Complimentary SRE Architecture & Downtime Audit (FREE)", default: true },
-          { id: "guardian-pro", label: "Guardian SRE Pro — ₹2,499/mo (3 Servers, Autonomous Healer)" },
+          { id: "guardian-pro", label: "Guardian SRE Pro - ₹2,499/mo (3 Servers, Autonomous Healer)" },
           { id: "guardian-enterprise", label: "Guardian Enterprise SLA (24/7 Dedicated SRE Squad)" }
         ]
       }
@@ -1043,5 +1439,44 @@
       }
     }
   </script>
+
+  <!-- Mobile Navigation Drawer Overlay & Panel -->
+  <div id="mobileDrawerOverlay" class="mobile-drawer-overlay" onclick="toggleMobileDrawer()"></div>
+  <div id="mobileDrawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <img src="/assets/logos/neuravolt_cloud_logo.png" alt="NeuraVolt Cloud" style="height: 32px; width: auto;">
+      <button class="mobile-drawer-close" onclick="toggleMobileDrawer()">&times;</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="/cloud-hosting">Cloud Hosting</a></li>
+      <li><a href="/vps-hosting">VPS & Compute</a></li>
+      <li><a href="/ai-automation-apps">AI Automations</a></li>
+      <li><a href="#stacks" onclick="toggleMobileDrawer()">Developer Stacks</a></li>
+      <li><a href="/guardian-sre" style="color: #FF7722; font-weight: 700;">Guardian SRE (98/100)</a></li>
+      <li><a href="/#pricing">All Plans</a></li>
+    </ul>
+    <div class="mobile-drawer-actions">
+      <a href="https://app.neuravolt.cloud" target="_blank" class="btn btn-secondary btn-sm" style="text-align: center;">Client Login</a>
+      <button onclick="toggleMobileDrawer(); openLeadModal('general', 'consultation')" class="btn btn-primary btn-sm" style="text-align: center;">Book Consultation</button>
+    </div>
+  </div>
+
+  <!-- WhatsApp Enterprise Floating Quick Connect -->
+  <a href="https://wa.me/?text=Hello%20NeuraVolt%20Team%2C%20I%20would%20like%20to%20inquire%20about%20Cloud%20Infrastructure%20and%20Guardian%20SRE" target="_blank" rel="noopener noreferrer" class="whatsapp-float-btn" aria-label="Chat on WhatsApp">
+    <span class="whatsapp-tooltip">Chat with Enterprise SRE Support</span>
+    <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.072-2.148-.528-1.503-.62-2.455-2.16-2.53-2.26-.075-.101-.616-.818-.616-1.56 0-.742.39-1.109.53-1.258.14-.149.308-.186.411-.186.103 0 .205.001.294.006.096.005.226-.036.353.271.132.321.452 1.104.492 1.185.04.081.066.176.012.281-.053.106-.08.172-.16.265-.08.093-.169.208-.242.279-.08.077-.164.161-.07.322.094.161.417.689.896 1.115.617.549 1.137.72 1.298.8.161.08.256.071.352-.04.096-.11.411-.478.521-.643.11-.164.221-.137.371-.082.151.055.955.45 1.12.532.164.082.274.123.315.191.041.07.041.405-.103.81zM12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.662 1.435 5.176L2 22l4.954-1.399A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+  </a>
+
+  <script>
+    function toggleMobileDrawer() {
+      const drawer = document.getElementById('mobileDrawer');
+      const overlay = document.getElementById('mobileDrawerOverlay');
+      if (drawer && overlay) {
+        drawer.classList.toggle('active');
+        overlay.classList.toggle('active');
+      }
+    }
+  </script>
+
 </body>
 </html>

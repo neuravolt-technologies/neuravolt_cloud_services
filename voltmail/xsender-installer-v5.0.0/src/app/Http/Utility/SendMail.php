@@ -234,8 +234,8 @@ class SendMail
             $mail->Timeout    = 30;
             $mail->CharSet    = PHPMailer::CHARSET_UTF8;
 
-            // Encryption
-            if ($encryption === 'ssl') {
+            // Encryption: Port 465 is always implicit SSL (SMTPS); Port 587 uses STARTTLS
+            if ($port == 465 || $encryption === 'ssl') {
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             } elseif (in_array($encryption, ['tls', 'starttls'])) {
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;

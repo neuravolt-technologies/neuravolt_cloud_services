@@ -200,6 +200,164 @@ class ImapClient
     }
 
     /**
+     * Search for messages matching a subject substring
+     */
+    public function searchSubject(string $subject): array
+    {
+        if ($this->transport) {
+            return ($this->transport)('searchSubject', ['subject' => $subject]);
+        }
+
+        $cleanSubject = addcslashes(substr($subject, 0, 35), '"\\');
+        $response = $this->sendCommand("UID SEARCH SUBJECT \"{$cleanSubject}\"");
+
+        $uids = [];
+        foreach ($response as $line) {
+            if (str_starts_with($line, '* SEARCH')) {
+                $parts = explode(' ', trim($line));
+                array_shift($parts);
+                array_shift($parts);
+                foreach ($parts as $uid) {
+                    if (is_numeric($uid) && (int) $uid > 0) {
+                        $uids[] = (int) $uid;
+                    }
+                }
+            }
+        }
+
+        return $uids;
+    }
+
+    /**
+     * Search messages by custom criteria (e.g., 'UNSEEN', 'ALL')
+     */
+    public function search(string $criteria = 'ALL'): array
+    {
+        if ($this->transport) {
+            return ($this->transport)('search', ['criteria' => $criteria]);
+        }
+
+        $response = $this->sendCommand("UID SEARCH {$criteria}");
+        $uids = [];
+
+        foreach ($response as $line) {
+            if (str_starts_with($line, '* SEARCH')) {
+                $parts = explode(' ', trim($line));
+                array_shift($parts);
+                array_shift($parts);
+                foreach ($parts as $uid) {
+                    if (is_numeric($uid) && (int) $uid > 0) {
+                        $uids[] = (int) $uid;
+                    }
+                }
+            }
+        }
+
+        return $uids;
+    }
+
+    /**
+     * Fetch RFC 822 email headers for a message UID
+     */
+    public function fetchHeader(int $uid): string
+    {
+        if ($this->transport) {
+            return ($this->transport)('fetchHeader', ['uid' => $uid]);
+        }
+
+        $response = $this->sendCommand("UID FETCH {$uid} (BODY.PEEK[HEADER])");
+        return implode("\r\n", $response);
+    }
+
+    /**
+     * Fetch plain text body snippet for a message UID
+     */
+    public function fetchBodyText(int $uid): string
+    {
+        if ($this->transport) {
+            return ($this->transport)('fetchBodyText', ['uid' => $uid]);
+        }
+
+        $response = $this->sendCommand("UID FETCH {$uid} (BODY.PEEK[TEXT])");
+        $bodyLines = [];
+        $capture = false;
+
+        foreach ($response as $line) {
+            if (preg_match('/^TAG\d+\s+(OK|NO|BAD)/i', $line)) {
+                break;
+            }
+            if (preg_match('/^\*\s+\d+\s+FETCH/i', $line)) {
+                $capture = true;
+                continue;
+            }
+            if ($capture) {
+                $bodyLines[] = $line;
+            }
+        }
+
+        $rawBody = implode("\n", $bodyLines);
+        return trim(strip_tags($rawBody)) ?: 'Email message received.';
+    }
+
+    /**
+     * Mark message as seen / read
+     */
+    public function markAsRead(int $uid): bool
+    {
+        if ($this->transport) {
+            return ($this->transport)('markAsRead', ['uid' => $uid]);
+        }
+        $response = $this->sendCommand("UID STORE {$uid} +FLAGS (\\Seen)");
+        return $this->isSuccess($response);
+    }
+
+    /**
+     * Move message to a folder (auto-creates folder, handles namespace)
+     */
+    public function moveToFolder(int $uid, string $targetFolder = 'Warmup'): bool
+    {
+        if ($this->transport) {
+            return ($this->transport)('moveToFolder', ['uid' => $uid, 'folder' => $targetFolder]);
+        }
+
+        // 1. Try creating folder directly and with INBOX. prefix
+        $this->ensureFolderExists($targetFolder);
+
+        // 2. Try direct UID MOVE
+        $res = $this->sendCommand("UID MOVE {$uid} \"{$targetFolder}\"");
+        if ($this->isSuccess($res)) {
+            return true;
+        }
+
+        // 3. Try INBOX. prefixed UID MOVE
+        $res = $this->sendCommand("UID MOVE {$uid} \"INBOX.{$targetFolder}\"");
+        if ($this->isSuccess($res)) {
+            return true;
+        }
+
+        // 4. Fallback: UID COPY + STORE \Deleted + EXPUNGE
+        $copy = $this->sendCommand("UID COPY {$uid} \"{$targetFolder}\"");
+        if (!$this->isSuccess($copy)) {
+            $copy = $this->sendCommand("UID COPY {$uid} \"INBOX.{$targetFolder}\"");
+        }
+        if ($this->isSuccess($copy)) {
+            $this->sendCommand("UID STORE {$uid} +FLAGS (\\Deleted)");
+            $this->sendCommand("EXPUNGE");
+            return true;
+        }
+
+        return false;
+    }
+
+    public function ensureFolderExists(string $folder): void
+    {
+        $res = $this->sendCommand("CREATE \"{$folder}\"");
+        if (!$this->isSuccess($res)) {
+            $this->sendCommand("CREATE \"INBOX.{$folder}\"");
+        }
+    }
+
+    /**
      * Disconnect / Logout
      */
     public function disconnect(): void

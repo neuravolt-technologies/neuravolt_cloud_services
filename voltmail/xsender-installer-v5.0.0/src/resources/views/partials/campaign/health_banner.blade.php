@@ -112,7 +112,7 @@
             if (data.overall && data.overall.healthy) {
                 summary.textContent = '{{ translate("All checks passed. Campaign infrastructure is healthy.") }}';
             } else {
-                summary.textContent = '{{ translate("Issues detected — see details below.") }}';
+                summary.textContent = '{{ translate("Issues detected - see details below.") }}';
             }
         } catch (e) {
             details.classList.remove('d-none');

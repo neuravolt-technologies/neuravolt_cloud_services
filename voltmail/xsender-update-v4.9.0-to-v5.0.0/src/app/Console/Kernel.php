@@ -179,6 +179,64 @@ class Kernel extends ConsoleKernel
             }
         })->everyFiveMinutes()->name('fix:storage-permissions')->withoutOverlapping();
 
+        // Email Warmup Engine Scheduler (generate daily quota slots)
+        $schedule->command('warmup:schedule')
+            ->hourly()
+            ->name('warmup:schedule')
+            ->withoutOverlapping(10);
+
+        // Email Warmup Engine Dispatcher (process due slots)
+        $schedule->command('warmup:dispatch --batch=25')
+            ->everyMinute()
+            ->name('warmup:dispatch')
+            ->withoutOverlapping(5);
+
+        // Email Warmup Engine Inbound IMAP Verifier (observe inbox/spam placement)
+        $schedule->command('warmup:verify')
+            ->everyTenMinutes()
+            ->name('warmup:verify')
+            ->withoutOverlapping(10);
+
+        // Email Warmup Outbound Worker (bounded, isolated from campaigns)
+        $schedule->call(function () {
+            if (!AutomationService::shouldProcessQueues('scheduler')) {
+                return;
+            }
+
+            \Illuminate\Support\Facades\Artisan::call('queue:work', [
+                'connection'        => 'database',
+                '--queue'           => 'warmup-send',
+                '--stop-when-empty' => true,
+                '--max-time'        => 50,
+                '--max-jobs'        => 50,
+                '--memory'          => 128,
+                '--tries'           => 1,
+            ]);
+        })->everyMinute()->name('queue:warmup-send')->withoutOverlapping();
+
+        // Email Warmup Inbound IMAP Worker (isolated from outbound sending)
+        $schedule->call(function () {
+            if (!AutomationService::shouldProcessQueues('scheduler')) {
+                return;
+            }
+
+            \Illuminate\Support\Facades\Artisan::call('queue:work', [
+                'connection'        => 'database',
+                '--queue'           => 'warmup-imap',
+                '--stop-when-empty' => true,
+                '--max-time'        => 50,
+                '--max-jobs'        => 25,
+                '--memory'          => 128,
+                '--tries'           => 1,
+            ]);
+        })->everyMinute()->name('queue:warmup-imap')->withoutOverlapping();
+
+        // Unified Inbox IMAP Sync for direct customer lead mailboxes (every 2 minutes)
+        $schedule->command('inbox:sync-imap')
+            ->everyTwoMinutes()
+            ->name('inbox:sync-imap')
+            ->withoutOverlapping(5);
+
         // Cleanup old failed jobs (daily)
         $schedule->command('queue:prune-failed --hours=168')
             ->daily()

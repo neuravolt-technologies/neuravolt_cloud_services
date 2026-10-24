@@ -329,7 +329,7 @@
                             </div>
                             <div style="display: flex; gap: 10px;">
                                 <span style="width: 22px; height: 22px; border-radius: 50%; background: #eef2ff; color: #6366f1; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0;">3</span>
-                                <span>{{ translate("Click scan — system detects and installs") }}</span>
+                                <span>{{ translate("Click scan - system detects and installs") }}</span>
                             </div>
                         </div>
 
@@ -367,7 +367,7 @@
                             </div>
                             <div>
                                 <h6 style="margin: 0; font-size: 15px; font-weight: 700;">{{ translate("Browser Upload") }}</h6>
-                                <small style="color: #9ca3af;">{{ translate("Quick & easy — drag and drop") }}</small>
+                                <small style="color: #9ca3af;">{{ translate("Quick & easy - drag and drop") }}</small>
                             </div>
                         </div>
 
@@ -472,7 +472,7 @@
                     </div>
 
                     <div style="margin-top: 12px; padding: 10px 14px; border-radius: 8px; background: #ecfdf5; font-size: 12px; color: #065f46;">
-                        <i class="ri-lightning-charge-line"></i> {{ translate("Fastest method — upload directly from your browser") }}
+                        <i class="ri-lightning-charge-line"></i> {{ translate("Fastest method - upload directly from your browser") }}
                     </div>
                 </form>
                     </div><!-- end right column -->
@@ -674,7 +674,7 @@
                     detectedFilename = file.filename;
 
                     $('#detectedFileName').text(file.filename);
-                    $('#detectedFileMeta').text(file.size_human + ' — ' + file.modified);
+                    $('#detectedFileMeta').text(file.size_human + ' - ' + file.modified);
                     $('#detectedFileCard').addClass('active');
 
                     notify('success', response.message);
@@ -811,7 +811,7 @@
         validateChecklist();
     });
 
-    // Form submit — show progress, prevent double submit
+    // Form submit - show progress, prevent double submit
     $('#updateForm').on('submit', function(e) {
         if (formSubmitting) {
             e.preventDefault();

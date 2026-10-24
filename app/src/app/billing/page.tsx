@@ -71,19 +71,19 @@ export default function UserBilling() {
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "30px" }}>
         <div>
-          <h1 style={{ fontSize: "1.75rem", fontWeight: "700" }}>My Invoices & Accounts</h1>
-          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.9rem" }}>Review billing cycles, pay outstanding dues, and trace receipts</p>
+          <h1 style={{ fontSize: "1.75rem", fontWeight: "700", color: "#0F172A" }}>My Invoices & Accounts</h1>
+          <p style={{ color: "#64748B", fontSize: "0.9rem" }}>Review billing cycles, pay outstanding dues, and trace receipts</p>
         </div>
       </div>
 
       {/* Grid of lists */}
       <div className="glass-card" style={{ padding: "10px", overflow: "hidden" }}>
         {loading ? (
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "60px", color: "rgba(255,255,255,0.4)" }}>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "60px", color: "#64748B" }}>
             Loading ledger...
           </div>
         ) : invoices.length === 0 ? (
-          <div style={{ padding: "50px", textAlign: "center", color: "rgba(255,255,255,0.4)" }}>
+          <div style={{ padding: "50px", textAlign: "center", color: "#64748B" }}>
             No invoice statements have been generated for your account yet.
           </div>
         ) : (
@@ -102,23 +102,23 @@ export default function UserBilling() {
               <tbody>
                 {invoices.map((inv) => (
                   <tr key={inv.id}>
-                    <td style={{ fontFamily: "monospace", fontSize: "0.85rem", fontWeight: "600" }}>
+                    <td style={{ fontFamily: "monospace", fontSize: "0.85rem", fontWeight: "600", color: "#0F172A" }}>
                       #{inv.id}
                     </td>
                     <td>
-                      <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-                        <FileText size={16} style={{ color: "rgba(255,255,255,0.3)" }} />
+                      <div style={{ display: "flex", gap: "8px", alignItems: "center", color: "#1E293B" }}>
+                        <FileText size={16} style={{ color: "#94A3B8" }} />
                         <span>Monthly Subscription Bill</span>
                       </div>
                     </td>
                     <td>
-                      <div style={{ fontWeight: "600" }}>₹{parseFloat(inv.amount).toFixed(2)}</div>
+                      <div style={{ fontWeight: "700", color: "#0F172A" }}>₹{parseFloat(inv.amount).toFixed(2)}</div>
                     </td>
                     <td>
                       <span className={`badge badge-${inv.status.toLowerCase()}`}>{inv.status}</span>
                     </td>
                     <td>
-                      <span style={{ fontSize: "0.85rem", color: inv.status === "PENDING" ? "#ef4444" : "rgba(255,255,255,0.6)" }}>
+                      <span style={{ fontSize: "0.85rem", color: inv.status === "PENDING" ? "#DC2626" : "#475569", fontWeight: inv.status === "PENDING" ? "600" : "400" }}>
                         {new Date(inv.dueDate).toDateString()}
                       </span>
                     </td>
@@ -128,13 +128,13 @@ export default function UserBilling() {
                           onClick={() => handlePay(inv.id)}
                           disabled={actionId !== null}
                           className="btn btn-primary" 
-                          style={{ fontSize: "0.75rem", padding: "6px 12px" }}
+                          style={{ fontSize: "0.75rem", padding: "6px 14px" }}
                         >
                           <CreditCard size={12} />
                           <span>Pay Dues (Mock UPI)</span>
                         </button>
                       ) : (
-                        <div style={{ color: "#10b981", fontSize: "0.8rem", display: "flex", gap: "4px", alignItems: "center", fontWeight: "600" }}>
+                        <div style={{ color: "#059669", fontSize: "0.8rem", display: "flex", gap: "4px", alignItems: "center", fontWeight: "600" }}>
                           <CheckCircle2 size={14} />
                           <span>Paid Receipt ({new Date(inv.paidAt || "").toLocaleDateString()})</span>
                         </div>
