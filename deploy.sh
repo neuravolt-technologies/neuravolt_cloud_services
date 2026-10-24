@@ -28,10 +28,9 @@ if [ ! -d ".git" ]; then
     git remote add origin "${REPO_URL}" 2>/dev/null || git remote set-url origin "${REPO_URL}"
 fi
 
-git remote set-url origin "${REPO_URL}"
 git fetch origin "${DEPLOY_BRANCH}"
-git checkout -B "${DEPLOY_BRANCH}" "origin/${DEPLOY_BRANCH}" || git reset --hard "origin/${DEPLOY_BRANCH}"
 git reset --hard "origin/${DEPLOY_BRANCH}"
+git checkout -B "${DEPLOY_BRANCH}" "origin/${DEPLOY_BRANCH}" || true
 
 # 2. Install dependencies
 echo "[2/5] Installing dependencies..."
