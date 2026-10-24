@@ -100,10 +100,16 @@ fi
 
 # 5. Reload nv-landing container if docker is available to refresh static landing assets
 if command -v docker >/dev/null 2>&1 && docker ps | grep -q nv-landing; then
-    echo "[5/5] Reloading nv-landing nginx cache..."
+    echo "[5/6] Reloading nv-landing nginx cache..."
     docker exec nv-landing nginx -s reload || true
 else
-    echo "[5/5] Skipping nv-landing reload (not running or docker unavailable)"
+    echo "[5/6] Skipping nv-landing reload (not running or docker unavailable)"
+fi
+
+# 6. Clear Reach / Voltmail Laravel cache if directory exists
+if [ -d "voltmail/src" ]; then
+    echo "[6/6] Refreshing Reach (Voltmail) Laravel caches..."
+    (cd voltmail/src && php artisan config:clear && php artisan cache:clear && php artisan view:clear) || true
 fi
 
 echo "=========================================="
