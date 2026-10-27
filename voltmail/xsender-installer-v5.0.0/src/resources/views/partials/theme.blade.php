@@ -1,9 +1,9 @@
 @php
-    $primary_hex   = (site_settings('primary_color'));
-    $primary_text_hex = (site_settings('primary_text_color'));
+    $primary_hex   = (site_settings('primary_color')) ?: '#fc5a12';
+    $primary_text_hex = (site_settings('primary_text_color')) ?: '#ffffff';
     $primary_light = hexToRgba($primary_hex);
-    $secondary_hex = (site_settings('secondary_color'));
-    $trinaryColor  = (site_settings('trinary_color'));
+    $secondary_hex = (site_settings('secondary_color')) ?: '#e64a19';
+    $trinaryColor  = (site_settings('trinary_color')) ?: '#ffa040';
 @endphp
 <style>
 

@@ -451,7 +451,11 @@ use Illuminate\Support\Facades\Cache;
 
 					// Cache miss - fetch from database and cache for 24 hours
 					$settings = Setting::pluck("value", 'key')->toArray();
-					Cache::put("site_settings", $settings, now()->addHours(24));
+					try {
+						Cache::put("site_settings", $settings, now()->addHours(24));
+					} catch (\Throwable $cacheEx) {
+						// Cache write failure must never break site_settings
+					}
 				}
 
 				// Store in static variable for this request
@@ -1664,6 +1668,9 @@ use Illuminate\Support\Facades\Cache;
 		 * @throws Exception If the hex color code is invalid.
 		 */
 		function hexToRgba($hex, $alpha = 0.2) {
+			if (empty($hex) || !is_string($hex)) {
+				return sprintf('rgba(252, 90, 18, %.2f)', $alpha);
+			}
 
 			$hex = ltrim($hex, '#');
 			if (strlen($hex) === 6) {
@@ -1682,7 +1689,7 @@ use Illuminate\Support\Facades\Cache;
 					hexdec(str_repeat(substr($hex, 2, 1), 2))
 				);
 			} else {
-				throw new Exception("Invalid hex color code.");
+				return sprintf('rgba(252, 90, 18, %.2f)', $alpha);
 			}
 			if ($alpha < 0) {
 

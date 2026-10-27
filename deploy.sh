@@ -106,10 +106,16 @@ else
     echo "[5/6] Skipping nv-landing reload (not running or docker unavailable)"
 fi
 
-# 6. Clear Reach / Voltmail Laravel cache if directory exists
+# 6. Clear Reach / Voltmail Laravel cache & enforce user permissions
 if [ -d "voltmail/src" ]; then
-    echo "[6/6] Refreshing Reach (Voltmail) Laravel caches..."
-    (cd voltmail/src && php artisan config:clear && php artisan cache:clear && php artisan view:clear) || true
+    echo "[6/6] Refreshing Reach (Voltmail) Laravel caches & enforcing ownership..."
+    if id "neuravolt_cl_usr" >/dev/null 2>&1; then
+        su -s /bin/bash neuravolt_cl_usr -c "cd $(pwd)/voltmail/src && php artisan config:clear && php artisan cache:clear && php artisan view:clear" || true
+        chown -R neuravolt_cl_usr:neuravolt_cl_usr voltmail/src/storage voltmail/src/bootstrap/cache || true
+        chmod -R 775 voltmail/src/storage voltmail/src/bootstrap/cache || true
+    else
+        (cd voltmail/src && php artisan config:clear && php artisan cache:clear && php artisan view:clear) || true
+    fi
 fi
 
 echo "=========================================="
