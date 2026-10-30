@@ -662,12 +662,12 @@ class LeadScraperController extends Controller
                     'first_name'       => $lead->first_name ?: $lead->business_name,
                     'last_name'        => $lead->last_name,
                     'status'           => 'active',
-                    'meta_data'        => json_encode([
+                    'meta_data'        => [
                         'source'        => 'lead_scraper',
                         'lead_id'       => $lead->id,
                         'business_name' => $lead->business_name,
                         'website'       => $lead->website,
-                    ]),
+                    ],
                 ];
 
                 if (in_array($importType, ['email', 'all']) && $lead->email) {

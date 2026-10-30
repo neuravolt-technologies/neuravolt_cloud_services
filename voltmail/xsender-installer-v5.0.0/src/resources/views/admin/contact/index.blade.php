@@ -202,10 +202,12 @@
                                     $data["email_contact"] = $contact->email_contact;
                                 }
 
-                                if($contact->meta_data) {
-
-                                    foreach($contact->meta_data as $key => $value) {
-                                        $data[$key] = $value;
+                                if(!empty($contact->meta_data)) {
+                                    $meta = is_string($contact->meta_data) ? json_decode($contact->meta_data, true) : (array) $contact->meta_data;
+                                    if(is_array($meta)) {
+                                        foreach($meta as $key => $value) {
+                                            $data[$key] = $value;
+                                        }
                                     }
                                 }
 

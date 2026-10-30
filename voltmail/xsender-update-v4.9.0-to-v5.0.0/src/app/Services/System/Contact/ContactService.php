@@ -316,9 +316,9 @@ class ContactService
 
         $title              = translate("Contact List");
         $contactMetaData    = $user 
-                                ? $user->contact_meta_data
+                                ? ($user->contact_meta_data ?: site_settings(SettingKey::CONTACT_META_DATA->value, []))
                                 : site_settings(SettingKey::CONTACT_META_DATA->value, []);
-        $contactMetaData    = json_decode($contactMetaData, true);
+        $contactMetaData    = is_string($contactMetaData) ? json_decode($contactMetaData, true) : (array) $contactMetaData;
         $filtered_meta_data = $this->filterMetaData($contactMetaData, Status::ACTIVE->value);
         $contacts           = $this->fetchContacts(groupId: $groupId, user:$user); 
         $groups             = $this->pluckContactGroup("name", "id", $user);

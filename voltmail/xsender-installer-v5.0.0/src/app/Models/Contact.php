@@ -60,6 +60,47 @@ class Contact extends Model
     }
 
     /**
+     * Accessor for meta_data to guarantee it always returns an object or null
+     */
+    public function getMetaDataAttribute($value)
+    {
+        if (empty($value)) {
+            return null;
+        }
+
+        if (is_array($value) || is_object($value)) {
+            return (object) $value;
+        }
+
+        $decoded = $value;
+        while (is_string($decoded)) {
+            $further = json_decode($decoded, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $decoded = $further;
+            } else {
+                break;
+            }
+        }
+
+        return is_array($decoded) ? (object) $decoded : $decoded;
+    }
+
+    /**
+     * Mutator for meta_data to prevent double-encoding JSON
+     */
+    public function setMetaDataAttribute($value)
+    {
+        if (is_string($value)) {
+            $decoded = json_decode($value, true);
+            if (json_last_error() === JSON_ERROR_NONE && (is_array($decoded) || is_object($decoded))) {
+                $value = $decoded;
+            }
+        }
+
+        $this->attributes['meta_data'] = (is_array($value) || is_object($value)) ? json_encode($value) : $value;
+    }
+
+    /**
      * group
      *
      * @return BelongsTo
