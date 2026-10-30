@@ -161,6 +161,7 @@
                 <form id="scraperForm">
                     @csrf
                     <input type="hidden" name="type" value="{{ $typeEnum->value }}">
+                    <input type="hidden" name="location" id="locationInput">
 
                     @if($typeEnum->value == 'google_maps')
                         {{-- GOOGLE MAPS STEPS --}}
@@ -534,6 +535,11 @@
                         <i class="ri-error-warning-line fs-3 d-block mb-2"></i>
                         <span id="errorMessage"></span>
                     </div>
+                    <div class="text-center mt-3">
+                        <button type="button" class="i-btn btn--primary outline btn--md" id="tryAgainBtn">
+                            <i class="ri-arrow-left-line me-1"></i> {{ translate('Back to Form') }}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -555,10 +561,23 @@
     var totalSteps = {{ $typeEnum->value == 'google_maps' ? 4 : 3 }};
     var checkInterval;
     var currentJobUid;
+    var pollCount = 0;
     var scraperType = '{{ $typeEnum->value }}';
 
     // Initialize Select2
     select2_search($('.select2-search').data('placeholder'));
+
+    // Prevent Enter key in inputs from prematurely submitting the form
+    $('#scraperForm').on('keydown', 'input', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            if (currentStep < totalSteps) {
+                $('#nextBtn').trigger('click');
+            } else {
+                $('#scraperForm').trigger('submit');
+            }
+        }
+    });
 
     // Category selection
     $('.category-card').on('click', function() {
@@ -567,6 +586,8 @@
         var keyword = $(this).data('keyword');
         if (keyword) {
             $('#searchQuery').val(keyword);
+        } else {
+            $('#searchQuery').focus();
         }
     });
 
@@ -632,21 +653,37 @@
         if (scraperType === 'google_maps') {
             if (step === 1) {
                 var query = $('#searchQuery').val().trim();
-                if (!query && !$('.category-card.selected').length) {
-                    notify('error', '{{ translate("Please select a category or enter search keywords") }}');
-                    return false;
-                }
                 if (!query && $('.category-card.selected').length) {
-                    query = $('.category-card.selected').data('keyword');
-                    $('#searchQuery').val(query);
+                    query = ($('.category-card.selected').data('keyword') || '').toString().trim();
+                    if (query) {
+                        $('#searchQuery').val(query);
+                    }
+                }
+                if (!query) {
+                    notify('error', '{{ translate("Please select a category or enter search keywords") }}');
+                    $('#searchQuery').focus();
+                    return false;
                 }
             }
             if (step === 2) {
-                var country = $('#countryInput').val();
-                var city = $('#cityInput').val().trim();
+                var country = $('#countryInput').val() ? $('#countryInput').val().trim() : '';
+                var city = $('#cityInput').val() ? $('#cityInput').val().trim() : '';
                 if (!country || !city) {
                     notify('error', '{{ translate("Please select country and enter city") }}');
+                    if (!country) $('#countryInput').focus();
+                    else $('#cityInput').focus();
                     return false;
+                }
+                $('#locationInput').val(city + ', ' + country);
+            }
+            if (step === 4) {
+                var saveOpt = $('#saveOptionInput').val();
+                if (saveOpt === 'existing') {
+                    var groupId = $('select[name="existing_group_id"]').val();
+                    if (!groupId) {
+                        notify('error', '{{ translate("Please select a contact group") }}');
+                        return false;
+                    }
                 }
             }
         } else {
@@ -663,6 +700,26 @@
                     return false;
                 }
             }
+            if (step === 3) {
+                var saveOpt = $('#saveOptionInput').val();
+                if (saveOpt === 'existing') {
+                    var groupId = $('select[name="existing_group_id"]').val();
+                    if (!groupId) {
+                        notify('error', '{{ translate("Please select a contact group") }}');
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    function validateAllSteps() {
+        for (var s = 1; s <= totalSteps; s++) {
+            if (!validateStep(s)) {
+                goToStep(s);
+                return false;
+            }
         }
         return true;
     }
@@ -671,16 +728,23 @@
     $('#scraperForm').on('submit', function(e) {
         e.preventDefault();
 
-        // Build location field for Google Maps
-        if (scraperType === 'google_maps') {
-            var location = $('#cityInput').val() + ', ' + $('#countryInput').val();
-            $('<input>').attr({type: 'hidden', name: 'location', value: location}).appendTo($(this));
+        if (!validateAllSteps()) {
+            return false;
         }
+
+        // Disable submit button
+        $('#submitBtn').prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1" role="status"></span> {{ translate("Starting...") }}');
 
         // Hide form, show progress
         $('.step-content, #stepWizard, .border-top').addClass('d-none');
+        $('#errorSection').addClass('d-none');
+        $('#resultsSection').addClass('d-none');
         $('#progressSection').removeClass('d-none');
+        $('#progressBar').css('width', '5%');
+        $('#statusText').text('{{ translate("Initializing...") }}');
+        $('#countText').text('0 {{ translate("leads found") }}');
 
+        pollCount = 0;
         $.ajax({
             url: '{{ route("user.lead-generation.job.start") }}',
             method: 'POST',
@@ -688,7 +752,6 @@
             success: function(response) {
                 if (response.status) {
                     currentJobUid = response.data.job_id;
-                    var pollCount = 0;
                     checkInterval = setInterval(function() {
                         pollCount++;
                         if (pollCount > 150) { // 5 min timeout
@@ -699,11 +762,12 @@
                         checkJobStatus(currentJobUid);
                     }, 2000);
                 } else {
-                    showError(response.message);
+                    showError(response.message || '{{ translate("Failed to start job") }}');
                 }
             },
             error: function(xhr) {
-                showError(xhr.responseJSON?.message || '{{ translate("Failed to start") }}');
+                var errorMsg = xhr.responseJSON?.message || '{{ translate("Failed to start scraping job. Please try again.") }}';
+                showError(errorMsg);
             }
         });
     });
@@ -738,9 +802,19 @@
 
     function showError(message) {
         $('#progressSection').addClass('d-none');
+        $('#resultsSection').addClass('d-none');
         $('#errorSection').removeClass('d-none');
         $('#errorMessage').text(message);
+        $('#submitBtn').prop('disabled', false).html('<i class="ri-search-eye-line"></i> {{ translate("Start Scraping") }}');
     }
+
+    $('#tryAgainBtn').on('click', function() {
+        $('#errorSection').addClass('d-none');
+        $('#progressSection').addClass('d-none');
+        $('#resultsSection').addClass('d-none');
+        $('.step-content, #stepWizard, .border-top').removeClass('d-none');
+        goToStep(currentStep);
+    });
 
 })(jQuery);
 </script>

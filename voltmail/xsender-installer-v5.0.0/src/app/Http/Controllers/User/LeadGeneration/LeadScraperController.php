@@ -179,45 +179,101 @@ class LeadScraperController extends Controller
             }
 
             $validated = $request->validate([
-                'type'     => 'required|in:google_maps,website,enrichment',
-                'query'    => 'required_if:type,google_maps|string|max:255',
-                'location' => 'required_if:type,google_maps|string|max:255',
-                'urls'     => 'required_if:type,website|string',
-                'lead_ids' => 'required_if:type,enrichment|array',
-                'max_results' => 'nullable|integer|min:1|max:60',
+                'type'              => 'required|in:google_maps,website,enrichment',
+                'query'             => 'required_if:type,google_maps|string|max:255',
+                'location'          => 'required_if:type,google_maps|string|max:255',
+                'urls'              => 'required_if:type,website|string',
+                'lead_ids'          => 'required_if:type,enrichment|array',
+                'max_results'       => 'nullable|integer|min:1|max:100',
+                'lead_type'         => 'nullable|in:all,email,phone,whatsapp',
+                'min_rating'        => 'nullable|numeric|min:0|max:5',
+                'min_quality'       => 'nullable|integer|min:0|max:100',
+                'require_website'   => 'nullable|boolean',
+                'skip_duplicates'   => 'nullable|boolean',
+                'save_option'       => 'nullable|in:review,existing,new',
+                'existing_group_id' => 'nullable|exists:contact_groups,id',
+                'new_group_name'    => 'nullable|string|max:255',
             ]);
 
             $user = $this->user();
             $settings = LeadGenerationSetting::getForUser($user->id);
 
-            // Check quota
-            $maxResults = $validated['max_results'] ?? 60;
-            if (!$settings->canScrape($maxResults)) {
+            // Check remaining quotas
+            $remainingDaily = $settings->remaining_daily;
+            $remainingMonthly = $settings->remaining_monthly;
+
+            if ($remainingDaily <= 0) {
                 return response()->json([
                     'status'  => false,
-                    'message' => translate('Daily or monthly scraping limit reached. Please try again later.'),
+                    'message' => translate('Daily scraping limit (:limit leads) reached. Please try again tomorrow.', ['limit' => $settings->daily_scrape_limit]),
                     'data'    => [
-                        'remaining_daily'   => $settings->remaining_daily,
-                        'remaining_monthly' => $settings->remaining_monthly,
+                        'remaining_daily'   => 0,
+                        'remaining_monthly' => $remainingMonthly,
                     ],
                 ], Response::HTTP_TOO_MANY_REQUESTS);
             }
 
+            if ($remainingMonthly <= 0) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => translate('Monthly scraping limit (:limit leads) reached. Please upgrade your plan or try again next month.', ['limit' => $settings->monthly_scrape_limit]),
+                    'data'    => [
+                        'remaining_daily'   => $remainingDaily,
+                        'remaining_monthly' => 0,
+                    ],
+                ], Response::HTTP_TOO_MANY_REQUESTS);
+            }
+
+            // Cap requested max_results by available quota so job doesn't fail unnecessarily
+            $requestedMax = (int) ($validated['max_results'] ?? 60);
+            $maxResults = max(1, min($requestedMax, $remainingDaily, $remainingMonthly));
+
             // Prepare parameters based on type
             $params = match ($validated['type']) {
                 'google_maps' => [
-                    'query'       => $validated['query'],
-                    'location'    => $validated['location'],
-                    'max_results' => $maxResults,
+                    'query'           => $validated['query'],
+                    'location'        => $validated['location'],
+                    'max_results'     => $maxResults,
+                    'lead_type'       => $validated['lead_type'] ?? 'all',
+                    'min_rating'      => $validated['min_rating'] ?? null,
+                    'min_quality'     => $validated['min_quality'] ?? 0,
+                    'require_website' => $validated['require_website'] ?? false,
+                    'skip_duplicates' => $validated['skip_duplicates'] ?? true,
                 ],
                 'website' => [
-                    'urls'              => $validated['urls'],
+                    'urls'               => $validated['urls'],
                     'max_pages_per_site' => 5,
+                    'lead_type'          => $validated['lead_type'] ?? 'all',
                 ],
                 'enrichment' => [
                     'lead_ids' => $validated['lead_ids'],
                 ],
             };
+
+            // Handle auto-save options
+            $autoSaveGroupId = null;
+            $saveOption = $validated['save_option'] ?? 'review';
+
+            if ($saveOption === 'existing' && !empty($validated['existing_group_id'])) {
+                $existingGroup = ContactGroup::where('id', $validated['existing_group_id'])
+                    ->where('user_id', $user->id)
+                    ->first();
+                if ($existingGroup) {
+                    $autoSaveGroupId = $existingGroup->id;
+                }
+            } elseif ($saveOption === 'new') {
+                $groupName = $validated['new_group_name'] ?? $this->generateGroupName($validated);
+                $newGroup = ContactGroup::create([
+                    'uid'     => str_unique(),
+                    'user_id' => $user->id,
+                    'name'    => $groupName,
+                    'status'  => 'active',
+                ]);
+                $autoSaveGroupId = $newGroup->id;
+            }
+
+            $params['auto_save_group_id'] = $autoSaveGroupId;
+            $params['save_option'] = $saveOption;
 
             // Create job
             $job = LeadScrapingJob::create([
@@ -239,12 +295,45 @@ class LeadScraperController extends Controller
                 ],
             ]);
 
-        } catch (Exception $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status'  => false,
+                'message' => $e->validator->errors()->first(),
+                'errors'  => $e->validator->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Lead generation startJob failed: ' . $e->getMessage(), [
+                'trace'   => $e->getTraceAsString(),
+                'request' => $request->all(),
+            ]);
             return response()->json([
                 'status'  => false,
                 'message' => getEnvironmentMessage($e->getMessage()),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * Generate group name from job parameters
+     */
+    private function generateGroupName(array $params): string
+    {
+        $parts = [];
+
+        if (!empty($params['query'])) {
+            $parts[] = ucfirst(trim(explode(',', $params['query'])[0]));
+        }
+
+        if (!empty($params['location'])) {
+            $locationParts = explode(',', $params['location']);
+            $parts[] = trim($locationParts[0]);
+        }
+
+        if (empty($parts)) {
+            $parts[] = 'Leads';
+        }
+
+        return implode(' - ', $parts) . ' ' . now()->format('M j');
     }
 
     /**

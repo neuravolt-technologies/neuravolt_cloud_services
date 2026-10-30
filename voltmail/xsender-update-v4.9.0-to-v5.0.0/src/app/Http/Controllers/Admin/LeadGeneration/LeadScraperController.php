@@ -203,7 +203,17 @@ class LeadScraperController extends Controller
                 ],
             ]);
 
-        } catch (Exception $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status'  => false,
+                'message' => $e->validator->errors()->first(),
+                'errors'  => $e->validator->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Admin lead generation startJob failed: ' . $e->getMessage(), [
+                'trace'   => $e->getTraceAsString(),
+                'request' => $request->all(),
+            ]);
             return response()->json([
                 'status'  => false,
                 'message' => getEnvironmentMessage($e->getMessage()),
@@ -592,7 +602,17 @@ class LeadScraperController extends Controller
                 ],
             ]);
 
-        } catch (Exception $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status'  => false,
+                'message' => $e->validator->errors()->first(),
+                'errors'  => $e->validator->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Admin lead generation startJob failed: ' . $e->getMessage(), [
+                'trace'   => $e->getTraceAsString(),
+                'request' => $request->all(),
+            ]);
             return response()->json([
                 'status'  => false,
                 'message' => getEnvironmentMessage($e->getMessage()),
@@ -614,7 +634,17 @@ class LeadScraperController extends Controller
                 'message' => translate('Lead deleted successfully'),
             ]);
 
-        } catch (Exception $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status'  => false,
+                'message' => $e->validator->errors()->first(),
+                'errors'  => $e->validator->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Admin lead generation startJob failed: ' . $e->getMessage(), [
+                'trace'   => $e->getTraceAsString(),
+                'request' => $request->all(),
+            ]);
             return response()->json([
                 'status'  => false,
                 'message' => getEnvironmentMessage($e->getMessage()),
@@ -640,7 +670,17 @@ class LeadScraperController extends Controller
                 'message' => translate('Successfully deleted') . ' ' . $count . ' ' . translate('leads'),
             ]);
 
-        } catch (Exception $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status'  => false,
+                'message' => $e->validator->errors()->first(),
+                'errors'  => $e->validator->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Admin lead generation startJob failed: ' . $e->getMessage(), [
+                'trace'   => $e->getTraceAsString(),
+                'request' => $request->all(),
+            ]);
             return response()->json([
                 'status'  => false,
                 'message' => getEnvironmentMessage($e->getMessage()),
@@ -705,7 +745,17 @@ class LeadScraperController extends Controller
                 'message' => translate('Job cancelled successfully'),
             ]);
 
-        } catch (Exception $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status'  => false,
+                'message' => $e->validator->errors()->first(),
+                'errors'  => $e->validator->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Admin lead generation startJob failed: ' . $e->getMessage(), [
+                'trace'   => $e->getTraceAsString(),
+                'request' => $request->all(),
+            ]);
             return response()->json([
                 'status'  => false,
                 'message' => getEnvironmentMessage($e->getMessage()),
