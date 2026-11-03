@@ -91,6 +91,9 @@
                         </select>
                     </div>
                     
+                                        <button type="button" class="i-btn btn--info outline btn--sm export-csv">
+                        <i class="ri-download-2-line"></i> {{ translate("Export CSV") }}
+                    </button>
                     <a class="i-btn btn--primary btn--sm" href="{{ route('admin.contact.create.with_group', $groupId) }}">
                         <i class="ri-add-fill fs-16"></i> {{ translate("Create New Contact") }}
                     </a>
@@ -420,6 +423,7 @@
   
 @endpush
 @push('script-push')
+@include('partials.export_csv', ['csv_data' => $csv_data])
 @include('partials.email_verify')
 @include('partials.email_check')
 {{-- @include('partials.export_csv', ['csv_data' => $csv_data]) --}}

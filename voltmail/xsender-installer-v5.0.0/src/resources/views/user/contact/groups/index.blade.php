@@ -142,6 +142,11 @@
                         </td>
                         <td>
                             <div class="d-flex align-items-center gap-1">
+                                <a class="icon-btn btn-ghost btn-sm info-soft circle"
+                                   href="{{ route('user.contact.export', $contactGroup->id) }}"
+                                   title="{{ translate('Export CSV') }}">
+                                    <i class="ri-download-2-line"></i>
+                                </a>
                                 <button class="icon-btn btn-ghost btn-sm success-soft circle edit-contact-group"
                                         data-bs-toggle="modal"
                                         data-bs-target="#editContactGroup"

@@ -418,14 +418,29 @@ class ContactService
      *
      * @param Request $request
      * @param int|string|null $groupId
+     * @param User|null $user
      * 
      * @return BinaryFileResponse
      */
-    public function exportContacts(Request $request, int|string|null $groupId): BinaryFileResponse { 
+    public function exportContacts(Request $request, int|string|null $groupId = null, ?User $user = null): BinaryFileResponse { 
 
+        $user           = $user ?? (auth()->guard('web')->check() ? auth()->user() : null);
         $file_name      = 'contacts_export_' . Carbon::now()->format('Y_m_d_His') . '.csv';
-        $data_config    = json_decode($request->input('data_config'), true);
-        $contacts       = $this->fetchContacts(true, $groupId);
+        $rawConfig      = $request->input('data_config');
+        $data_config    = is_string($rawConfig) ? json_decode($rawConfig, true) : (is_array($rawConfig) ? $rawConfig : null);
+
+        if (empty($data_config)) {
+            $data_config = [
+                'first_name'       => ['type' => 'string'],
+                'last_name'        => ['type' => 'string'],
+                'sms_contact'      => ['type' => 'string'],
+                'whatsapp_contact' => ['type' => 'string'],
+                'email_contact'    => ['type' => 'string'],
+                'created_at'       => ['type' => 'datetime'],
+            ];
+        }
+
+        $contacts       = $this->fetchContacts(true, $groupId, $user);
         $data           = $this->fileService->prepareExportData($contacts, $data_config);
         $csv_file_path  = $this->fileService->generateCsvFile($data, "contact_exports", $file_name);
 

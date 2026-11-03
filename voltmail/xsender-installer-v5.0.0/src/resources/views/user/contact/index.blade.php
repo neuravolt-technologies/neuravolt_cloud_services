@@ -62,7 +62,7 @@
                             <button type="submit" class="filter-action-btn ">
                                 <i class="ri-menu-search-line"></i> {{ translate("Filter") }}
                             </button>
-                            <a class="filter-action-btn bg-danger text-white" href="{{route(Route::currentRouteName(), ['id' => $groupId])}}">
+                            <a class="filter-action-btn bg-danger text-white" href="{{route(Route::currentRouteName(), ['group_id' => $groupId])}}">
                                 <i class="ri-refresh-line"></i> {{ translate("Reset") }}
                             </a>
                         </div>
@@ -90,6 +90,9 @@
                         </select>
                     </div>
                     
+                                        <button type="button" class="i-btn btn--info outline btn--sm export-csv">
+                        <i class="ri-download-2-line"></i> {{ translate("Export CSV") }}
+                    </button>
                     <a class="i-btn btn--primary btn--sm" href="{{ route("user.contact.create.with_group", ['group_id' => $groupId]) }}">
                         <i class="ri-add-fill fs-16"></i> {{ translate("Create Contact") }}
                     </a>
@@ -415,7 +418,7 @@
 @push('script-push')
 @include('partials.email_verify')
 @include('partials.email_check')
-{{-- @include('partials.export_csv', ['csv_data' => $csv_data]) --}}
+@include('partials.export_csv', ['csv_data' => $csv_data])
 <script type="text/javascript">
 
     function verifyEmailAndUpdate(url, uid, email) {

@@ -60,7 +60,7 @@ class ContactController extends Controller
 
         try {
 
-            return $this->contactService->exportContacts($request, $groupId);
+            return $this->contactService->exportContacts($request, $groupId, auth()->user());
             
         } catch (Exception $e) {
             

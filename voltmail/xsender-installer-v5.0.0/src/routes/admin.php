@@ -203,7 +203,7 @@ Route::middleware([
                 Route::post('parse/file', 'parseFile')->name('parse.file');
                 Route::get('demo/file/{type?}', 'demoFile')->name('demo.file');
                 Route::post('update/email/verification', 'singleEmailVerification')->name('update.email.verification');
-                Route::post('export/{group_id?}', 'exportContacts')->name('export');
+                Route::match(['get', 'post'], 'export/{group_id?}', 'exportContacts')->name('export');
             });
         });
 
